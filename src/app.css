@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+
+* {
+    font-family: "Jost", "Roboto", sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+div#app {
+    display: grid;
+    justify-content: center;
+}
+
+@media screen and (max-size: 250px) {
+    div#app {
+        justify-content: left;
+    }
+}
