@@ -1,90 +1,87 @@
-<script>
-    import { onMount } from "svelte";
+<script lang="ts">
+    import { createEventDispatcher } from "svelte";
+    // Input fields
     import InputBox from "./InputBox.svelte";
     import SeriesInputBox from "./SeriesInputBox.svelte";
 
+    // Header icons
     import Down from "svelte-material-icons/ArrowDownBold.svelte";
-    import Up from "svelte-material-icons/ArrowUpBold.svelte";
     import Both from "svelte-material-icons/SwapVerticalBold.svelte";
+    import Up from "svelte-material-icons/ArrowUpBold.svelte";
     import Announced from "svelte-material-icons/Bullhorn.svelte";
 
+    // Side icons
+    // Number-only hits
     import Dice1 from "svelte-material-icons/Dice1.svelte";
     import Dice2 from "svelte-material-icons/Dice2.svelte";
     import Dice3 from "svelte-material-icons/Dice3.svelte";
     import Dice4 from "svelte-material-icons/Dice4.svelte";
     import Dice5 from "svelte-material-icons/Dice5.svelte";
     import Dice6 from "svelte-material-icons/Dice6.svelte";
-
+    // High/Low hits
     import Plus from "svelte-material-icons/Plus.svelte";
     import Minus from "svelte-material-icons/Minus.svelte";
-
+    // Pattern hits
     import Sequence from "svelte-material-icons/Numeric.svelte";
     import FullHouse from "svelte-material-icons/Home.svelte";
     import Poker from "svelte-material-icons/StarFourPoints.svelte";
     import Yamb from "svelte-material-icons/Star.svelte";
 
-    const EMPTY_CARD = [
-        Array(12).fill(null),
-        Array(12).fill(null),
-        Array(12).fill(null),
-        Array(12).fill(null),
-    ];
     const SPECIAL_ADDS = [30, 40, 50];
 
-    let should_save_progress = false;
+    const emit = createEventDispatcher();
 
-    let card = JSON.parse(JSON.stringify(EMPTY_CARD));
+    export let card;
 
-    let singles_sums;
-    let minmax_sums;
-    let special_sums;
+    // Variables for mid-game calculations
+    let singles_sums: number[];
+    let minmax_sums: number[];
+    let special_sums: number[];
 
-    $: {
-        singles_sums = card.map((c) => {
+    $: if (card) {
+        // Sum the first six fields.
+        singles_sums = card.map((c: number[]) => {
             let n = c.slice(0, 6).reduce((p, c) => p + c, 0);
             return n >= 60 ? n + 30 : n;
         });
 
-        minmax_sums = [0, 1, 2, 3].map((i) => {
-            if (!!card[i][6] && !!card[i][7]) {
-                return (
-                    (card[i][6] - card[i][7]) *
-                    (card[i][0] == null ? 1 : card[i][0])
-                );
+        // Sum the minimum and maximum.
+        minmax_sums = card.map((c: number[]) => {
+            let ones = c[0];
+            let maximum = c[6];
+            let minimum = c[7];
+
+            if (maximum && minimum) {
+                return (maximum - minimum) * (ones ?? 1);
             }
+
             return 0;
         });
 
         special_sums = card.map((c) => {
-            return (
-                SPECIAL_ADDS.map((add, index) => {
-                    if (c[index + 9] > 0) {
-                        console.log("a", c[index + 9]);
-                        return c[index + 9] + add;
-                    }
-                    return 0;
-                }).reduce((p, c) => p + c, 0) +
-                (c[8] == "X" || c[8] == "" || c[8] == null
-                    ? 0
-                    : parseInt(c[8]) * -10 + 76)
-            );
+            // Score for Fullhouse, Poker and Yamb
+            let sum_bonuses = SPECIAL_ADDS.map((add, index) => {
+                if (c[index + 9] > 0) {
+                    return c[index + 9] + add;
+                }
+                return 0;
+            }).reduce((p, c) => p + c, 0); // Sum the array
+
+            // Score for sequence
+            let sum_sequence;
+            if (c[8] == "X" || c[8] == "" || c[8] == null) {
+                sum_sequence = 0;
+            } else {
+                sum_sequence = parseInt(c[8]) * -10 + 76;
+            }
+
+            return sum_bonuses + sum_sequence;
         });
-    }
-
-    onMount(() => {
-        card =
-            JSON.parse(localStorage.getItem("card")) ||
-            JSON.parse(JSON.stringify(EMPTY_CARD));
-        should_save_progress = true;
-    });
-
-    $: if (should_save_progress) {
-        localStorage.setItem("card", JSON.stringify(card));
     }
 </script>
 
 <table>
-    <tr class="stick">
+    <tr class="heading">
         <th class="side" />
         <th><div><Down color="white" size="48" /></div></th>
         <th><div><Both color="white" size="48" /></div></th>
@@ -136,10 +133,26 @@
     </tr>
     <tr class="margin">
         <td />
-        <td><span class:fulfilled={singles_sums[0] > 60}>{singles_sums[0]}</span></td>
-        <td><span class:fulfilled={singles_sums[1] > 60}>{singles_sums[1]}</span></td>
-        <td><span class:fulfilled={singles_sums[2] > 60}>{singles_sums[2]}</span></td>
-        <td><span class:fulfilled={singles_sums[3] > 60}>{singles_sums[3]}</span></td>
+        <td
+            ><span class:fulfilled={singles_sums[0] > 60}
+                >{singles_sums[0]}</span
+            ></td
+        >
+        <td
+            ><span class:fulfilled={singles_sums[1] > 60}
+                >{singles_sums[1]}</span
+            ></td
+        >
+        <td
+            ><span class:fulfilled={singles_sums[2] > 60}
+                >{singles_sums[2]}</span
+            ></td
+        >
+        <td
+            ><span class:fulfilled={singles_sums[3] > 60}
+                >{singles_sums[3]}</span
+            ></td
+        >
     </tr>
 
     <tr>
@@ -281,6 +294,25 @@
     </tr>
 </table>
 
+<button
+    on:click={() => {
+        emit("reset");
+    }}
+>
+    Resetovat
+</button>
+<button
+    on:click={() => {
+        card = card.map((c) => c.map((d) => d || 0));
+        card[0][8] ||= "X";
+        card[1][8] ||= "X";
+        card[2][8] ||= "X";
+        card[3][8] ||= "X";
+    }}
+>
+    Vyplnit zbytek nulami
+</button>
+
 {#if !(card[0].includes(null) || card[1].includes(null) || card[2].includes(null) || card[3].includes(null))}
     <div class="total">
         Celkem:
@@ -291,11 +323,6 @@
         </span>
     </div>
 {/if}
-<button
-    on:click={() => {
-        card = JSON.parse(JSON.stringify(EMPTY_CARD));
-    }}>Resetovat</button
->
 
 <style>
     table {
@@ -310,7 +337,7 @@
         height: var(--sizing);
     }
 
-    th {
+    tr.heading > th {
         background-color: white;
         position: sticky;
         padding: 4px 0;
@@ -369,7 +396,8 @@
     }
 
     .total {
-        background-color: lightgreen;
+        background-color: #39b51d;
+        color: white;
         height: 32px;
         margin: 16px;
         padding: 16px;
@@ -381,5 +409,15 @@
 
     .total .big {
         font-size: 32px;
+    }
+
+    button {
+        background-color: #208aae;
+        border-radius: 16px;
+        border: none;
+        padding: 8px;
+        color: white;
+        font-size: 16px;
+        margin: 4px 0;
     }
 </style>

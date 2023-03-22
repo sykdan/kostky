@@ -1,7 +1,7 @@
 {
-  "name": "kostky",
+  "name": "kockice-dice-game",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -13,5 +13,8 @@
     "svelte": "^3.55.1",
     "svelte-material-icons": "^3.0.4",
     "vite": "^4.1.4"
+  },
+  "devDependencies": {
+    "svelte-preprocess": "^5.0.3"
   }
 }
