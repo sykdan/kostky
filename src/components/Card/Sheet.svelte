@@ -183,8 +183,8 @@
         <div class="cell header has-icon calc">{special_sums[3]}</div>
     </div>
     {#if final_sum}
-        <div class="final_sum" transition:scale>
-            Your total score:<br>
+        <div class="final_sum" in:scale>
+            Celkové skóre:<br />
             <b>
                 {final_sum}
             </b>
@@ -202,6 +202,8 @@
         overflow-x: auto;
         align-items: center;
         background-color: rgb(227, 227, 227);
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 
     div.sheet {
