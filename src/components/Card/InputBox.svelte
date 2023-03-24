@@ -1,11 +1,16 @@
-<script>
+<script lang="ts">
     import Cross from "svelte-material-icons/Close.svelte";
 
     export let value;
 
-    export let type;
-    export let row = 0;
-    export let added = 0;
+    export let type:
+        | "singles"
+        | "free"
+        | "fullhouse"
+        | "multiples"
+        | "sequence";
+    export let n = 0;
+    export let add = 0;
 
     let invalid = false;
 
@@ -14,7 +19,7 @@
 
         switch (type) {
             case "singles":
-                invalid = value % row != 0 || value > row * 5;
+                invalid = value % n != 0 || value > n * 5;
                 break;
             case "free":
                 invalid = value < 5 || value > 30;
@@ -23,7 +28,14 @@
                 invalid = value < 7 || value > 28 || value == 10 || value == 25;
                 break;
             case "multiples":
-                invalid = value % row != 0 || value > row * 6;
+                invalid = value % n != 0 || value > n * 6;
+                break;
+            case "sequence":
+                invalid =
+                    (value != 0 && (value - 6) % 10 != 0) ||
+                    value < 46 ||
+                    value > 76;
+                break;
         }
 
         if (value == 0) {
@@ -33,43 +45,31 @@
         invalid = false;
         value = null;
     }
-
-    function check(e) {
-        if (!e.key.match(/^[0-9]+$/)) {
-            e.preventDefault();
-        }
-    }
 </script>
 
-<td>
-    <input
-        class:invalid
-        type="number"
-        pattern="[0-9]*"
-        bind:value
-        on:keypress={check}
-    />
+<div class="cell">
+    <input class:invalid type="number" pattern="[0-9]*" bind:value />
     <span class="overlay cross" class:crossed={value == 0}
         ><Cross color="rgb(172, 0, 0)" size={48} /></span
     >
-    {#if added > 0 && value}
-        <span class="overlay number" class:invalid>{value + added}</span>
+    {#if add > 0 && value}
+        <span class="overlay number" class:invalid>{value + add}</span>
     {/if}
-</td>
+</div>
 
 <style>
-    td {
+    div {
         position: relative;
     }
 
     input {
-        width: calc(var(--sizing) - 4px);
-        height: calc(var(--sizing) - 4px);
         padding: 0;
-        border: solid 2px #208aae;
-        border-radius: 16px;
+        border: none;
         text-align: center;
         font-size: 36px;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
     }
 
     input.invalid,
@@ -107,6 +107,7 @@
 
     span.cross :global(svg) {
         padding: 0;
+        width: var(--cell-size);
     }
 
     span.number {
