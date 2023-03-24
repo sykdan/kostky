@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import PlayingCard from "./components/PlayingCard.svelte";
+    import PlayingCard from "./components/Sheet.svelte";
 
     // Empty game card, each index representing
     // one column. Order: Down, Both, Up, Announced
