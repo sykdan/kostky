@@ -36,7 +36,7 @@
     </div>
     {#if show_actions}
         <div class="actions" in:slide>
-            <button on:click={zeroes}>Vyplnit nulami prázdná pole</button>
+            <button on:click={zeroes}>Vyplnit prázdná pole nulami</button>
             <button on:click={clear} style="color: red;"
                 >VYMAZAT CELOU KARTU</button
             >

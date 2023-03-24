@@ -149,7 +149,7 @@
         margin-top: 8px;
         border: none;
         background-color: white;
-        padding: 4px 16px;
+        padding: 4px 0;
         border-radius: 8px;
     }
 
