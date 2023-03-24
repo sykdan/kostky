@@ -45,7 +45,7 @@
 </script>
 
 <div class="mainmenu">
-    <img class="logo" src="/logo.svg" alt="App logo" />
+    <img class="logo" src="./logo.svg" alt="App logo" />
 
     <button
         on:click={() => {
