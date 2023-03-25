@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { blur } from "svelte/transition";
     import GameView from "./components/GameView.svelte";
     import MainMenu from "./components/MainMenu.svelte";
 

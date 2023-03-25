@@ -10,18 +10,21 @@
 
 <div class="saved-game">
     <div class="info">
-        <span>
+        <span class="name">
             {metadata.name}
         </span>
-        <span>
+        <span class="lastplayed">
             {new Date(metadata.last_played).toLocaleString()}
         </span>
     </div>
     <button on:click={() => emit("play")}>
-        <Play size="32" color="white" />
+        <Play size="32" color="var(--black)" />
     </button>
-    <button on:click={() => confirm("Smazat tuto hru?") && emit("delete")}>
-        <Delete size="32" color="white" />
+    <button
+        on:click={() => confirm("Smazat tuto hru?") && emit("delete")}
+        class="danger"
+    >
+        <Delete size="32" color="var(--black)" />
     </button>
 </div>
 
@@ -29,7 +32,8 @@
     .saved-game {
         display: flex;
         padding: 16px;
-        background-color: silver;
+        background-color: var(--black);
+        color: var(--white);
         margin-bottom: 8px;
         border-radius: 16px;
     }
@@ -46,7 +50,7 @@
         align-items: center;
         justify-content: center;
         border: none;
-        background-color: gray;
+        background-color: var(--gold);
         border-radius: 50%;
         transition: 0.2s;
         margin-left: 8px;
@@ -58,5 +62,21 @@
 
     button:active {
         transform: scale(0.9);
+    }
+
+    .name {
+        font-size: large;
+        font-weight: bold;
+        color: var(--white);
+    }
+
+    .lastplayed {
+        font-style: italic;
+        font-size: medium;
+        color: var(--silver);
+    }
+
+    .danger {
+        background-color: var(--red);
     }
 </style>

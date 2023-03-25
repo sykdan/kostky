@@ -45,54 +45,62 @@
 </script>
 
 <div class="mainmenu">
-    <img class="logo" src="./logo.svg" alt="App logo" />
+    <div class="controls">
+        <img class="logo" src="./logo.svg" alt="App logo" />
 
-    <button
-        on:click={() => {
-            newgame = true;
-        }}
-    >
-        Nová hra
-    </button>
+        <button
+            on:click={() => {
+                newgame = true;
+            }}
+        >
+            Nová hra
+        </button>
 
-    {#if newgame}
-        <div class="newgame-dialog" in:slide>
-            <span>Jméno hry</span><br />
-            <input
-                type="text"
-                placeholder="např. Kostky s Lídou"
-                bind:value={newgame_name}
+        {#if newgame}
+            <div class="newgame-dialog" transition:slide|local>
+                <span>Jméno hry</span><br />
+                <input
+                    type="text"
+                    placeholder="např. Kostky s Lídou"
+                    bind:value={newgame_name}
+                />
+                <button
+                    on:click={create_game}
+                    class:confirm
+                    class:allow={newgame_name}
+                    style={newgame_name ? "" : "pointer-events: none"}
+                >
+                    Vytvořit
+                </button>
+            </div>
+        {/if}
+
+        {#if games_keys.length}
+            <h1>Uložené hry</h1>
+        {/if}
+
+        {#each games_keys as key}
+            <SaveGame
+                on:play={() => play(key)}
+                on:delete={() => del(key)}
+                metadata={games[key]}
             />
-            <button
-                on:click={create_game}
-                class:confirm
-                class:blue={newgame_name}
-                style={newgame_name ? "" : "pointer-events: none"}
-            >
-                Začít hrát
-            </button>
-        </div>
-    {/if}
-
-    {#if games_keys.length}
-        <h1>Uložené hry</h1>
-    {/if}
-
-    {#each games_keys as key}
-        <SaveGame
-            on:play={() => play(key)}
-            on:delete={() => del(key)}
-            metadata={games[key]}
-        />
-    {/each}
+        {/each}
+    </div>
 </div>
 
 <style>
     div.mainmenu {
+        flex: 1;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    div.controls {
         display: flex;
         flex-direction: column;
         max-width: 450px;
-        align-self: center;
     }
 
     img.logo {
@@ -103,7 +111,8 @@
     button {
         font-size: xx-large;
         padding: 0.2em 1em;
-        background-color: #e3e3e3;
+        background-color: var(--black);
+        color: var(--white);
         border: none;
         border-radius: 16px;
 
@@ -111,7 +120,8 @@
     }
 
     button:hover {
-        background-color: #cfcfcf;
+        background-color: var(--gold);
+        color: var(--black);
     }
 
     button:active {
@@ -121,21 +131,19 @@
     .confirm {
         border-radius: 8px;
         margin-top: 8px;
+        color: var(--silver);
     }
 
-    .blue {
-        background-color: #208aae;
-        color: white;
-    }
-
-    .blue:hover {
-        background-color: #1b6d88;
+    .allow {
+        background-color: var(--silver);
+        color: var(--black);
     }
 
     .newgame-dialog {
         margin-top: 8px;
         padding: 1em;
-        background-color: #cfcfcf;
+        background-color: var(--black);
+        color: var(--white);
         border-radius: 16px;
         display: flex;
         flex-direction: column;
@@ -147,13 +155,15 @@
 
     .newgame-dialog input {
         margin-top: 8px;
+        margin-bottom: 8px;
         border: none;
-        background-color: white;
-        padding: 4px 0;
+        background-color: var(--white);
+        padding: 4px 8px;
         border-radius: 8px;
     }
 
     h1 {
         margin: 16px;
+        color: #0d21a1;
     }
 </style>

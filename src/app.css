@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
 
+:root {
+    --gold: rgb(238, 198, 67);
+    --black: rgb(20, 20, 20);
+    --silver: rgb(212, 213, 214);
+    --white: rgb(238, 240, 242);
+    --blue: rgb(13, 33, 161);
+    --navy: rgb(1, 22, 55);
+    --red: rgb(224, 36, 23);
+    --green: rgb(57, 181, 29);
+}
+
 * {
     font-family: "Jost", "Roboto", sans-serif;
 }
 
 body {
     margin: 0;
+    background-color: var(--white);
 }
 
 html,

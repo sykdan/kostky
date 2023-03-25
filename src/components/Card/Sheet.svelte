@@ -183,7 +183,7 @@
         <div class="cell header has-icon calc">{special_sums[3]}</div>
     </div>
     {#if final_sum}
-        <div class="final_sum" in:scale>
+        <div class="final_sum" transition:scale|local>
             Celkové skóre:<br />
             <b>
                 {final_sum}
@@ -201,9 +201,9 @@
         overflow-y: auto;
         overflow-x: auto;
         align-items: center;
-        background-color: rgb(227, 227, 227);
-        padding-top: 4px;
-        padding-bottom: 4px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        background-color: var(--silver);
     }
 
     div.sheet {
@@ -224,12 +224,12 @@
     }
 
     :global(.cell.header) {
-        background-color: #494949;
+        background-color: var(--blue);
         aspect-ratio: 2/1;
     }
 
     :global(.cell.side) {
-        background-color: #494949;
+        background-color: var(--blue);
         aspect-ratio: 1/2;
     }
 
@@ -249,10 +249,11 @@
         color: white;
         text-align: center;
         font-size: 24px;
+        user-select: none;
     }
 
     div.good {
-        background-color: rgb(57, 181, 29);
+        background-color: var(--green);
     }
 
     :global(.has-icon) {
@@ -268,7 +269,7 @@
     .final_sum {
         position: sticky;
         bottom: 8px;
-        background-color: rgb(57, 181, 29);
+        background-color: var(--green);
         padding: 8px 16px;
         margin-bottom: 8px;
         margin-top: 8px;

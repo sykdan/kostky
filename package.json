@@ -1,7 +1,7 @@
 {
-  "name": "kockice-dice-game",
+  "name": "kostky",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -9,14 +9,12 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
-  "dependencies": {
+  "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
     "svelte": "^3.55.1",
     "svelte-material-icons": "^3.0.4",
     "typescript": "^5.0.2",
-    "vite": "^4.1.4"
-  },
-  "devDependencies": {
+    "vite": "^4.1.4",
     "gh-pages": "^5.0.0",
     "svelte-preprocess": "^5.0.3"
   }
