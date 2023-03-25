@@ -54,6 +54,7 @@
         border-radius: 50%;
         transition: 0.2s;
         margin-left: 8px;
+        width: 48px;
     }
 
     button:hover:not(:active) {

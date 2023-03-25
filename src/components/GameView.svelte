@@ -9,7 +9,7 @@
     import Clear from "svelte-material-icons/TrashCan.svelte";
 
     import PlayingCard from "./Card/Sheet.svelte";
-    import NEW_GAME_CARD from "./Lib/EmptyCard";
+    import new_card from "./Lib/EmptyCard";
 
     const emit = createEventDispatcher();
     let show_actions = false;
@@ -25,7 +25,7 @@
     }
 
     function clear() {
-        card = NEW_GAME_CARD;
+        card = new_card();
         show_actions = false;
     }
 </script>
@@ -123,7 +123,7 @@
 
     div.actions button :global(svg) {
         margin-right: 8px;
-    } 
+    }
 
     div.actions button:hover,
     div.actions button:active {

@@ -2,7 +2,7 @@
     import { createEventDispatcher, onMount } from "svelte";
     import { slide } from "svelte/transition";
     import SaveGame from "./UI/SaveGame.svelte";
-    import NEW_GAME_CARD from "./Lib/EmptyCard";
+    import new_card from "./Lib/EmptyCard";
 
     const emit = createEventDispatcher();
 
@@ -26,7 +26,7 @@
             name: newgame_name,
             last_played: +new Date(),
         };
-        localStorage.setItem(key, JSON.stringify(NEW_GAME_CARD));
+        localStorage.setItem(key, JSON.stringify(new_card()));
 
         newgame_name = "";
         newgame = false;

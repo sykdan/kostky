@@ -1,2 +1,5 @@
-const NEW_GAME_CARD = JSON.parse(JSON.stringify(Array(12).fill([null, null, null, null])))
-export default NEW_GAME_CARD;
+const NEW_GAME_CARD = Array(12).fill([null, null, null, null]);
+function new_card() {
+    return JSON.parse(JSON.stringify(NEW_GAME_CARD));
+}
+export default new_card;

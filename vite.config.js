@@ -15,18 +15,25 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,ico}']
       },
       manifest: {
-        name: "",
-        short_name: "",
+        name: "Kostky",
+        description: "Aplikace pro zaznamenávání bodů v kostkách",
+        short_name: "Kostky",
         icons: [
           {
-            src: "/android-chrome-192x192.png",
+            src: "android-chrome-192x192.png",
             sizes: "192x192",
             type: "image/png"
           },
           {
-            src: "/android-chrome-512x512.png",
+            src: "android-chrome-512x512.png",
             sizes: "512x512",
             type: "image/png"
+          },
+          {
+            src: "safari-pinned-tab.svg",
+            sizes: "any",
+            type: "image/svg",
+            purpose: "any maskable"
           }
         ],
         theme_color: "#ffffff",
