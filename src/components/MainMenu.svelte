@@ -104,7 +104,8 @@
     }
 
     img.logo {
-        padding: 5em 2em;
+	padding: 4em 0;
+        width: 100%;
         max-width: 450px;
     }
 
@@ -164,7 +165,7 @@
     }
 
     h1 {
-        margin: 16px;
-        color: #0d21a1;
+        margin: 16px 0;
+        color: var(--blue);
     }
 </style>

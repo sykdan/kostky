@@ -249,8 +249,6 @@
         color: white;
         text-align: center;
         font-size: 24px;
-        user-select: none;
-        -webkit-user-select: none;
     }
 
     div.good {
