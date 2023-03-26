@@ -182,7 +182,7 @@
         <div class="cell header has-icon calc">{special_sums[2]}</div>
         <div class="cell header has-icon calc">{special_sums[3]}</div>
     </div>
-    {#if final_sum}
+    {#if final_sum != null}
         <div class="final_sum" transition:scale|local>
             Celkové skóre:<br />
             <b>

@@ -32,8 +32,8 @@
     .saved-game {
         display: flex;
         padding: 16px;
-        background-color: var(--black);
-        color: var(--white);
+        background-color: var(--silver);
+        color: var(--black);
         margin-bottom: 8px;
         border-radius: 16px;
     }
@@ -55,6 +55,7 @@
         transition: 0.2s;
         margin-left: 8px;
         width: 48px;
+        height: 48px;
     }
 
     button:hover:not(:active) {
@@ -68,13 +69,13 @@
     .name {
         font-size: large;
         font-weight: bold;
-        color: var(--white);
+        color: var(--black);
     }
 
     .lastplayed {
         font-style: italic;
         font-size: medium;
-        color: var(--silver);
+        color: var(--black);
     }
 
     .danger {

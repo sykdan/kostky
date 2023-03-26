@@ -58,7 +58,7 @@
 
         {#if newgame}
             <div class="newgame-dialog" transition:slide|local>
-                <span>Jméno hry</span><br />
+                <span>Pojmenuj tuto hru:</span>
                 <input
                     type="text"
                     placeholder="např. Kostky s Lídou"
@@ -66,7 +66,7 @@
                 />
                 <button
                     on:click={create_game}
-                    class:confirm
+                    class="confirm"
                     class:allow={newgame_name}
                     style={newgame_name ? "" : "pointer-events: none"}
                 >
@@ -131,19 +131,20 @@
     .confirm {
         border-radius: 8px;
         margin-top: 8px;
-        color: var(--silver);
+        color: var(--black);
+        background-color: var(--silver);
     }
 
     .allow {
-        background-color: var(--silver);
-        color: var(--black);
+        background-color: var(--black);
+        color: var(--white);
     }
 
     .newgame-dialog {
         margin-top: 8px;
         padding: 1em;
-        background-color: var(--black);
-        color: var(--white);
+        background-color: var(--silver);
+        color: var(--black);
         border-radius: 16px;
         display: flex;
         flex-direction: column;
