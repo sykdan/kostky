@@ -70,7 +70,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: x-large;
+        font-size: 28px;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         z-index: 10;
         user-select: none;
@@ -78,10 +78,10 @@
 
     div.topbar button {
         background-color: transparent;
-        padding: 8px;
+        padding: 10px;
         font-size: medium;
         border: none;
-        border-radius: 22px;
+        border-radius: 50%;
         transition: 0.2s;
     }
 
@@ -97,7 +97,7 @@
     div.actions {
         position: fixed;
         right: 0;
-        top: 44px;
+        top: 48px;
         display: flex;
         flex-direction: column;
         background-color: var(--navy);

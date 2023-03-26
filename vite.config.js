@@ -30,7 +30,7 @@ export default defineConfig({
             type: "image/png"
           },
           {
-            src: "safari-pinned-tab.svg",
+            src: "logo-mask.svg",
             sizes: "any",
             type: "image/svg",
             purpose: "any maskable"

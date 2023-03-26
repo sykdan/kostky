@@ -70,6 +70,8 @@
         width: 100%;
         height: 100%;
         border-radius: 16px;
+        background-color: var(--silver);
+        color: var(--black);
     }
 
     input.invalid,
@@ -111,11 +113,11 @@
     }
 
     span.number {
-        width: calc(100% - 8px);
-        height: calc(100% - 8px);
-        margin: 4px 0 0 4px;
+        width: 100%;
+        height: 100%;
         font-size: 36px;
-        background-color: white;
+        background-color: var(--silver);
+        color: var(--black);
     }
 
     input:not(:focus) + span.cross.crossed {
