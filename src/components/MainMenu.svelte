@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { slide } from "svelte/transition";
+    import { slide, fade } from "svelte/transition";
     import SaveGame from "./UI/SaveGame.svelte";
     import new_card from "./Lib/EmptyCard";
 
@@ -44,7 +44,7 @@
     }
 </script>
 
-<div class="mainmenu">
+<div class="mainmenu" transition:fade>
     <div class="controls">
         <img class="logo" src="./logo.svg" alt="App logo" />
 
@@ -95,6 +95,7 @@
         width: 100%;
         display: flex;
         justify-content: center;
+        position: absolute;
     }
 
     div.controls {
