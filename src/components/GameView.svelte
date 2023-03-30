@@ -62,7 +62,6 @@
         flex-direction: column;
         overflow: hidden;
         width: 100%;
-        position: absolute;
     }
 
     div.topbar {
