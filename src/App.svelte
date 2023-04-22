@@ -1,10 +1,12 @@
 <script lang="ts">
-    import GameView from "./components/GameView.svelte";
     import MainMenu from "./components/MainMenu.svelte";
+    import GameView from "./components/GameView.svelte";
+    import GameRules from "./components/GameRules.svelte";
 
     enum SCREENS {
         MainMenu,
         GameView,
+        GameRules,
     }
 
     let screen: SCREENS = SCREENS.MainMenu;
@@ -18,6 +20,9 @@
             selected_game_key = e.detail;
             screen = SCREENS.GameView;
         }}
+        on:rules={() => {
+            screen = SCREENS.GameRules
+        }}
     />
 {:else if screen == SCREENS.GameView}
     <GameView
@@ -26,5 +31,11 @@
             screen = SCREENS.MainMenu;
         }}
         key={selected_game_key}
+    />
+{:else if screen == SCREENS.GameRules}
+    <GameRules
+        on:back={() => {
+            screen = SCREENS.MainMenu;
+        }}
     />
 {/if}

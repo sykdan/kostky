@@ -56,6 +56,7 @@
         margin-left: 8px;
         width: 48px;
         height: 48px;
+        cursor: pointer;
     }
 
     button:hover:not(:active) {

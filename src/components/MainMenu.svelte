@@ -4,6 +4,10 @@
     import SaveGame from "./UI/SaveGame.svelte";
     import new_card from "./Lib/EmptyCard";
 
+    import NewGame from "svelte-material-icons/Plus.svelte";
+    import Settings from "svelte-material-icons/Cog.svelte";
+    import HowToPlay from "svelte-material-icons/Lightbulb.svelte";
+
     const emit = createEventDispatcher();
 
     let games = JSON.parse(localStorage.getItem("games") || "{}");
@@ -48,13 +52,25 @@
     <div class="controls">
         <div class="logo" />
 
-        <button
-            on:click={() => {
-                newgame = true;
-            }}
-        >
-            Nová hra
-        </button>
+        {#each games_keys as key}
+            <SaveGame
+                on:play={() => play(key)}
+                on:delete={() => del(key)}
+                metadata={games[key]}
+            />
+        {/each}
+
+        {#if !newgame}
+            <button
+                on:click={() => {
+                    newgame = true;
+                }}
+                transition:slide|local
+            >
+                <NewGame />
+                Nová hra
+            </button>
+        {/if}
 
         {#if newgame}
             <div class="newgame-dialog" transition:slide|local>
@@ -75,17 +91,16 @@
             </div>
         {/if}
 
-        {#if games_keys.length}
-            <h1>Uložené hry</h1>
-        {/if}
+        <hr />
 
-        {#each games_keys as key}
-            <SaveGame
-                on:play={() => play(key)}
-                on:delete={() => del(key)}
-                metadata={games[key]}
-            />
-        {/each}
+        <button>
+            <Settings />
+            Nastavení
+        </button>
+        <button on:click={() => emit("rules")}>
+            <HowToPlay />
+            Pravidla hry
+        </button>
     </div>
 </div>
 
@@ -103,13 +118,14 @@
     }
 
     div.logo {
-        height: 240px;
         background-color: var(--blue);
         width: 100%;
         mask-image: url(/logo.svg);
         mask-size: 100%;
         mask-repeat: no-repeat;
         mask-position: center;
+        aspect-ratio: 3/1;
+        margin: 2em 0;
     }
 
     button {
@@ -121,6 +137,29 @@
         border-radius: 16px;
 
         transition: 0.2s;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+
+    .controls > button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    :global(.controls > button > svg) {
+        margin-right: 12px;
+        height: 38px;
+        width: auto;
+    }
+
+    :global(.controls > button > svg > path) {
+        transition: 0.2s;
+        fill: var(--black);
+    }
+
+    :global(.controls > button:hover > svg > path) {
+        fill: rgb(20, 20, 20);
     }
 
     button:hover {
@@ -145,7 +184,6 @@
     }
 
     .newgame-dialog {
-        margin-top: 8px;
         padding: 1em;
         background-color: var(--silver);
         color: var(--black);
@@ -168,8 +206,9 @@
         border-radius: 8px;
     }
 
-    h1 {
+    hr {
+        color: var(--black);
         margin: 16px 0;
-        color: var(--blue);
+        margin-top: 8px;
     }
 </style>

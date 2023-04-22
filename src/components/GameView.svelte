@@ -10,6 +10,7 @@
 
     import PlayingCard from "./Card/Sheet.svelte";
     import new_card from "./Lib/EmptyCard";
+    import TopBar from "./UI/TopBar.svelte";
 
     const emit = createEventDispatcher();
     let show_actions = false;
@@ -31,22 +32,21 @@
 </script>
 
 <div class="game appscreen" transition:fly>
-    <div class="topbar">
-        <button on:click={() => emit("back")} title="Zpět">
-            <Back color="white" size="28" />
-        </button>
-        {metadata.name}
-        <button on:click={() => (show_actions = !show_actions)} title="Možnosti"
-            ><Menu color="white" size="28" /></button
-        >
-    </div>
+    <TopBar
+        title={metadata.name}
+        on:leftbutton={() => emit("back")}
+        on:rightbutton={() => (show_actions = !show_actions)}
+    >
+        <Back slot="leftbutton" color="white" size="28" />
+        <Menu slot="rightbutton" color="white" size="28" />
+    </TopBar>
     {#if show_actions}
         <div class="actions" transition:slide|local>
-            <button on:click={zeroes}>
+            <button on:click={zeroes} style="color: #eef0f2">
                 <ZeroOut color="#eef0f2" size="28" />
                 Škrtnout zbytek
             </button>
-            <button on:click={clear} style="color: var(--red);">
+            <button on:click={clear} style="color: var(--red)">
                 <Clear color="var(--red)" size="28" />
                 Resetovat celou kartu
             </button>
@@ -56,37 +56,6 @@
 </div>
 
 <style>
-    div.topbar {
-        background-color: var(--blue);
-        color: white;
-        text-align: center;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 28px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        z-index: 10;
-        user-select: none;
-    }
-
-    div.topbar button {
-        background-color: transparent;
-        padding: 10px;
-        font-size: medium;
-        border: none;
-        border-radius: 50%;
-        transition: 0.2s;
-    }
-
-    div.topbar button:hover,
-    div.topbar button:active {
-        background-color: rgba(0, 0, 0, 0.23);
-    }
-
-    div.topbar button :global(svg) {
-        vertical-align: middle;
-    }
-
     div.actions {
         position: fixed;
         right: 0;
