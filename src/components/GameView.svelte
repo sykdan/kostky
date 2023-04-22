@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { slide } from "svelte/transition";
+    import { fly, slide } from "svelte/transition";
 
     import Back from "svelte-material-icons/ArrowLeft.svelte";
     import Menu from "svelte-material-icons/DotsVertical.svelte";
@@ -30,7 +30,7 @@
     }
 </script>
 
-<div class="game">
+<div class="game appscreen" transition:fly>
     <div class="topbar">
         <button on:click={() => emit("back")} title="Zpět">
             <Back color="white" size="28" />
@@ -56,13 +56,6 @@
 </div>
 
 <style>
-    div.game {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
     div.topbar {
         background-color: var(--blue);
         color: white;

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { slide } from "svelte/transition";
+    import { slide, fly } from "svelte/transition";
     import SaveGame from "./UI/SaveGame.svelte";
     import new_card from "./Lib/EmptyCard";
 
@@ -44,7 +44,7 @@
     }
 </script>
 
-<div class="mainmenu">
+<div class="mainmenu appscreen" transition:fly>
     <div class="controls">
         <div class="logo" />
 
@@ -91,10 +91,8 @@
 
 <style>
     div.mainmenu {
-        flex: 1;
-        width: 100%;
-        display: flex;
-        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
     }
 
     div.controls {
@@ -171,7 +169,7 @@
     }
 
     h1 {
-        margin: 16px;
+        margin: 16px 0;
         color: var(--blue);
     }
 </style>
