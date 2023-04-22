@@ -119,6 +119,10 @@
         mask-size: 90%;
         mask-repeat: no-repeat;
         mask-position: center;
+        -webkit-mask-image: url(/logo.svg);
+        -webkit-mask-size: 90%;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
         aspect-ratio: 3/1;
     }
 
