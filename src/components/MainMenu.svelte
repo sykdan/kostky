@@ -46,7 +46,7 @@
 
 <div class="mainmenu">
     <div class="controls">
-        <img class="logo" src="./logo.svg" alt="App logo" />
+        <div class="logo" />
 
         <button
             on:click={() => {
@@ -100,19 +100,25 @@
     div.controls {
         display: flex;
         flex-direction: column;
+        width: 100%;
         max-width: 450px;
     }
 
-    img.logo {
-        padding: 5em 2em;
-        max-width: 450px;
+    div.logo {
+        height: 240px;
+        background-color: var(--blue);
+        width: 100%;
+        mask-image: url(/logo.svg);
+        mask-size: 100%;
+        mask-repeat: no-repeat;
+        mask-position: center;
     }
 
     button {
         font-size: xx-large;
         padding: 0.2em 1em;
-        background-color: var(--black);
-        color: var(--white);
+        background-color: var(--silver);
+        color: var(--black);
         border: none;
         border-radius: 16px;
 
@@ -121,7 +127,7 @@
 
     button:hover {
         background-color: var(--gold);
-        color: var(--black);
+        color: rgb(20, 20, 20);
     }
 
     button:active {
@@ -136,8 +142,8 @@
     }
 
     .allow {
-        background-color: var(--black);
-        color: var(--white);
+        background-color: var(--white);
+        color: var(--black);
     }
 
     .newgame-dialog {
@@ -159,12 +165,13 @@
         margin-bottom: 8px;
         border: none;
         background-color: var(--white);
+        color: var(--black);
         padding: 4px 8px;
         border-radius: 8px;
     }
 
     h1 {
         margin: 16px;
-        color: #0d21a1;
+        color: var(--blue);
     }
 </style>

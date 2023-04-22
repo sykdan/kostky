@@ -43,7 +43,7 @@
     {#if show_actions}
         <div class="actions" transition:slide|local>
             <button on:click={zeroes}>
-                <ZeroOut color="var(--white)" size="28" />
+                <ZeroOut color="#eef0f2" size="28" />
                 Škrtnout zbytek
             </button>
             <button on:click={clear} style="color: var(--red);">

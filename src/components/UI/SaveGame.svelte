@@ -18,13 +18,13 @@
         </span>
     </div>
     <button on:click={() => emit("play")}>
-        <Play size="32" color="var(--black)" />
+        <Play size="32" color="#141414" />
     </button>
     <button
         on:click={() => confirm("Smazat tuto hru?") && emit("delete")}
         class="danger"
     >
-        <Delete size="32" color="var(--black)" />
+        <Delete size="32" color="#141414" />
     </button>
 </div>
 

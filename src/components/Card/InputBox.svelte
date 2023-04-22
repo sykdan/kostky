@@ -76,7 +76,7 @@
 
     input.invalid,
     span.number.invalid {
-        background-color: pink;
+        background-color: var(--invalid);
     }
 
     input::-webkit-outer-spin-button,

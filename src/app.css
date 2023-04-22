@@ -8,6 +8,7 @@
     --blue: rgb(13, 33, 161);
     --navy: rgb(1, 22, 55);
     --red: rgb(224, 36, 23);
+    --invalid: rgb(255, 196, 197);
     --green: rgb(57, 181, 29);
 }
 
@@ -31,4 +32,18 @@ body,
     display: flex;
     flex: 1;
     flex-direction: column;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --gold: rgb(238, 198, 67);
+        --black: rgb(238, 240, 242);
+        --silver: rgb(50, 50, 50);
+        --white: rgb(20, 20, 20);
+        --blue: rgb(43, 65, 209);
+        --navy: rgb(1, 22, 55);
+        --red: rgb(224, 36, 23);
+        --invalid: rgb(91, 32, 32);
+        --green: rgb(57, 181, 29);
+    }
 }
