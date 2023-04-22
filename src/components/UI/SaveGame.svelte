@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import { slide } from "svelte/transition";
     import Play from "svelte-material-icons/Play.svelte";
     import Delete from "svelte-material-icons/Delete.svelte";
 
@@ -8,7 +9,7 @@
     const emit = createEventDispatcher();
 </script>
 
-<div class="saved-game">
+<div class="saved-game" transition:slide|local>
     <div class="info">
         <span class="name">
             {metadata.name}
@@ -17,8 +18,8 @@
             {new Date(metadata.last_played).toLocaleString()}
         </span>
     </div>
-    <button on:click={() => emit("play")}>
-        <Play size="32" color="#141414" />
+    <button class="play" on:click={() => emit("play")}>
+        <Play size="32" color="#141414" /> Hrát
     </button>
     <button
         on:click={() => confirm("Smazat tuto hru?") && emit("delete")}
@@ -46,7 +47,7 @@
 
     button {
         aspect-ratio: 1/1;
-        display: grid;
+        display: flex;
         align-items: center;
         justify-content: center;
         border: none;
@@ -59,8 +60,16 @@
         cursor: pointer;
     }
 
+    button.play {
+        aspect-ratio: 2/1;
+        width: 96px;
+        border-radius: 24px;
+        font-size: 22px;
+        padding-left: 0;
+    }
+
     button:hover:not(:active) {
-        transform: scale(1.05);
+        transform: scale(1.1);
     }
 
     button:active {

@@ -92,11 +92,6 @@
         {/if}
 
         <hr />
-
-        <button>
-            <Settings />
-            Nastavení
-        </button>
         <button on:click={() => emit("rules")}>
             <HowToPlay />
             Pravidla hry
@@ -121,11 +116,10 @@
         background-color: var(--blue);
         width: 100%;
         mask-image: url(/logo.svg);
-        mask-size: 100%;
+        mask-size: 90%;
         mask-repeat: no-repeat;
         mask-position: center;
         aspect-ratio: 3/1;
-        margin: 2em 0;
     }
 
     button {

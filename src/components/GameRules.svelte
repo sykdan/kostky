@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { fly, slide } from "svelte/transition";
+    import { fly } from "svelte/transition";
 
     import Back from "svelte-material-icons/ArrowLeft.svelte";
 

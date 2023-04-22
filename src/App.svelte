@@ -21,7 +21,7 @@
             screen = SCREENS.GameView;
         }}
         on:rules={() => {
-            screen = SCREENS.GameRules
+            screen = SCREENS.GameRules;
         }}
     />
 {:else if screen == SCREENS.GameView}
