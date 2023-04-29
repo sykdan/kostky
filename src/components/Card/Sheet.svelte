@@ -41,7 +41,7 @@
                 (p, c) => p + card[c][index],
                 0
             );
-            if (sum > 60) {
+            if (sum >= 60) {
                 sum += 30;
             }
             return sum;
