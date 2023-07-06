@@ -43,7 +43,7 @@
         if (vl == 0) {
             invalid = false;
         }
-        if (vl <= 0) {
+        if (vl < 0) {
             invalid = true;
         }
     } else {

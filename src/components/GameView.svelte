@@ -25,7 +25,7 @@
         if (
             await dialogTrigger.prompt(
                 "Proškrtat nepopsané",
-                "Opravdu chceš proškrtat nepopsaná políčka?\nToto nejde vrátit zpět, tak si to dobře rozmysli.",
+                "Opravdu chceš škrtnout nepopsaná políčka?\nToto nejde vrátit zpět, tak si to dobře rozmysli.",
                 "Ano",
                 "Ne"
             )
