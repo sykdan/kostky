@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500;700&display=swap');
 
-:root {
+html {
     --gold: rgb(238, 198, 67);
     --black: rgb(20, 20, 20);
     --silver: rgb(212, 213, 214);
@@ -10,6 +10,22 @@
     --red: rgb(224, 36, 23);
     --invalid: rgb(255, 196, 197);
     --green: rgb(57, 181, 29);
+}
+
+html[theme=dark] {
+    --black: rgb(238, 240, 242);
+    --silver: rgb(50, 50, 50);
+    --white: rgb(20, 20, 20);
+    --invalid: rgb(91, 32, 32);
+}
+
+@media (prefers-color-scheme: dark) {
+    html[theme=system] {
+        --black: rgb(238, 240, 242);
+        --silver: rgb(50, 50, 50);
+        --white: rgb(20, 20, 20);
+        --invalid: rgb(91, 32, 32);
+    }
 }
 
 * {
@@ -34,20 +50,6 @@ body,
     display: flex;
     flex: 1;
     flex-direction: column;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --gold: rgb(238, 198, 67);
-        --black: rgb(238, 240, 242);
-        --silver: rgb(50, 50, 50);
-        --white: rgb(20, 20, 20);
-        --blue: rgb(13, 33, 161);
-        --navy: rgb(1, 22, 55);
-        --red: rgb(224, 36, 23);
-        --invalid: rgb(91, 32, 32);
-        --green: rgb(57, 181, 29);
-    }
 }
 
 div.appscreen {

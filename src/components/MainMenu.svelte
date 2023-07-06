@@ -24,7 +24,7 @@
     function create_game() {
         let key = null;
         while (!key || games_keys.includes(key)) {
-            key = Math.floor(Math.random() * 999999999999).toString();
+            key = (+new Date()).toString();
         }
         games[key] = {
             name: newgame_name,
