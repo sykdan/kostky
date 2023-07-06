@@ -31,6 +31,8 @@
     let minmax_sums: number[];
     let special_sums: number[];
 
+    let shouldAddBonus = localStorage.getItem("st__autobonus") != "no";
+
     export let final_sum: number = null;
 
     $: if (card) {
@@ -62,9 +64,9 @@
 
         special_sums = GAMES.map((index) => {
             let bonus = card[8][index];
-            bonus += card[9][index] ? card[9][index] + 30 : 0;
-            bonus += card[10][index] ? card[10][index] + 40 : 0;
-            bonus += card[11][index] ? card[11][index] + 50 : 0;
+            bonus += card[9][index] ? card[9][index] + b(30) : 0;
+            bonus += card[10][index] ? card[10][index] + b(40) : 0;
+            bonus += card[11][index] ? card[11][index] + b(50) : 0;
             return bonus;
         });
     }
@@ -77,6 +79,13 @@
         final_sum = s;
     } else {
         final_sum = null;
+    }
+
+    function b(value) {
+        if (shouldAddBonus) {
+            return value;
+        }
+        return 0;
     }
 </script>
 
@@ -97,22 +106,22 @@
             <Announced color="white" size="100%" />
         </div>
 
-        <Row n={1} type="singles" bind:row={card[0]}>
+        <Row n={1} type="singles" bind:row={card[0]} {shouldAddBonus}>
             <Dice1 color="white" size="100%" />
         </Row>
-        <Row n={2} type="singles" bind:row={card[1]}>
+        <Row n={2} type="singles" bind:row={card[1]} {shouldAddBonus}>
             <Dice2 color="white" size="100%" />
         </Row>
-        <Row n={3} type="singles" bind:row={card[2]}>
+        <Row n={3} type="singles" bind:row={card[2]} {shouldAddBonus}>
             <Dice3 color="white" size="100%" />
         </Row>
-        <Row n={4} type="singles" bind:row={card[3]}>
+        <Row n={4} type="singles" bind:row={card[3]} {shouldAddBonus}>
             <Dice4 color="white" size="100%" />
         </Row>
-        <Row n={5} type="singles" bind:row={card[4]}>
+        <Row n={5} type="singles" bind:row={card[4]} {shouldAddBonus}>
             <Dice5 color="white" size="100%" />
         </Row>
-        <Row n={6} type="singles" bind:row={card[5]}>
+        <Row n={6} type="singles" bind:row={card[5]} {shouldAddBonus}>
             <Dice6 color="white" size="100%" />
         </Row>
 
@@ -142,10 +151,10 @@
             {singles_sums[3]}
         </div>
 
-        <Row type="free" bind:row={card[6]}>
+        <Row type="free" bind:row={card[6]} {shouldAddBonus}>
             <Maximum color="white" size="100%" />
         </Row>
-        <Row type="free" bind:row={card[7]}>
+        <Row type="free" bind:row={card[7]} {shouldAddBonus}>
             <Minimum color="white" size="100%" />
         </Row>
 
@@ -163,16 +172,28 @@
             {minmax_sums[3]}{card[0][3] == null && minmax_sums[3] ? "?" : ""}
         </div>
 
-        <Row type="sequence" bind:row={card[8]}>
+        <Row type="sequence" bind:row={card[8]} {shouldAddBonus}>
             <Sequence color="white" size="100%" />
         </Row>
-        <Row type="fullhouse" bind:row={card[9]} add={30}>
+        <Row type="fullhouse" bind:row={card[9]} add={30} {shouldAddBonus}>
             <FullHouse color="white" size="100%" />
         </Row>
-        <Row n={4} type="multiples" bind:row={card[10]} add={40}>
+        <Row
+            n={4}
+            type="multiples"
+            bind:row={card[10]}
+            add={40}
+            {shouldAddBonus}
+        >
             <Poker color="white" size="100%" />
         </Row>
-        <Row n={5} type="multiples" bind:row={card[11]} add={50}>
+        <Row
+            n={5}
+            type="multiples"
+            bind:row={card[11]}
+            add={50}
+            {shouldAddBonus}
+        >
             <Yamb color="white" size="100%" />
         </Row>
 

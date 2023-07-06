@@ -3,6 +3,7 @@
     import { slide } from "svelte/transition";
     import Play from "svelte-material-icons/Play.svelte";
     import Delete from "svelte-material-icons/Delete.svelte";
+    import { dialogTrigger } from "../Lib/DialogTrigger";
 
     export let metadata;
 
@@ -22,7 +23,13 @@
         <Play size="32" color="#141414" /> Hrát
     </button>
     <button
-        on:click={() => confirm("Smazat tuto hru?") && emit("delete")}
+        on:click={async () =>
+            await dialogTrigger.prompt(
+                "Potvrdit smazání",
+                "Opravdu smazat tuto hru?\nNejde to vrátit zpátky, tak si to dobře rozmysli.",
+                "Ano",
+                "Ne"
+            ) && emit("delete")}
         class="danger"
     >
         <Delete size="32" color="#141414" />

@@ -11,49 +11,63 @@
         | "sequence";
     export let n = 0;
     export let add = 0;
+    export let shouldAddBonus: Boolean;
 
     let invalid = false;
 
     $: if (value != null) {
         value = Math.max(value, 0);
+        let vl = value;
+        if (!shouldAddBonus) {
+            vl -= add;
+        }
 
         switch (type) {
             case "singles":
-                invalid = value % n != 0 || value > n * 5;
+                invalid = vl % n != 0 || vl > n * 5;
                 break;
             case "free":
-                invalid = value < 5 || value > 30;
+                invalid = vl < 5 || vl > 30;
                 break;
             case "fullhouse":
-                invalid = value < 7 || value > 28 || value == 10 || value == 25;
+                invalid = vl < 7 || vl > 28 || vl == 10 || vl == 25;
                 break;
             case "multiples":
-                invalid = value % n != 0 || value > n * 6;
+                invalid = vl % n != 0 || vl > n * 6;
                 break;
             case "sequence":
-                invalid =
-                    (value != 0 && (value - 6) % 10 != 0) ||
-                    value < 46 ||
-                    value > 76;
+                invalid = (vl != 0 && (vl - 6) % 10 != 0) || vl < 46 || vl > 76;
                 break;
         }
 
-        if (value == 0) {
+        if (vl == 0) {
             invalid = false;
+        }
+        if (vl <= 0) {
+            invalid = true;
         }
     } else {
         invalid = false;
         value = null;
     }
+
+    function b(value) {
+        if (shouldAddBonus) {
+            return value;
+        }
+        return 0;
+    }
 </script>
 
 <div class="cell">
     <input class:invalid type="number" pattern="[0-9]*" bind:value />
-    <span class="overlay cross" class:crossed={value == 0}
-        ><Cross color="rgb(172, 0, 0)" size={48} /></span
-    >
+    <span class="overlay cross" class:crossed={value == 0}>
+        <Cross color="rgb(172, 0, 0)" size={48} />
+    </span>
     {#if add > 0 && value}
-        <span class="overlay number" class:invalid>{value + add}</span>
+        <span class="overlay number" class:invalid>
+            {value + b(add)}
+        </span>
     {/if}
 </div>
 

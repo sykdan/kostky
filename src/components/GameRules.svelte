@@ -30,7 +30,7 @@
 
 <div class="rulesscreen appscreen" transition:fly>
     <TopBar
-        title="Pravidla"
+        title="Pravidla hry Yamb"
         hideRight={true}
         on:leftbutton={() => emit("back")}
         on:rightbutton={() => (show_actions = !show_actions)}
@@ -38,9 +38,8 @@
         <Back slot="leftbutton" color="white" size="28" />
     </TopBar>
     <div class="rules">
-        <h1>Pravidla hry Yamb</h1>
         <p>
-            Yamb je kostková hra pro neomezený počet hráčů (ale je samozřejmě
+            Yamb je kostková hra pro jednoho či více hráčů (ale je samozřejmě
             mnohem zábavnější s přáteli). Cílem je nashromáždit co nejvyšší
             počet bodů na hrací kartě.
         </p>

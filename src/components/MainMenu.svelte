@@ -7,6 +7,7 @@
     import NewGame from "svelte-material-icons/Plus.svelte";
     import Settings from "svelte-material-icons/Cog.svelte";
     import HowToPlay from "svelte-material-icons/Lightbulb.svelte";
+    import { dialogTrigger } from "./Lib/DialogTrigger";
 
     const emit = createEventDispatcher();
 
@@ -95,6 +96,10 @@
         <button on:click={() => emit("rules")}>
             <HowToPlay />
             Pravidla hry
+        </button>
+        <button on:click={() => emit("settings")}>
+            <Settings />
+            Možnosti
         </button>
     </div>
 </div>
