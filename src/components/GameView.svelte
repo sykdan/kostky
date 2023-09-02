@@ -62,8 +62,8 @@
 
     {#if show_actions}
         <div class="actions" transition:slide|local>
-            <button on:click={zeroes} style="color: var(--black)">
-                <ZeroOut color="var(--black)" size="28" />
+            <button on:click={zeroes} style="color: var(--front)">
+                <ZeroOut color="var(--front)" size="28" />
                 Škrtnout nepopsané
             </button>
             <button on:click={clear} style="color: var(--red)">
@@ -83,7 +83,7 @@
         top: 48px;
         display: flex;
         flex-direction: column;
-        background-color: var(--silver);
+        background-color: var(--back-extra);
         padding: 4px;
         z-index: 2;
         gap: 4px;
@@ -103,7 +103,7 @@
         justify-content: space-between;
         align-items: center;
         padding-right: 16px;
-        color: var(--white);
+        color: var(--back);
     }
 
     div.actions button :global(svg) {

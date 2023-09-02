@@ -84,13 +84,13 @@
         width: 100%;
         height: 100%;
         border-radius: 16px;
-        background-color: var(--silver);
-        color: var(--black);
+        background-color: var(--back-extra);
+        color: var(--front);
     }
 
     input.invalid,
     span.number.invalid {
-        background-color: var(--invalid);
+        background-color: var(--back-error);
     }
 
     input::-webkit-outer-spin-button,
@@ -130,8 +130,8 @@
         width: 100%;
         height: 100%;
         font-size: 36px;
-        background-color: var(--silver);
-        color: var(--black);
+        background-color: var(--back-extra);
+        color: var(--front);
     }
 
     input:not(:focus) + span.cross.crossed {

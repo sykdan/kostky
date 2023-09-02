@@ -224,7 +224,7 @@
         align-items: center;
         padding-top: 8px;
         padding-bottom: 8px;
-        background-color: var(--white);
+        background-color: var(--back);
     }
 
     div.sheet {
@@ -245,12 +245,12 @@
     }
 
     :global(.cell.header) {
-        background-color: var(--blue);
+        background-color: var(--primary);
         aspect-ratio: 2/1;
     }
 
     :global(.cell.side) {
-        background-color: var(--blue);
+        background-color: var(--primary);
         aspect-ratio: 1/2;
     }
 

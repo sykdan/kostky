@@ -40,8 +40,8 @@
     .saved-game {
         display: flex;
         padding: 16px;
-        background-color: var(--silver);
-        color: var(--black);
+        background-color: var(--back-extra);
+        color: var(--front);
         margin-bottom: 8px;
         border-radius: 16px;
     }
@@ -87,13 +87,13 @@
     .name {
         font-size: large;
         font-weight: bold;
-        color: var(--black);
+        color: var(--front);
     }
 
     .lastplayed {
         font-style: italic;
         font-size: medium;
-        color: var(--black);
+        color: var(--front);
     }
 
     .danger {

@@ -50,14 +50,14 @@
         max-width: 500px;
         width: 100%;
         border-radius: 16px;
-        background-color: var(--white);
-        color: var(--black);
+        background-color: var(--back);
+        color: var(--front);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         white-space: pre-line
     }
 
     div.header {
-        background-color: var(--blue);
+        background-color: var(--primary);
         color: white;
         text-align: center;
         font-size: 28px;
@@ -71,7 +71,7 @@
     }
 
     div.buttons {
-        background-color: var(--silver);
+        background-color: var(--back-extra);
         display: flex;
         justify-content: end;
         gap: 8px;
@@ -85,11 +85,11 @@
         border-radius: 18px;
         padding: 8px;
         background-color: transparent;
-        color: var(--black);
+        color: var(--front);
     }
 
     div.buttons button.ok {
-        background-color: var(--blue);
+        background-color: var(--primary);
         padding: 8px 16px;
         color: white;
     }

@@ -184,7 +184,7 @@
 
 <style>
     div.rules {
-        color: var(--black);
+        color: var(--front);
         padding: 1em;
         overflow-y: auto;
     }
@@ -208,6 +208,6 @@
     }
 
     :global(div.rules svg path) {
-        fill: var(--black);
+        fill: var(--front);
     }
 </style>

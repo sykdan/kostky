@@ -19,7 +19,7 @@
 
 <style>
     div.topbar {
-        background-color: var(--blue);
+        background-color: var(--primary);
         color: white;
         text-align: center;
         display: flex;

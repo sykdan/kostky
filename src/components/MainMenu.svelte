@@ -118,7 +118,7 @@
     }
 
     div.logo {
-        background-color: var(--blue);
+        background-color: var(--primary);
         width: 100%;
         mask-image: url(/logo.svg);
         mask-size: 90%;
@@ -134,8 +134,8 @@
     button {
         font-size: xx-large;
         padding: 0.2em 1em;
-        background-color: var(--silver);
-        color: var(--black);
+        background-color: var(--back-extra);
+        color: var(--front);
         border: none;
         border-radius: 16px;
 
@@ -158,7 +158,7 @@
 
     :global(.controls > button > svg > path) {
         transition: 0.2s;
-        fill: var(--black);
+        fill: var(--front);
     }
 
     :global(.controls > button:hover > svg > path) {
@@ -177,19 +177,19 @@
     .confirm {
         border-radius: 8px;
         margin-top: 8px;
-        color: var(--black);
-        background-color: var(--silver);
+        color: var(--front);
+        background-color: var(--back-extra);
     }
 
     .allow {
-        background-color: var(--white);
-        color: var(--black);
+        background-color: var(--back);
+        color: var(--front);
     }
 
     .newgame-dialog {
         padding: 1em;
-        background-color: var(--silver);
-        color: var(--black);
+        background-color: var(--back-extra);
+        color: var(--front);
         border-radius: 16px;
         display: flex;
         flex-direction: column;
@@ -203,14 +203,14 @@
         margin-top: 8px;
         margin-bottom: 8px;
         border: none;
-        background-color: var(--white);
-        color: var(--black);
+        background-color: var(--back);
+        color: var(--front);
         padding: 4px 8px;
         border-radius: 8px;
     }
 
     hr {
-        color: var(--black);
+        color: var(--front);
         margin: 16px 0;
         margin-top: 8px;
     }
