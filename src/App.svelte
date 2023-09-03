@@ -4,6 +4,7 @@
     import GameRules from "./components/GameRules.svelte";
     import SettingsView from "./components/SettingsView.svelte";
     import Dialog from "./components/UI/Dialog.svelte";
+    import { onMount } from "svelte";
 
     enum SCREENS {
         MainMenu,
@@ -12,12 +13,30 @@
         SettingsView,
     }
 
+    onMount(() => {
+        window.addEventListener("popstate", (event) => {
+            setState(event.state)
+        });
+    });
+
     let screen: SCREENS = SCREENS.MainMenu;
     let selected_game_key = null;
 
+    function setState(state) {
+        state ??= {};
+        if (state.game) {
+            selected_game_key = state.game;
+        }
+        if (state.screen) {
+            screen = state.screen;
+        } else {
+            screen = SCREENS.MainMenu;
+        }
+        return state;
+    }
+
     function back() {
-        selected_game_key = null;
-        screen = SCREENS.MainMenu;
+        history.back();
     }
 </script>
 
@@ -25,14 +44,14 @@
 {#if screen == SCREENS.MainMenu}
     <MainMenu
         on:play={(e) => {
-            selected_game_key = e.detail;
-            screen = SCREENS.GameView;
+            history.pushState(setState({ screen: SCREENS.GameView, game: e.detail }), "");
         }}
         on:rules={() => {
-            screen = SCREENS.GameRules;
+            history.pushState(setState({ screen: SCREENS.GameRules }), "");
+
         }}
         on:settings={() => {
-            screen = SCREENS.SettingsView;
+            history.pushState(setState({ screen: SCREENS.SettingsView }), "");
         }}
     />
 {:else if screen == SCREENS.GameView}
