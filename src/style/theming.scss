@@ -1,0 +1,37 @@
+html[theme="dark"] {
+    --front: #eef0f2;
+    --back: #141414;
+    --back-extra: #323232;
+    --back-error: #5b2020;
+}
+
+@media (prefers-color-scheme: dark) {
+    html[theme="system"] {
+        --front: #eef0f2;
+        --back: #141414;
+        --back-extra: #323232;
+        --back-error: #5b2020;
+    }
+}
+
+html[color="blue"] {
+    --primary: #0d21a1;
+}
+html[color="red"] {
+    --primary: #c80000;
+}
+html[color="green"] {
+    --primary: #3bc14a;
+}
+html[color="yellow"] {
+    --primary: #ffbd00;
+}
+html[color="orange"] {
+    --primary: #ff5400;
+}
+html[color="purple"] {
+    --primary: #5f00ba;
+}
+html[color="pink"] {
+    --primary: #f62dae;
+}

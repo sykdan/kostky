@@ -14,15 +14,6 @@
   <meta name="msapplication-TileColor" content="#2b5797">
   <meta name="theme-color" content="#0d21a1">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  <script>
-  document.querySelector("html").setAttribute("theme", localStorage.getItem("st__theme"))
-  let color = localStorage.getItem("st__color");
-  if(color !== null) {
-    document.querySelector('meta[name="theme-color"]').setAttribute("content", color);
-    document.querySelector("html").style.setProperty("--primary", color)
-  }
-  </script>
 </head>
 
 <body>

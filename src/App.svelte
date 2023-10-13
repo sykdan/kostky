@@ -5,6 +5,7 @@
     import SettingsView from "./components/SettingsView.svelte";
     import Dialog from "./components/UI/Dialog.svelte";
     import { onMount } from "svelte";
+    import { allowNext } from "./components/Lib/ScreenTransition";
 
     enum SCREENS {
         MainMenu,
@@ -15,7 +16,7 @@
 
     onMount(() => {
         window.addEventListener("popstate", (event) => {
-            setState(event.state)
+            setState(event.state);
         });
     });
 
@@ -36,6 +37,7 @@
     }
 
     function back() {
+        allowNext();
         history.back();
     }
 </script>
@@ -44,13 +46,18 @@
 {#if screen == SCREENS.MainMenu}
     <MainMenu
         on:play={(e) => {
-            history.pushState(setState({ screen: SCREENS.GameView, game: e.detail }), "");
+            allowNext();
+            history.pushState(
+                setState({ screen: SCREENS.GameView, game: e.detail }),
+                ""
+            );
         }}
         on:rules={() => {
+            allowNext();
             history.pushState(setState({ screen: SCREENS.GameRules }), "");
-
         }}
         on:settings={() => {
+            allowNext();
             history.pushState(setState({ screen: SCREENS.SettingsView }), "");
         }}
     />

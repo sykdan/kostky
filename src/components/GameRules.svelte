@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { fly } from "svelte/transition";
+    import tr from "./Lib/ScreenTransition";
 
     import Back from "svelte-material-icons/ArrowLeft.svelte";
 
@@ -28,7 +28,7 @@
     let show_actions = false;
 </script>
 
-<div class="rulesscreen appscreen" transition:fly>
+<div class="rulesscreen appscreen" in:tr out:tr>
     <TopBar
         title="Pravidla hry Yamb"
         hideRight={true}

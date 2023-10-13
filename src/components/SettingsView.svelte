@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { fly } from "svelte/transition";
+    import tr from "./Lib/ScreenTransition";
 
     import Back from "svelte-material-icons/ArrowLeft.svelte";
 
@@ -20,8 +20,8 @@
     }
     $: {
         localStorage.setItem("st__color", st__color);
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", st__color);
-        document.querySelector("html").style.setProperty("--primary", st__color);
+        document.querySelector("html").setAttribute("color", st__color);
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(document.body).getPropertyValue('--primary'));
     }
 
     function updateAutoBonus() {
@@ -47,7 +47,7 @@
     }
 </script>
 
-<div class="appscreen" transition:fly>
+<div class="appscreen" in:tr out:tr>
     <TopBar
         title="Možnosti"
         hideRight={true}
@@ -58,7 +58,7 @@
 
     <div class="settings">
         <div class="row">
-            <label for="theme">Režim</label>
+            <label for="theme">Motiv</label>
             <select name="theme" bind:value={st__theme}>
                 <option value="light">Světlý</option>
                 <option value="dark">Tmavý</option>
@@ -66,15 +66,15 @@
             </select>
         </div>
         <div class="row">
-            <label for="color">Motiv</label>
+            <label for="color">Barva</label>
             <select name="color" bind:value={st__color}>
-                <option value="#0d21a1">Modrý</option>
-                <option value="#c80000">Červený</option>
-                <option value="#3bc14a">Zelený</option>
-                <option value="#ffbd00">Žlutý</option>
-                <option value="#ff5400">Oranžový</option>
-                <option value="#5f00ba">Fialový</option>
-                <option value="#f62dae">Růžový</option>
+                <option value="blue">Modrá</option>
+                <option value="red">Červená</option>
+                <option value="green">Zelená</option>
+                <option value="yellow">Žlutá</option>
+                <option value="orange">Oranžová</option>
+                <option value="purple">Fialová</option>
+                <option value="pink">Růžová</option>
             </select>
         </div>
         <div class="row">

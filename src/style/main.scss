@@ -13,22 +13,6 @@ html {
     --back-error: #ffc4c5;
 }
 
-html[theme=dark] {
-    --front: #eef0f2;
-    --back: #141414;
-    --back-extra: #323232;
-    --back-error: #5b2020;
-}
-
-@media (prefers-color-scheme: dark) {
-    html[theme=system] {
-        --front: #eef0f2;
-        --back: #141414;
-        --back-extra: #323232;
-        --back-error: #5b2020;
-    }
-}
-
 * {
     font-family: "Jost", "Roboto", sans-serif;
 }
@@ -44,18 +28,7 @@ body {
     overscroll-behavior-y: none;
 }
 
-html,
-body,
-#app {
-    width: 100%;
-    height: 100%;
-}
 
-#app {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-}
 
 div.appscreen {
     display: flex;

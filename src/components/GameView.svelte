@@ -1,6 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { fly, slide } from "svelte/transition";
+    import { slide } from "svelte/transition";
+    import tr from "./Lib/ScreenTransition";
 
     import Back from "svelte-material-icons/ArrowLeft.svelte";
     import Menu from "svelte-material-icons/DotsVertical.svelte";
@@ -50,7 +51,7 @@
     }
 </script>
 
-<div class="game appscreen" transition:fly>
+<div class="game appscreen" in:tr out:tr>
     <TopBar
         title={metadata.name}
         on:leftbutton={() => emit("back")}

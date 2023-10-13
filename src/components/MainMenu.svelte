@@ -1,13 +1,14 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import { slide, fly } from "svelte/transition";
+    import { slide } from "svelte/transition";
     import SaveGame from "./UI/SaveGame.svelte";
     import new_card from "./Lib/EmptyCard";
 
     import NewGame from "svelte-material-icons/Plus.svelte";
     import Settings from "svelte-material-icons/Cog.svelte";
     import HowToPlay from "svelte-material-icons/Lightbulb.svelte";
-    import { dialogTrigger } from "./Lib/DialogTrigger";
+
+    import tr from "./Lib/ScreenTransition";
 
     const emit = createEventDispatcher();
 
@@ -49,7 +50,7 @@
     }
 </script>
 
-<div class="mainmenu appscreen" transition:fly>
+<div class="mainmenu appscreen" in:tr out:tr>
     <div class="controls">
         <div class="logo" />
 
