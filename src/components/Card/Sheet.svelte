@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { _, locale } from "svelte-i18n";
     import { scale } from "svelte/transition";
     // Header icons
     import Down from "svelte-material-icons/ArrowDownBold.svelte";
@@ -205,7 +206,7 @@
     </div>
     {#if final_sum != null}
         <div class="final_sum" transition:scale|local>
-            Celkové skóre:<br />
+            {$_("game.finalscore")}:<br />
             <b>
                 {final_sum}
             </b>

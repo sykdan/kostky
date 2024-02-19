@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { _, locale } from "svelte-i18n";
     import { createEventDispatcher } from "svelte";
     import tr from "./Lib/ScreenTransition";
 
@@ -30,7 +31,7 @@
 
 <div class="rulesscreen appscreen" in:tr out:tr>
     <TopBar
-        title="Pravidla hry Yamb"
+        title={$_("rules.title")}
         hideRight={true}
         on:leftbutton={() => emit("back")}
         on:rightbutton={() => (show_actions = !show_actions)}
@@ -39,145 +40,109 @@
     </TopBar>
     <div class="rules">
         <p>
-            Yamb je kostková hra pro jednoho či více hráčů (ale je samozřejmě
-            mnohem zábavnější s přáteli). Cílem je nashromáždit co nejvyšší
-            počet bodů na hrací kartě.
+            {$_("rules.intro_1")}
         </p>
         <p>
-            Hráči se střídají v házení šesti kostek. Každý hráč při svém tahu
-            může hodit až třikrát a při druhém a třetím hodu si může vybrat,
-            kterými kostkami hodí. Do bodového hodnocení se vždy počítá jen pět
-            ze šesti kostek (s výjimkou postupky).
+            {$_("rules.intro_2")}
         </p>
         <p>
-            Tah končí zapsáním bodů do hrací karty. Do hrací karty může hráč
-            zapsat body kdykoliv ve svém tahu, zpravidla je to ale při tahu
-            třetím. Karta má několik řádků (které představují kombinace) a
-            sloupců (které představují čtyři "hry", které hrajete). Body nelze
-            přepsat, pokud zapíšete nějakou hodnotu, již ji nelze změnit. Pokud
-            hráč nehodil žádnou kombinaci, musí napsat nulu do nějakého volného
-            pole.
+            {$_("rules.intro_3")}
         </p>
-        <h2>Řádky</h2>
-        <p>Řádky představují kombinace, za které dostáváte body. Těmi jsou:</p>
-        <p><Dice1 /> Jedničky: Zapisuje se součet všech jedniček.</p>
-        <p><Dice2 /> Dvojky: Zapisuje se součet všech dvojek.</p>
-        <p><Dice3 /> Trojky: Zapisuje se součet všech trojek.</p>
-        <p><Dice4 /> Čtyřky: Zapisuje se součet všech čtyřek.</p>
-        <p><Dice5 /> Pětky: Zapisuje se součet všech pětek.</p>
-        <p><Dice6 /> Šestky: Zapisuje se součet všech šestek.</p>
+        <h2>{$_("rules.rows")}</h2>
+        <p>{$_("rules.rows_intro")}</p>
+        <p><Dice1 /> {$_("rules.rows_1")}</p>
+        <p><Dice2 /> {$_("rules.rows_2")}</p>
+        <p><Dice3 /> {$_("rules.rows_3")}</p>
+        <p><Dice4 /> {$_("rules.rows_4")}</p>
+        <p><Dice5 /> {$_("rules.rows_5")}</p>
+        <p><Dice6 /> {$_("rules.rows_6")}</p>
         <p>
-            <Maximum /> Maximum: Zapisuje se libovolný součet kostek, měl by být
-            co nejvyšší.
+            <Maximum />
+            {$_("rules.rows_max")}
         </p>
         <p>
-            <Minimum /> Minimum: Zapisuje se libovolný součet kostek, měl by být
-            co nejmenší.
+            <Minimum />
+            {$_("rules.rows_min")}
         </p>
         <p style="margin-bottom: 0">
-            <Sequence /> Postupka: Zapisuje se bodové ohodnocení dle toho, jakou
-            postupku hodíte:
+            <Sequence />
+            {$_("rules.rows_str")}
         </p>
         <ul>
             <li>
-                Pokud máte postupku 1-5 či 2-6 při prvním hodu, zapisujete 66
-                bodů.
+                {$_("rules.rows_str_66")}
             </li>
             <li>
-                Pokud máte postupku 1-5 či 2-6 při druhém hodu, zapisujete 56
-                bodů.
+                {$_("rules.rows_str_56")}
             </li>
             <li>
-                Pokud máte postupku 1-5 či 2-6 při třetím hodu, zapisujete 46
-                bodů.
+                {$_("rules.rows_str_46")}
             </li>
             <li>
-                Pokud máte postupku 1-6 při prvním hodu, zapisujete 76 bodů.
+                {$_("rules.rows_str_76")}
             </li>
         </ul>
         <p>
-            <FullHouse /> Full House: Pokud máte dvojici a trojici, zapište jejich
-            součet + bonus 30 bodů (ten aplikace připočte automaticky, pište pouze
-            součet).
+            <FullHouse />
+            {$_("rules.rows_fh")}*
         </p>
         <p>
-            <Poker /> Poker: Pokud máte čtveřici, zapište součet + bonus 40 bodů
-            (připočten automaticky).
+            <Poker />
+            {$_("rules.rows_poker")}*
         </p>
         <p>
-            <Yamb /> Yamb: Pokud máte pětici, zapište součet + bonus 50 bodů (připočten
-            automaticky).
-        </p>
-        <h2>Sloupce</h2>
-        <p>
-            Ve hře Yamb každou kombinaci vyplňujete čtyřikrát, pokaždé do jiného
-            sloupce. Těmito sloupci jsou:
+            <Yamb />
+            {$_("rules.rows_yamb")}*
         </p>
         <p>
-            <Down /> Shora: Kombinace vyplňujete shora dolů (takže musíte zapsat
-            <i>nějaké</i> body do jedniček, abyste mohli zapisovat do dvojek, pak
-            trojek, atd.)
+            * {$_("rules.rows_autobonus")}
         </p>
-        <p><Both /> Různě: Kombinace můžete vyplňovat v jakémkoli pořadí.</p>
+        <h2>{$_("rules.cols")}</h2>
         <p>
-            <Up /> Vzhůru: Kombinace vyplňujete zdola nahoru. (takže musíte zapsat
-            body za Yamb, abyste mohli zapsat Poker, Full House...)
+            {$_("rules.cols_intro")}
         </p>
         <p>
-            <Announced /> Hlášení: Kombinace můžete vyplňovat v jakémkoli pořadí,
-            ale po <i>prvním hodu</i> musíte oznámit, jakou kombinaci budete vyplňovat.
-            Poté již nesmíte změnit své rozhodnutí.
+            <Down />
+            {$_("rules.cols_down")}
+        </p>
+        <p><Both /> {$_("rules.cols_any")}</p>
+        <p>
+            <Up />
+            {$_("rules.cols_up")}
+        </p>
+        <p>
+            <Announced />
+            {@html $_("rules.cols_announce")}
         </p>
 
-        <h2>Co je důležité si uvědomit</h2>
+        <h2>{$_("rules.tips")}</h2>
         <p>
-            Takto napsaná pravidla možná nemusí dávat na první pohled smysl,
-            pojďme si projít nějaké příklady, které by mohly pomoct.
+            {$_("rules.tips_1")}
         </p>
         <p>
-            <b>Rozhodněte se, co budete zapisovat.</b> Řekněme, že jste právě
-            začali hrát a vaše karta je prázdná. Pokud na kostkách hodíte
-            kombinaci [1, 1, 1, 1, 2, 2], můžete si zapsat 4 body do jedniček
-            (4krát jednička) do sloupce <i>Shora</i>, nebo 6 bodů do minima
-            (počítá se pouze 5 kostek, tedy složíte minimum z 1 1 1 1 2) ve
-            sloupci <i>Různě</i>. Také byste si mohli zapsat 4 body do dvojek
-            (2x dvojka), ale později byste mohli hodit třeba pět dvojek a napsat
-            do stejného pole 10 bodů. Musíte se proto rozhodnout, do které
-            kombinace a kterého sloupce budete zapisovat, abyste si nezaplnili
-            políčko příliš nízkou hodnotou.
+            {@html $_("rules.tips_2")}
         </p>
         <p>
-            <b>Nezaplňujte hned sloupec <i>Různě</i>.</b> Bude se vám zdát, že je
-            to tak nejlepší a že tak získáte nejvíc možných bodů, opak je ale pravdou.
-            Budete poté muset spoléhat na ostatní sloupce, ve kterých nemůžete zapisovat
-            body tak, jak se vám zachce. Pokud vám nebudou na kostkách padat vhodná
-            čísla, budete muset zapisovat nuly a ztrácet.
+            {@html $_("rules.tips_3")}
         </p>
-        <h2>Bodování</h2>
+        <h2>{$_("rules.scoring")}</h2>
         <p style="margin-bottom: 0">
-            Po vyplnění všech polí je hra u konce a spočítají se body. Každý
-            sloupec má vlastní konečné skóre spočítané následovně:
+            {$_("rules.scoring_1")}
         </p>
         <ul>
             <li>
-                Sečtou se body za jedničky, dvojky, trojky, čtyřky, pětky a
-                šestky. Pokud tento součet přesahuje 60, připočte se bonusových
-                30 bodů. (Aplikace na to upozorní změnou barvy na zeleno)
+                {$_("rules.scoring_2")}
             </li>
             <li>
-                Odečte se minimum od maxima a výsledek je vynásoben body za
-                jedničky.
+                {$_("rules.scoring_3")}
             </li>
             <li>
-                Body za postupku, Full House, Poker a Yamb se sčítají bez
-                speciálních pravidel.
+                {$_("rules.scoring_4")}
             </li>
-            <li>Součet těchto tří oddílů tvoří konečné skóre za sloupec.</li>
+            <li>{$_("rules.scoring_5")}</li>
         </ul>
         <p>
-            Konečné skóre sloupců se poté sečte do jednoho čísla, které je Vaším
-            výsledkem. Aplikace toto udělá za vás a zobrazí celkový součet dole
-            na obrazovce.
+            {$_("rules.scoring_6")}
         </p>
     </div>
 </div>

@@ -1,4 +1,5 @@
 <script>
+    import { _, locale } from "svelte-i18n";
     import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
     import Play from "svelte-material-icons/Play.svelte";
@@ -20,16 +21,16 @@
         </span>
     </div>
     <button class="play" on:click={() => emit("play")}>
-        <Play size="32" color="#141414" /> Hrát
+        <Play size="32" color="#141414" /> {$_("main.play")}
     </button>
     <button
         on:click={async () =>
-            await dialogTrigger.prompt(
-                "Potvrdit smazání",
-                "Opravdu smazat tuto hru?\nNejde to vrátit zpátky, tak si to dobře rozmysli.",
-                "Ano",
-                "Ne"
-            ) && emit("delete")}
+            (await dialogTrigger.prompt(
+                $_("main.delete"),
+                $_("main.delete_confirm") + "\n" + $_("common.noundo"),
+                $_("common.yes"),
+                $_("common.no"),
+            )) && emit("delete")}
         class="danger"
     >
         <Delete size="32" color="#141414" />

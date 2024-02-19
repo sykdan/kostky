@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { _, locale } from "svelte-i18n";
     import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
     import tr from "./Lib/ScreenTransition";
@@ -25,10 +26,10 @@
     async function zeroes() {
         if (
             await dialogTrigger.prompt(
-                "Proškrtat nepopsané",
-                "Opravdu chceš škrtnout nepopsaná políčka?\nToto nejde vrátit zpět, tak si to dobře rozmysli.",
-                "Ano",
-                "Ne"
+                $_("game.crossempty"),
+                $_("game.crossempty_confirm") + "\n" + $_("common.noundo"),
+                $_("common.yes"),
+                $_("common.no"),
             )
         ) {
             card = card.map((k) => k.map((l) => l ?? 0));
@@ -39,10 +40,10 @@
     async function clear() {
         if (
             await dialogTrigger.prompt(
-                "Resetovat kartu",
-                "Opravdu chceš resetovat kartu?\nToto nejde vrátit zpět, tak si to dobře rozmysli.",
-                "Ano",
-                "Ne"
+                $_("game.reset"),
+                $_("game.reset_confirm") + "\n" + $_("common.noundo"),
+                $_("common.yes"),
+                $_("common.no"),
             )
         ) {
             card = new_card();
@@ -65,11 +66,11 @@
         <div class="actions" transition:slide|local>
             <button on:click={zeroes} style="color: var(--front)">
                 <ZeroOut color="var(--front)" size="28" />
-                Škrtnout nepopsané
+                {$_("game.crossempty")}
             </button>
             <button on:click={clear} style="color: var(--red)">
                 <Clear color="var(--red)" size="28" />
-                Resetovat celou kartu
+                {$_("game.reset")}
             </button>
         </div>
     {/if}
@@ -90,7 +91,9 @@
         gap: 4px;
         margin: 8px;
         border-radius: 16px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow:
+            0 1px 3px rgba(0, 0, 0, 0.12),
+            0 1px 2px rgba(0, 0, 0, 0.24);
     }
 
     div.actions button {

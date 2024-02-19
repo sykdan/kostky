@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { _, locale } from "svelte-i18n";
     import { createEventDispatcher } from "svelte";
     import tr from "./Lib/ScreenTransition";
 
@@ -10,7 +11,9 @@
 
     let st__theme = localStorage.getItem("st__theme") ?? "light";
     let st__autobonus = localStorage.getItem("st__autobonus") ?? "yes";
-    let st__color = localStorage.getItem("st__color") ?? "#0d21a1"
+    let st__color = localStorage.getItem("st__color") ?? "#0d21a1";
+    let st__locale = localStorage.getItem("st__locale") ?? "cs";
+
     $: {
         localStorage.setItem("st__theme", st__theme);
         document.querySelector("html").setAttribute("theme", st__theme);
@@ -21,7 +24,16 @@
     $: {
         localStorage.setItem("st__color", st__color);
         document.querySelector("html").setAttribute("color", st__color);
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", getComputedStyle(document.body).getPropertyValue('--primary'));
+        document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute(
+                "content",
+                getComputedStyle(document.body).getPropertyValue("--primary"),
+            );
+    }
+    $: {
+        localStorage.setItem("st__locale", st__locale);
+        $locale = st__locale;
     }
 
     function updateAutoBonus() {
@@ -49,7 +61,7 @@
 
 <div class="appscreen" in:tr out:tr>
     <TopBar
-        title="Možnosti"
+        title={$_("settings.title")}
         hideRight={true}
         on:leftbutton={() => emit("back")}
     >
@@ -58,34 +70,42 @@
 
     <div class="settings">
         <div class="row">
-            <label for="theme">Motiv</label>
+            <label for="theme">{$_("settings.theme")}</label>
             <select name="theme" bind:value={st__theme}>
-                <option value="light">Světlý</option>
-                <option value="dark">Tmavý</option>
-                <option value="system">Podle systému</option>
+                <option value="light">{$_("settings.theme_light")}</option>
+                <option value="dark">{$_("settings.theme_dark")}</option>
+                <option value="system">{$_("settings.theme_system")}</option>
             </select>
         </div>
         <div class="row">
-            <label for="color">Barva</label>
+            <label for="color">{$_("settings.color")}</label>
             <select name="color" bind:value={st__color}>
-                <option value="blue">Modrá</option>
-                <option value="red">Červená</option>
-                <option value="green">Zelená</option>
-                <option value="yellow">Žlutá</option>
-                <option value="orange">Oranžová</option>
-                <option value="purple">Fialová</option>
-                <option value="pink">Růžová</option>
+                <option value="blue">{$_("settings.color_blue")}</option>
+                <option value="red">{$_("settings.color_red")}</option>
+                <option value="green">{$_("settings.color_green")}</option>
+                <option value="yellow">{$_("settings.color_yellow")}</option>
+                <option value="orange">{$_("settings.color_orange")}</option>
+                <option value="purple">{$_("settings.color_purple")}</option>
+                <option value="pink">{$_("settings.color_pink")}</option>
+                <option value="cyan">{$_("settings.color_cyan")}</option>
             </select>
         </div>
         <div class="row">
-            <label for="autobonus">Připočítat bonusy</label>
+            <label for="autobonus">{$_("settings.autobonus")}</label>
             <select
                 name="autobonus"
                 bind:value={st__autobonus}
                 on:change={updateAutoBonus}
             >
-                <option value="yes">Ano</option>
-                <option value="no">Ne</option>
+                <option value="yes">{$_("settings.autobonus_yes")}</option>
+                <option value="no">{$_("settings.autobonus_no")}</option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="locale">{$_("settings.locale")}{$locale == "en" ? "" : " / Language"}</label>
+            <select name="locale" bind:value={st__locale}>
+                <option value="cs">Česky</option>
+                <option value="en">English</option>
             </select>
         </div>
     </div>

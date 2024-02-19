@@ -1,6 +1,7 @@
 import './app.scss'
 import App from './App.svelte'
 import { registerSW } from 'virtual:pwa-register'
+import "./i18n/locale"
 
 registerSW({ immediate: true })
 

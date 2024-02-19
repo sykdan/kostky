@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { _, locale } from "svelte-i18n";
     import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
     import SaveGame from "./UI/SaveGame.svelte";
@@ -70,16 +71,16 @@
                 transition:slide|local
             >
                 <NewGame />
-                Nová hra
+                {$_("main.newgame")}
             </button>
         {/if}
 
         {#if newgame}
             <div class="newgame-dialog" transition:slide|local>
-                <span>Pojmenuj tuto hru:</span>
+                <span>{$_("main.newgame_name")}:</span>
                 <input
                     type="text"
-                    placeholder="např. Kostky s Lídou"
+                    placeholder={$_("main.newgame_name_hint")}
                     bind:value={newgame_name}
                 />
                 <button
@@ -88,7 +89,7 @@
                     class:allow={newgame_name}
                     style={newgame_name ? "" : "pointer-events: none"}
                 >
-                    Vytvořit
+                    {$_("main.newgame_create")}
                 </button>
             </div>
         {/if}
@@ -96,11 +97,11 @@
         <hr />
         <button on:click={() => emit("rules")}>
             <HowToPlay />
-            Pravidla hry
+            {$_("main.rules")}
         </button>
         <button on:click={() => emit("settings")}>
             <Settings />
-            Možnosti
+            {$_("main.options")}
         </button>
     </div>
 </div>
