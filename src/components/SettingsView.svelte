@@ -11,7 +11,7 @@
 
     let st__theme = localStorage.getItem("st__theme") ?? "light";
     let st__autobonus = localStorage.getItem("st__autobonus") ?? "yes";
-    let st__color = localStorage.getItem("st__color") ?? "#0d21a1";
+    let st__color = localStorage.getItem("st__color") ?? "blue";
     let st__locale = localStorage.getItem("st__locale") ?? "cs";
 
     $: {
