@@ -11,17 +11,17 @@
     import Clear from "svelte-material-icons/TrashCan.svelte";
 
     import PlayingCard from "./Card/Sheet.svelte";
-    import new_card from "./Lib/EmptyCard";
+    import { getBlankGameCard, type GameData } from "./Lib/SaveData";
     import TopBar from "./UI/TopBar.svelte";
     import { dialogTrigger } from "./Lib/DialogTrigger";
 
     const emit = createEventDispatcher();
-    let show_actions = false;
+    let showActions = false;
 
-    export let key: string;
-    let card = JSON.parse(localStorage.getItem(key));
-    let metadata = JSON.parse(localStorage.getItem("games"))[key];
-    $: localStorage.setItem(key, JSON.stringify(card));
+    export let id: string;
+    let card = JSON.parse(localStorage.getItem(id));
+    let gameData: GameData = JSON.parse(localStorage.getItem("games"))[id];
+    $: localStorage.setItem(id, JSON.stringify(card));
 
     async function zeroes() {
         if (
@@ -33,7 +33,7 @@
             )
         ) {
             card = card.map((k) => k.map((l) => l ?? 0));
-            show_actions = false;
+            showActions = false;
         }
     }
 
@@ -46,23 +46,23 @@
                 $_("common.no"),
             )
         ) {
-            card = new_card();
-            show_actions = false;
+            card = getBlankGameCard();
+            showActions = false;
         }
     }
 </script>
 
 <div class="game appscreen" in:tr out:tr>
     <TopBar
-        title={metadata.name}
+        title={gameData.name}
         on:leftbutton={() => emit("back")}
-        on:rightbutton={() => (show_actions = !show_actions)}
+        on:rightbutton={() => (showActions = !showActions)}
     >
         <Back slot="leftbutton" color="white" size="28" />
         <Menu slot="rightbutton" color="white" size="28" />
     </TopBar>
 
-    {#if show_actions}
+    {#if showActions}
         <div class="actions" transition:slide|local>
             <button on:click={zeroes} style="color: var(--front)">
                 <ZeroOut color="var(--front)" size="28" />

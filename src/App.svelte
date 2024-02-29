@@ -21,12 +21,12 @@
     });
 
     let screen: SCREENS = SCREENS.MainMenu;
-    let selected_game_key = null;
+    let selectedGameId = null;
 
     function setState(state) {
         state ??= {};
         if (state.game) {
-            selected_game_key = state.game;
+            selectedGameId = state.game;
         }
         if (state.screen) {
             screen = state.screen;
@@ -62,7 +62,7 @@
         }}
     />
 {:else if screen == SCREENS.GameView}
-    <GameView on:back={back} key={selected_game_key} />
+    <GameView on:back={back} id={selectedGameId} />
 {:else if screen == SCREENS.GameRules}
     <GameRules on:back={back} />
 {:else if screen == SCREENS.SettingsView}

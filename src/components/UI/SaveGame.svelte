@@ -17,7 +17,7 @@
             {metadata.name}
         </span>
         <span class="lastplayed">
-            {new Date(metadata.last_played).toLocaleString()}
+            {metadata.last_played !== -1 ? new Date(metadata.last_played).toLocaleString() : $_("main.no_played")}
         </span>
     </div>
     <button class="play" on:click={() => emit("play")}>

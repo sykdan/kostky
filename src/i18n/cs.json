@@ -6,6 +6,7 @@
     },
     "main": {
         "play": "Hrát",
+        "no_played": "Nikdy neotevřeno",
         "newgame": "Nová karta",
         "newgame_name": "Pojmenuj tuto kartu",
         "newgame_name_hint": "např. Kostky s Lídou",

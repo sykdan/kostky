@@ -6,6 +6,7 @@
     },
     "main": {
         "play": "Play",
+        "no_played": "Never played",
         "newgame": "New card",
         "newgame_name": "Name this card",
         "newgame_name_hint": "e.g. game with John",
