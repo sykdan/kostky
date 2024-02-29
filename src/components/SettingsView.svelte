@@ -106,6 +106,7 @@
             <select name="locale" bind:value={st__locale}>
                 <option value="cs">Česky</option>
                 <option value="en">English</option>
+                <option value="bs">Bosanski</option>
             </select>
         </div>
     </div>
