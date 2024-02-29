@@ -2,11 +2,11 @@
     "common": {
         "yes": "Yes",
         "no": "No",
-        "noundo": "This cannot be reverted so think twice!"
+        "noundo": "This cannot be reverted so think twice!",
+        "ok": "OK"
     },
     "main": {
         "play": "Play",
-        "no_played": "Never played",
         "newgame": "New card",
         "newgame_name": "Name this card",
         "newgame_name_hint": "e.g. game with John",
@@ -14,14 +14,19 @@
         "delete": "Delete game card",
         "delete_confirm": "Really delete this game card?",
         "rules": "Rules",
-        "options": "Options"
+        "options": "Options",
+        "no_played": "Never played"
     },
     "game": {
         "finalscore": "Total score",
         "crossempty": "Cross empty cells",
         "crossempty_confirm": "Really cross (=set as 0) all empty cells?",
         "reset": "Reset card",
-        "reset_confirm": "Really reset the entire card?"
+        "reset_confirm": "Really reset the entire card?",
+        "whoisplaying": "Whose turn is it?",
+        "whoisplaying_intro": "If you are continuing a past game and do not remember what order you played in, this info might help:",
+        "whoisplaying_time": "You first scored at {time}.",
+        "whoisplaying_fields": "{n} fields are empty."
     },
     "settings": {
         "title": "Options",
