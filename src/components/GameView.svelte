@@ -1,17 +1,23 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import { slide } from "svelte/transition";
     import tr from "./Lib/ScreenTransition";
 
     import Back from "svelte-material-icons/ArrowLeft.svelte";
     import Menu from "svelte-material-icons/DotsVertical.svelte";
 
-    import ZeroOut from "svelte-material-icons/Close.svelte";
+    import CrossOut from "svelte-material-icons/Close.svelte";
+    import WhoIsPlaying from "svelte-material-icons/HelpCircle.svelte";
     import Clear from "svelte-material-icons/TrashCan.svelte";
 
     import PlayingCard from "./Card/Sheet.svelte";
-    import { getBlankGameCard, type GameData } from "./Lib/SaveData";
+    import {
+        getBlankGameCard,
+        type GameData,
+        type GameCard,
+        GAME_CARD_SIZE,
+    } from "./Lib/SaveData";
     import TopBar from "./UI/TopBar.svelte";
     import { dialogTrigger } from "./Lib/DialogTrigger";
 
@@ -19,9 +25,31 @@
     let showActions = false;
 
     export let id: string;
-    let card = JSON.parse(localStorage.getItem(id));
     let gameData: GameData = JSON.parse(localStorage.getItem("games"))[id];
-    $: localStorage.setItem(id, JSON.stringify(card));
+    let card: GameCard = JSON.parse(localStorage.getItem(id));
+    $: {
+        localStorage.setItem(id, JSON.stringify(card));
+        if (gameData.first_placed === null && countFilled() > 0) {
+            gameData.first_placed = +new Date();
+        }
+    }
+    $: {
+        let g = JSON.parse(localStorage.getItem("games"));
+        g[id] = gameData;
+        localStorage.setItem("games", JSON.stringify(g));
+    }
+
+    onMount(() => {
+        gameData.last_played = +new Date();
+    });
+
+    function countFilled() {
+        return card.reduce(
+            (carry, x) =>
+                carry += x.reduce((carry, x) => carry += (x !== null ? 1 : 0), 0),
+            0,
+        );
+    }
 
     async function zeroes() {
         if (
@@ -37,6 +65,25 @@
         }
     }
 
+    function getFirstPlacedTime() {
+        let date = new Date(gameData.first_placed);
+        return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`
+    }
+
+    async function order() {
+        let message =  $_("game.whoisplaying_intro") + "\n\n";
+        if(gameData.first_placed) {
+            message += $_("game.whoisplaying_time", {values: {"time": "<b>" + getFirstPlacedTime() + "</b>"}}) + "\n"
+        }
+        message += $_("game.whoisplaying_fields", {values: {"n": "<b>" + (GAME_CARD_SIZE - countFilled()).toString() + "</b>"}}) + "\n";
+           
+        await dialogTrigger.prompt(
+            $_("game.whoisplaying"),
+           message,
+            $_("common.ok"),
+        );
+    }
+
     async function clear() {
         if (
             await dialogTrigger.prompt(
@@ -47,6 +94,7 @@
             )
         ) {
             card = getBlankGameCard();
+            gameData.first_placed = null;
             showActions = false;
         }
     }
@@ -65,8 +113,12 @@
     {#if showActions}
         <div class="actions" transition:slide|local>
             <button on:click={zeroes} style="color: var(--front)">
-                <ZeroOut color="var(--front)" size="28" />
+                <CrossOut color="var(--front)" size="28" />
                 {$_("game.crossempty")}
+            </button>
+            <button on:click={order} style="color: var(--front)">
+                <WhoIsPlaying color="var(--front)" size="28" />
+                {$_("game.whoisplaying")}
             </button>
             <button on:click={clear} style="color: var(--red)">
                 <Clear color="var(--red)" size="28" />

@@ -8,19 +8,19 @@ function _dialogTrigger() {
         cancel: "",
 
         visible: false,
-        resolver: (value) => {}
+        resolver: (value) => { }
     });
 
     return {
         subscribe,
-        prompt: (title, message, ok, cancel) => {
+        prompt: (title, message, ok, cancel = null) => {
             return new Promise((r) => {
                 update(k => {
                     k.title = title
                     k.message = message
                     k.ok = ok
                     k.cancel = cancel
-    
+
                     k.visible = true
                     k.resolver = r
 

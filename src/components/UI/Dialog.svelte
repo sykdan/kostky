@@ -15,7 +15,7 @@
                 {$dialogTrigger.title}
             </div>
             <div class="message">
-                {$dialogTrigger.message}
+                {@html $dialogTrigger.message}
             </div>
             <div class="buttons">
                 {#if $dialogTrigger.cancel}

@@ -40,84 +40,84 @@
     </TopBar>
     <div class="rules">
         <p>
-            {$_("rules.intro_1")}
+            {@html $_("rules.intro_1")}
         </p>
         <p>
-            {$_("rules.intro_2")}
+            {@html $_("rules.intro_2")}
         </p>
         <p>
-            {$_("rules.intro_3")}
+            {@html $_("rules.intro_3")}
         </p>
-        <h2>{$_("rules.rows")}</h2>
-        <p>{$_("rules.rows_intro")}</p>
-        <p><Dice1 /> {$_("rules.rows_1")}</p>
-        <p><Dice2 /> {$_("rules.rows_2")}</p>
-        <p><Dice3 /> {$_("rules.rows_3")}</p>
-        <p><Dice4 /> {$_("rules.rows_4")}</p>
-        <p><Dice5 /> {$_("rules.rows_5")}</p>
-        <p><Dice6 /> {$_("rules.rows_6")}</p>
+        <h2>{@html $_("rules.rows")}</h2>
+        <p>{@html $_("rules.rows_intro")}</p>
+        <p><Dice1 /> {@html $_("rules.rows_1")}</p>
+        <p><Dice2 /> {@html $_("rules.rows_2")}</p>
+        <p><Dice3 /> {@html $_("rules.rows_3")}</p>
+        <p><Dice4 /> {@html $_("rules.rows_4")}</p>
+        <p><Dice5 /> {@html $_("rules.rows_5")}</p>
+        <p><Dice6 /> {@html $_("rules.rows_6")}</p>
         <p>
             <Maximum />
-            {$_("rules.rows_max")}
+            {@html $_("rules.rows_max")}
         </p>
         <p>
             <Minimum />
-            {$_("rules.rows_min")}
+            {@html $_("rules.rows_min")}
         </p>
         <p style="margin-bottom: 0">
             <Sequence />
-            {$_("rules.rows_str")}
+            {@html $_("rules.rows_str")}
         </p>
         <ul>
             <li>
-                {$_("rules.rows_str_66")}
+                {@html $_("rules.rows_str_66")}
             </li>
             <li>
-                {$_("rules.rows_str_56")}
+                {@html $_("rules.rows_str_56")}
             </li>
             <li>
-                {$_("rules.rows_str_46")}
+                {@html $_("rules.rows_str_46")}
             </li>
             <li>
-                {$_("rules.rows_str_76")}
+                {@html $_("rules.rows_str_76")}
             </li>
         </ul>
         <p>
             <FullHouse />
-            {$_("rules.rows_fh")}*
+            {@html $_("rules.rows_fh")}*
         </p>
         <p>
             <Poker />
-            {$_("rules.rows_poker")}*
+            {@html $_("rules.rows_poker")}*
         </p>
         <p>
             <Yamb />
-            {$_("rules.rows_yamb")}*
+            {@html $_("rules.rows_yamb")}*
         </p>
         <p>
-            * {$_("rules.rows_autobonus")}
+            * {@html $_("rules.rows_autobonus")}
         </p>
-        <h2>{$_("rules.cols")}</h2>
+        <h2>{@html $_("rules.cols")}</h2>
         <p>
-            {$_("rules.cols_intro")}
+            {@html $_("rules.cols_intro")}
         </p>
         <p>
             <Down />
-            {$_("rules.cols_down")}
+            {@html $_("rules.cols_down")}
         </p>
-        <p><Both /> {$_("rules.cols_any")}</p>
+        <p><Both /> {@html $_("rules.cols_any")}</p>
         <p>
             <Up />
-            {$_("rules.cols_up")}
+            {@html $_("rules.cols_up")}
         </p>
         <p>
             <Announced />
             {@html $_("rules.cols_announce")}
         </p>
 
-        <h2>{$_("rules.tips")}</h2>
+        <h2>{@html $_("rules.tips")}</h2>
         <p>
-            {$_("rules.tips_1")}
+            {@html $_("rules.tips_1")}
         </p>
         <p>
             {@html $_("rules.tips_2")}
@@ -125,24 +125,24 @@
         <p>
             {@html $_("rules.tips_3")}
         </p>
-        <h2>{$_("rules.scoring")}</h2>
+        <h2>{@html $_("rules.scoring")}</h2>
         <p style="margin-bottom: 0">
-            {$_("rules.scoring_1")}
+            {@html $_("rules.scoring_1")}
         </p>
         <ul>
             <li>
-                {$_("rules.scoring_2")}
+                {@html $_("rules.scoring_2")}
             </li>
             <li>
-                {$_("rules.scoring_3")}
+                {@html $_("rules.scoring_3")}
             </li>
             <li>
-                {$_("rules.scoring_4")}
+                {@html $_("rules.scoring_4")}
             </li>
-            <li>{$_("rules.scoring_5")}</li>
+            <li>{@html $_("rules.scoring_5")}</li>
         </ul>
         <p>
-            {$_("rules.scoring_6")}
+            {@html $_("rules.scoring_6")}
         </p>
     </div>
 </div>

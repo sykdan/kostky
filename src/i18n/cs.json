@@ -1,5 +1,6 @@
 {
     "common": {
+        "ok": "OK",
         "yes": "Ano",
         "no": "Ne",
         "noundo": "Toto nejde vrátit zpět, tak si to dobře rozmysli."
@@ -20,6 +21,10 @@
         "finalscore": "Celkové skóre",
         "crossempty": "Škrtnout nepopsané",
         "crossempty_confirm": "Opravdu chceš škrtnout nepopsaná políčka?",
+        "whoisplaying": "Kdo je na řadě?",
+        "whoisplaying_intro": "Pokud pokračujete rozehranou hru a nevíte, v jakém pořadí jste hráli, tyto informace by mohly pomoci:",
+        "whoisplaying_time": "První políčko jste vyplnili v čase {time}.",
+        "whoisplaying_fields": "Zbývá Vám vyplnit ještě {n} políček.",
         "reset": "Resetovat kartu",
         "reset_confirm": "Opravdu chceš resetovat celou kartu?"
     },
