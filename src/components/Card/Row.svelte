@@ -15,7 +15,7 @@
 </script>
 
 <!-- Icon -->
-<div class="cell side has-icon">
+<div class="cell side has-icon gradient-downward">
     <slot />
 </div>
 <!-- Input boxes -->

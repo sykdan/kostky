@@ -2,13 +2,16 @@
 
 html {
     --primary: #0d21a1;
+    --surface: var(--white);
 
     --red: #e02417;
     --gold: #eec643;
     --green: #39b51d;
+    --white: #eef0f2;
+    --black: #141414;
 
-    --front: #141414;
-    --back: #eef0f2;
+    --front: var(--black);
+    --back: var(--white);
     --back-extra: #d4d5d6;
     --back-error: #ffc4c5;
 }
@@ -24,7 +27,7 @@ html {
 
 body {
     margin: 0;
-    background-color: var(--back);
+    background: var(--back);
     overscroll-behavior-y: none;
     overflow: hidden;
     -webkit-tap-highlight-color: transparent;

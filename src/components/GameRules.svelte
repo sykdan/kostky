@@ -36,7 +36,7 @@
         on:leftbutton={() => emit("back")}
         on:rightbutton={() => (show_actions = !show_actions)}
     >
-        <Back slot="leftbutton" color="white" size="28" />
+        <Back slot="leftbutton" color="var(--surface)" size="28" />
     </TopBar>
     <div class="rules">
         <p>

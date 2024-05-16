@@ -43,6 +43,7 @@
         "color_purple": "Purple",
         "color_pink": "Magenta",
         "color_cyan": "Cyan",
+        "color_rainbow": "Rainbow",
         "autobonus": "Auto-apply bonuses",
         "autobonus_yes": "Yes",
         "autobonus_no": "No",

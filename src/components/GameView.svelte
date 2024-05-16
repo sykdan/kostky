@@ -29,7 +29,10 @@
     let card: GameCard = JSON.parse(localStorage.getItem(id));
     $: {
         localStorage.setItem(id, JSON.stringify(card));
-        if (gameData.first_placed === null && countFilled() > 0) {
+        let filled = countFilled();
+        if (filled == 0) {
+            gameData.first_placed = null;
+        } else if (filled == 1) {
             gameData.first_placed = +new Date();
         }
     }
@@ -46,7 +49,10 @@
     function countFilled() {
         return card.reduce(
             (carry, x) =>
-                carry += x.reduce((carry, x) => carry += (x !== null ? 1 : 0), 0),
+                (carry += x.reduce(
+                    (carry, x) => (carry += x !== null ? 1 : 0),
+                    0,
+                )),
             0,
         );
     }
@@ -67,19 +73,30 @@
 
     function getFirstPlacedTime() {
         let date = new Date(gameData.first_placed);
-        return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`
+        return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`;
     }
 
     async function order() {
-        let message =  $_("game.whoisplaying_intro") + "\n\n";
-        if(gameData.first_placed) {
-            message += $_("game.whoisplaying_time", {values: {"time": "<b>" + getFirstPlacedTime() + "</b>"}}) + "\n"
+        let message = $_("game.whoisplaying_intro") + "\n\n";
+        if (gameData.first_placed) {
+            message +=
+                $_("game.whoisplaying_time", {
+                    values: { time: "<b>" + getFirstPlacedTime() + "</b>" },
+                }) + "\n";
         }
-        message += $_("game.whoisplaying_fields", {values: {"n": "<b>" + (GAME_CARD_SIZE - countFilled()).toString() + "</b>"}}) + "\n";
-           
+        message +=
+            $_("game.whoisplaying_fields", {
+                values: {
+                    n:
+                        "<b>" +
+                        (GAME_CARD_SIZE - countFilled()).toString() +
+                        "</b>",
+                },
+            }) + "\n";
+
         await dialogTrigger.prompt(
             $_("game.whoisplaying"),
-           message,
+            message,
             $_("common.ok"),
         );
     }
@@ -106,8 +123,8 @@
         on:leftbutton={() => emit("back")}
         on:rightbutton={() => (showActions = !showActions)}
     >
-        <Back slot="leftbutton" color="white" size="28" />
-        <Menu slot="rightbutton" color="white" size="28" />
+        <Back slot="leftbutton" color="var(--surface)" size="28" />
+        <Menu slot="rightbutton" color="var(--surface)" size="28" />
     </TopBar>
 
     {#if showActions}

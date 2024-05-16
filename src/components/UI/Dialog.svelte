@@ -52,13 +52,16 @@
         border-radius: 16px;
         background-color: var(--back);
         color: var(--front);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        white-space: pre-line
+        box-shadow:
+            0 1px 3px rgba(0, 0, 0, 0.12),
+            0 1px 2px rgba(0, 0, 0, 0.24);
+        white-space: pre-line;
     }
 
     div.header {
         background-color: var(--primary);
-        color: white;
+        background-image: var(--primary-detail);
+        color: var(--surface);
         text-align: center;
         font-size: 28px;
         user-select: none;
@@ -90,8 +93,9 @@
 
     div.buttons button.ok {
         background-color: var(--primary);
+        background-image: var(--primary-detail);
         padding: 8px 16px;
-        color: white;
+        color: var(--surface);
     }
 
     div.buttons button:hover {

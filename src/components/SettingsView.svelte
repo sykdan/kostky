@@ -13,6 +13,7 @@
     let st__autobonus = localStorage.getItem("st__autobonus") ?? "yes";
     let st__color = localStorage.getItem("st__color") ?? "blue";
     let st__locale = localStorage.getItem("st__locale") ?? "cs";
+    let st__extrathemes = localStorage.getItem("st__extrathemes") ?? "no";
 
     $: {
         localStorage.setItem("st__theme", st__theme);
@@ -63,9 +64,14 @@
     <TopBar
         title={$_("settings.title")}
         hideRight={true}
-        on:leftbutton={() => emit("back")}
+        on:leftbutton={() => {
+            if (st__color == "rainbow") {
+                localStorage.setItem("st__extrathemes", "yes");
+            }
+            emit("back");
+        }}
     >
-        <Back slot="leftbutton" color="white" size="28" />
+        <Back slot="leftbutton" color="var(--surface)" size="28" />
     </TopBar>
 
     <div class="settings">
@@ -88,6 +94,15 @@
                 <option value="purple">{$_("settings.color_purple")}</option>
                 <option value="pink">{$_("settings.color_pink")}</option>
                 <option value="cyan">{$_("settings.color_cyan")}</option>
+                <option value="rainbow">{$_("settings.color_rainbow")}</option>
+                {#if st__extrathemes == "yes"}
+                    <option value="gay">MLM</option>
+                    <option value="lesbian">WLW</option>
+                    <option value="bi">"Why not both?"</option>
+                    <option value="trans">Optimus Prime</option>
+                    <option value="ace">Ace of Spades</option>
+                    <option value="pan">🍳</option>
+                {/if}
             </select>
         </div>
         <div class="row">
@@ -102,7 +117,11 @@
             </select>
         </div>
         <div class="row">
-            <label for="locale">{$_("settings.locale")}{$locale == "en" ? "" : " / Language"}</label>
+            <label for="locale"
+                >{$_("settings.locale")}{$locale == "en"
+                    ? ""
+                    : " / Language"}</label
+            >
             <select name="locale" bind:value={st__locale}>
                 <option value="cs">Česky</option>
                 <option value="en">English</option>

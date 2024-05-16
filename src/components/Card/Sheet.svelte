@@ -42,7 +42,7 @@
         singles_sums = GAMES.map((index) => {
             let sum = [0, 1, 2, 3, 4, 5].reduce(
                 (p, c) => p + card[c][index],
-                0
+                0,
             );
             if (sum >= 60) {
                 sum += 30;
@@ -95,35 +95,35 @@
         <div class="cell header side" />
 
         <div class="cell header has-icon">
-            <Down color="white" size="100%" />
+            <Down color="var(--surface)" size="100%" />
         </div>
         <div class="cell header has-icon">
-            <Both color="white" size="100%" />
+            <Both color="var(--surface)" size="100%" />
         </div>
         <div class="cell header has-icon">
-            <Up color="white" size="100%" />
+            <Up color="var(--surface)" size="100%" />
         </div>
         <div class="cell header has-icon">
-            <Announced color="white" size="100%" />
+            <Announced color="var(--surface)" size="100%" />
         </div>
 
         <Row n={1} type="singles" bind:row={card[0]} {shouldAddBonus}>
-            <Dice1 color="white" size="100%" />
+            <Dice1 color="var(--surface)" size="100%" />
         </Row>
         <Row n={2} type="singles" bind:row={card[1]} {shouldAddBonus}>
-            <Dice2 color="white" size="100%" />
+            <Dice2 color="var(--surface)" size="100%" />
         </Row>
         <Row n={3} type="singles" bind:row={card[2]} {shouldAddBonus}>
-            <Dice3 color="white" size="100%" />
+            <Dice3 color="var(--surface)" size="100%" />
         </Row>
         <Row n={4} type="singles" bind:row={card[3]} {shouldAddBonus}>
-            <Dice4 color="white" size="100%" />
+            <Dice4 color="var(--surface)" size="100%" />
         </Row>
         <Row n={5} type="singles" bind:row={card[4]} {shouldAddBonus}>
-            <Dice5 color="white" size="100%" />
+            <Dice5 color="var(--surface)" size="100%" />
         </Row>
         <Row n={6} type="singles" bind:row={card[5]} {shouldAddBonus}>
-            <Dice6 color="white" size="100%" />
+            <Dice6 color="var(--surface)" size="100%" />
         </Row>
 
         <div class="cell header side" />
@@ -153,10 +153,10 @@
         </div>
 
         <Row type="free" bind:row={card[6]} {shouldAddBonus}>
-            <Maximum color="white" size="100%" />
+            <Maximum color="var(--surface)" size="100%" />
         </Row>
         <Row type="free" bind:row={card[7]} {shouldAddBonus}>
-            <Minimum color="white" size="100%" />
+            <Minimum color="var(--surface)" size="100%" />
         </Row>
 
         <div class="cell header side" />
@@ -174,10 +174,10 @@
         </div>
 
         <Row type="sequence" bind:row={card[8]} {shouldAddBonus}>
-            <Sequence color="white" size="100%" />
+            <Sequence color="var(--surface)" size="100%" />
         </Row>
         <Row type="fullhouse" bind:row={card[9]} add={30} {shouldAddBonus}>
-            <FullHouse color="white" size="100%" />
+            <FullHouse color="var(--surface)" size="100%" />
         </Row>
         <Row
             n={4}
@@ -186,7 +186,7 @@
             add={40}
             {shouldAddBonus}
         >
-            <Poker color="white" size="100%" />
+            <Poker color="var(--surface)" size="100%" />
         </Row>
         <Row
             n={5}
@@ -195,7 +195,7 @@
             add={50}
             {shouldAddBonus}
         >
-            <Yamb color="white" size="100%" />
+            <Yamb color="var(--surface)" size="100%" />
         </Row>
 
         <div class="cell header side" />
@@ -247,16 +247,18 @@
 
     :global(.cell.header) {
         background-color: var(--primary);
+        background-image: var(--primary-detail);
         aspect-ratio: 2/1;
     }
 
     :global(.cell.side) {
         background-color: var(--primary);
+        background-image: var(--primary-detail);
         aspect-ratio: 1/2;
     }
 
     :global(.cell.header.side) {
-        background-color: transparent;
+        background: transparent;
         aspect-ratio: 1/1;
     }
 
@@ -268,13 +270,14 @@
     }
 
     div.calc {
-        color: white;
+        color: var(--surface);
         text-align: center;
         font-size: 24px;
     }
 
     div.good {
-        background-color: var(--green);
+        background: var(--green);
+        color: var(--white);
     }
 
     :global(.has-icon) {

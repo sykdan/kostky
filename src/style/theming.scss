@@ -17,24 +17,110 @@ html[theme="dark"] {
 html[color="blue"] {
     --primary: #0d21a1;
 }
+
 html[color="red"] {
     --primary: #c80000;
 }
+
 html[color="green"] {
     --primary: #3bc14a;
+    --surface: var(--black);
 }
+
 html[color="yellow"] {
     --primary: #f1b100;
+    --surface: var(--black);
 }
+
 html[color="orange"] {
     --primary: #ff5400;
 }
+
 html[color="purple"] {
     --primary: #5f00ba;
 }
+
 html[color="pink"] {
     --primary: #f62dae;
 }
+
 html[color="cyan"] {
     --primary: #38b9b9;
+    --surface: var(--black);
+}
+
+html[color="rainbow"] {
+    --primary: var(--black);
+    --primary-detail: linear-gradient(to right, #ef372b, #f58330, #fff008, #5dbb4d, #0859a9, #a22b93);
+
+    .gradient-downward {
+        --primary-detail: linear-gradient(to bottom, #ef372b, #f58330, #fff008, #5dbb4d, #0859a9, #a22b93);
+    }
+
+    --surface: var(--black);
+}
+
+html[color="gay"] {
+    --primary: var(--black);
+    --primary-detail: linear-gradient(to right, #018e71, #21cfab, #99e9c2, #ffffff, #7cafe3, #4f47cd, #3b1379);
+
+    .gradient-downward {
+        --primary-detail: linear-gradient(to bottom, #018e71, #21cfab, #99e9c2, #ffffff, #7cafe3, #4f47cd, #3b1379);
+    }
+
+    --surface: var(--black);
+}
+
+html[color="lesbian"] {
+    --primary: var(--black);
+    --primary-detail: linear-gradient(to right, #d62900, #ef7722, #ff9b55, #ffffff, #d262a5, #b65591, #a50062);
+
+    .gradient-downward {
+        --primary-detail: linear-gradient(to bottom, #d62900, #ef7722, #ff9b55, #ffffff, #d262a5, #b65591, #a50062);
+    }
+
+    --surface: var(--black);
+}
+
+html[color="bi"] {
+    --primary: var(--black);
+    --primary-detail: linear-gradient(to right, #d70071, #9c4e97, #0035a9);
+
+    .gradient-downward {
+        --primary-detail: linear-gradient(to bottom, #d70071, #9c4e97, #0035a9);
+    }
+}
+
+html[color="trans"] {
+    --primary: var(--black);
+    --primary-detail: linear-gradient(to right, #5bcffa, #f5abb9, #ffffff, #f5abb9, #5bcffa);
+
+    .gradient-downward {
+        --primary-detail: linear-gradient(to bottom, #5bcffa, #f5abb9, #ffffff, #f5abb9, #5bcffa);
+    }
+
+    --surface: var(--black);
+}
+
+html[color="ace"] {
+    --primary: var(--black);
+    --primary-detail: linear-gradient(to right, #535353, #a4a5a4, #ffffff, #c036c0);
+
+    .gradient-downward {
+        --primary-detail: linear-gradient(to bottom, #535353, #a4a5a4, #ffffff, #c036c0);
+    }
+
+    --surface: var(--black);
+}
+
+
+html[color="pan"] {
+    --primary: var(--black);
+    --primary-detail: linear-gradient(to right, #ff1b8d, #ffd900, #1bb3ff);
+
+    .gradient-downward {
+        --primary-detail: linear-gradient(to bottom, #ff1b8d, #ffd900, #1bb3ff);
+    }
+
+    --surface: var(--black);
 }

@@ -20,13 +20,16 @@
 <style>
     div.topbar {
         background-color: var(--primary);
-        color: white;
+        background-image: var(--primary-detail);
+        color: var(--surface);
         text-align: center;
         display: flex;
         justify-content: space-between;
         align-items: center;
         font-size: 28px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow:
+            0 1px 3px rgba(0, 0, 0, 0.12),
+            0 1px 2px rgba(0, 0, 0, 0.24);
         z-index: 10;
         user-select: none;
     }
