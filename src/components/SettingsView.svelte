@@ -86,22 +86,29 @@
         <div class="row">
             <label for="color">{$_("settings.color")}</label>
             <select name="color" bind:value={st__color}>
-                <option value="blue">{$_("settings.color_blue")}</option>
-                <option value="red">{$_("settings.color_red")}</option>
-                <option value="green">{$_("settings.color_green")}</option>
-                <option value="yellow">{$_("settings.color_yellow")}</option>
-                <option value="orange">{$_("settings.color_orange")}</option>
-                <option value="purple">{$_("settings.color_purple")}</option>
-                <option value="pink">{$_("settings.color_pink")}</option>
-                <option value="cyan">{$_("settings.color_cyan")}</option>
-                <option value="rainbow">{$_("settings.color_rainbow")}</option>
+                <optgroup label="Plain colors">
+                    <option value="blue">{$_("settings.color_blue")}</option>
+                    <option value="red">{$_("settings.color_red")}</option>
+                    <option value="green">{$_("settings.color_green")}</option>
+                    <option value="yellow">{$_("settings.color_yellow")}</option>
+                    <option value="orange">{$_("settings.color_orange")}</option>
+                    <option value="purple">{$_("settings.color_purple")}</option>
+                    <option value="pink">{$_("settings.color_pink")}</option>
+                    <option value="cyan">{$_("settings.color_cyan")}</option>
+                </optgroup>
+
                 {#if st__extrathemes == "yes"}
-                    <option value="gay">MLM</option>
-                    <option value="lesbian">WLW</option>
-                    <option value="bi">"Why not both?"</option>
-                    <option value="trans">Optimus Prime</option>
-                    <option value="ace">Ace of Spades</option>
-                    <option value="pan">🍳</option>
+                    <optgroup label="Pride flags">
+                        <option value="rainbow">{$_("settings.color_rainbow")}</option>
+                        <option value="gay">Gay</option>
+                        <option value="lesbian">Lesbian</option>
+                        <option value="bi">Bisexual</option>
+                        <option value="trans">Transgender</option>
+                        <option value="ace">Asexual</option>
+                        <option value="pan">Pansexual</option>
+                    </optgroup>
+                {:else}
+                    <option value="rainbow">{$_("settings.color_rainbow")}</option>
                 {/if}
             </select>
         </div>
