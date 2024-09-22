@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "deploy": "gh-pages -d dist --no-history"
   },
-  "dependencies": {
+  "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.5",
     "gh-pages": "^6.0.0",
     "svelte": "^4.2.0",
@@ -18,9 +18,8 @@
     "svelte-preprocess": "^5.0.4",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
-    "vite-plugin-pwa": "^0.16.4"
-  },
-  "devDependencies": {
-    "sass": "^1.79.3"
+    "vite-plugin-pwa": "^0.16.4",
+    "sass": "^1.79.3",
+    "workbox-window": "^7.1.0"
   }
 }
