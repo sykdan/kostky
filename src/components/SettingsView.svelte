@@ -100,10 +100,10 @@
                 {#if st__extrathemes == "yes"}
                     <optgroup label="Pride flags">
                         <option value="rainbow">{$_("settings.color_rainbow")}</option>
-                        <option value="gay">Gay</option>
-                        <option value="lesbian">Lesbian</option>
-                        <option value="bi">Bisexual</option>
-                        <option value="trans">Transgender</option>
+                        <option value="gay">MLM</option>
+                        <option value="lesbian">WLW</option>
+                        <option value="bi">Bi</option>
+                        <option value="trans">Trans</option>
                         <option value="ace">Asexual</option>
                         <option value="pan">Pansexual</option>
                     </optgroup>
@@ -132,7 +132,7 @@
             <select name="locale" bind:value={st__locale}>
                 <option value="cs">Česky</option>
                 <option value="en">English</option>
-                <!-- <option value="bs">Bosanski</option> -->
+                <option value="bs">Bosanski</option>
             </select>
         </div>
     </div>

@@ -9,6 +9,6 @@ addMessages("en", en);
 addMessages("bs", bs);
 
 init({
-    fallbackLocale: "cs",
+    fallbackLocale: "en",
     initialLocale: localStorage.getItem("st__locale") ?? "cs"
 });
