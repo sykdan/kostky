@@ -19,5 +19,8 @@
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-pwa": "^0.16.4"
+  },
+  "devDependencies": {
+    "sass": "^1.79.3"
   }
 }
