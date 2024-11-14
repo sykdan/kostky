@@ -21,17 +21,18 @@
 
     const emit = createEventDispatcher();
 
-    let games: GameData[] = JSON.parse(localStorage.getItem("games") || "{}");
-    let gameIds: string[] = [];
-
-    $: gameIds = Object.keys(games);
-    $: {
+    let games: { [key: string]: GameData } = $state(
+        JSON.parse(localStorage.getItem("games") || "{}"),
+    );
+    $effect(() => {
         localStorage.setItem("games", JSON.stringify(games));
-    }
+    });
 
-    let newGame: GameData | null = null;
+    let gameIds: string[] = $derived(Object.keys(games));
+    let newGame: GameData | null = $state(null);
 
     function createGame() {
+        if (!newGame) return;
         let id = null;
         while (!id || gameIds.includes(id)) {
             id = (+new Date()).toString();
@@ -41,12 +42,12 @@
         newGame = null;
     }
 
-    function play(id) {
+    function play(id: string) {
         games[id] = upgradeSaveData(games[id]);
         emit("play", id);
     }
 
-    function del(id) {
+    function del(id: string) {
         delete games[id];
         games = games;
         localStorage.removeItem(id);
@@ -98,7 +99,7 @@
 
         {#if !newGame}
             <button
-                on:click={() => {
+                onclick={() => {
                     newGame = getNewGameData();
                 }}
                 transition:slide|local
@@ -117,7 +118,7 @@
                     bind:value={newGame.name}
                 />
                 <button
-                    on:click={createGame}
+                    onclick={createGame}
                     class="confirm"
                     class:allow={newGame.name}
                     style={newGame.name ? "" : "pointer-events: none"}
@@ -128,11 +129,11 @@
         {/if}
 
         <hr />
-        <button on:click={() => emit("rules")}>
+        <button onclick={() => emit("rules")}>
             <SvgIcon type="mdi" path={HowToPlay} />
             {$_("main.rules")}
         </button>
-        <button on:click={() => emit("settings")}>
+        <button onclick={() => emit("settings")}>
             <SvgIcon type="mdi" path={Settings} />
             {$_("main.options")}
         </button>

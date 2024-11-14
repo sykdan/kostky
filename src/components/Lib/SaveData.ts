@@ -1,7 +1,7 @@
 const VERSION = 1;
 const GAME_CARD_SIZE = 12 * 4
 
-type GameCard = number[][];
+type GameCard = Array<Array<number|null>>;
 type GameData = {
     version: number,
     name: string,
@@ -26,9 +26,10 @@ function getNewGameData(): GameData {
 
 function upgradeSaveData(data: GameData): GameData {
     let sample = getNewGameData()
-    for (let s of Object.keys(sample)) {
-        if (!(s in data)) {
-            data[s] = sample[s]
+    for (let key in sample) {
+        if (!(key in data)) {
+            // @ts-ignore
+            data[key] = sample[key]
         }
     }
     return data;

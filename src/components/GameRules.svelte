@@ -27,7 +27,7 @@
     import TopBar from "./UI/TopBar.svelte";
 
     const emit = createEventDispatcher();
-    let show_actions = false;
+    let show_actions = $state(false);
 </script>
 
 <div class="rulesscreen appscreen" in:tr out:tr>
@@ -37,7 +37,9 @@
         on:leftbutton={() => emit("back")}
         on:rightbutton={() => (show_actions = !show_actions)}
     >
-        <SvgIcon type="mdi" path={Back} slot="leftbutton" color="var(--surface)" size="28" />
+        {#snippet leftbutton()}
+            <SvgIcon type="mdi" path={Back}  color="var(--surface)" size="28" />
+        {/snippet}
     </TopBar>
     <div class="rules">
         <p>

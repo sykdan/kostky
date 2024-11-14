@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { _, locale } from "svelte-i18n";
+    import { _ } from "svelte-i18n";
     import { scale } from "svelte/transition";
     import {
         // Header icons
@@ -26,36 +26,28 @@
         mdiStar as Yamb,
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
-    
-    import Row from "./Row.svelte";
 
-    export let card;
+    import Row from "./Row.svelte";
+    import { type GameCard } from "../Lib/SaveData";
 
     // Variables for mid-game calculations
-    let singles_sums: number[];
-    let minmax_sums: number[];
-    let special_sums: number[];
+    const _GAMES = [0, 1, 2, 3];
 
-    let shouldAddBonus = localStorage.getItem("st__autobonus") != "no";
-
-    export let final_sum: number = null;
-
-    $: if (card) {
-        const GAMES = [0, 1, 2, 3];
-        // Sum the first six fields.
-        singles_sums = GAMES.map((index) => {
+    let singles_sums: number[] = $derived(
+        _GAMES.map((index) => {
             let sum = [0, 1, 2, 3, 4, 5].reduce(
-                (p, c) => p + card[c][index],
+                (p, c) => p + (card[c][index] ?? 0),
                 0,
             );
             if (sum >= 60) {
                 sum += 30;
             }
             return sum;
-        });
+        }),
+    );
 
-        // Sum the minimum and maximum.
-        minmax_sums = GAMES.map((index) => {
+    let minmax_sums: number[] = $derived(
+        _GAMES.map((index) => {
             let ones = card[0][index];
             let maximum = card[6][index];
             let minimum = card[7][index];
@@ -65,28 +57,40 @@
             }
 
             return 0;
-        });
+        }),
+    );
 
-        special_sums = GAMES.map((index) => {
-            let bonus = card[8][index];
+    let special_sums: number[] = $derived(
+        _GAMES.map((index) => {
+            let bonus = card[8][index] ?? 0;
             bonus += card[9][index] ? card[9][index] + b(30) : 0;
             bonus += card[10][index] ? card[10][index] + b(40) : 0;
             bonus += card[11][index] ? card[11][index] + b(50) : 0;
             return bonus;
-        });
+        }),
+    );
+
+    $effect(() => {
+        if (!card.map((k) => k.includes(null)).includes(true)) {
+            let s = singles_sums.reduce((p, c) => p + c, 0);
+            s += minmax_sums.reduce((p, c) => p + c, 0);
+            s += special_sums.reduce((p, c) => p + c, 0);
+            final_sum = s;
+        } else {
+            final_sum = null;
+        }
+    });
+
+    let shouldAddBonus = localStorage.getItem("st__autobonus") != "no";
+
+    interface Props {
+        card: GameCard;
+        final_sum?: number | null;
     }
 
-    // Check if the card is completely filled, and if it is, report the sum.
-    $: if (!card.map((k: number[]) => k.includes(null)).includes(true)) {
-        let s = singles_sums.reduce((p, c) => p + c, 0);
-        s += minmax_sums.reduce((p, c) => p + c, 0);
-        s += special_sums.reduce((p, c) => p + c, 0);
-        final_sum = s;
-    } else {
-        final_sum = null;
-    }
+    let { card = $bindable(), final_sum = $bindable(null) }: Props = $props();
 
-    function b(value) {
+    function b(value: number) {
         if (shouldAddBonus) {
             return value;
         }
@@ -96,41 +100,86 @@
 
 <div class="wrapper">
     <div class="sheet">
-        <div class="cell header side" />
+        <div class="cell header side"></div>
 
         <div class="cell header has-icon">
-            <SvgIcon type="mdi" path={Down} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Down}
+                color="var(--surface)"
+                size="100%"
+            />
         </div>
         <div class="cell header has-icon">
-            <SvgIcon type="mdi" path={Both} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Both}
+                color="var(--surface)"
+                size="100%"
+            />
         </div>
         <div class="cell header has-icon">
             <SvgIcon type="mdi" path={Up} color="var(--surface)" size="100%" />
         </div>
         <div class="cell header has-icon">
-            <SvgIcon type="mdi" path={Announced} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Announced}
+                color="var(--surface)"
+                size="100%"
+            />
         </div>
 
         <Row n={1} type="singles" bind:row={card[0]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Dice1} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Dice1}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row n={2} type="singles" bind:row={card[1]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Dice2} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Dice2}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row n={3} type="singles" bind:row={card[2]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Dice3} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Dice3}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row n={4} type="singles" bind:row={card[3]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Dice4} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Dice4}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row n={5} type="singles" bind:row={card[4]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Dice5} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Dice5}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row n={6} type="singles" bind:row={card[5]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Dice6} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Dice6}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
 
-        <div class="cell header side" />
+        <div class="cell header side"></div>
         <div
             class="cell header has-icon calc"
             class:good={singles_sums[0] > 60}
@@ -157,13 +206,23 @@
         </div>
 
         <Row type="free" bind:row={card[6]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Maximum} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Maximum}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row type="free" bind:row={card[7]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Minimum} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Minimum}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
 
-        <div class="cell header side" />
+        <div class="cell header side"></div>
         <div class="cell header has-icon calc">
             {minmax_sums[0]}{card[0][0] == null && minmax_sums[0] ? "?" : ""}
         </div>
@@ -178,10 +237,20 @@
         </div>
 
         <Row type="sequence" bind:row={card[8]} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={Sequence} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Sequence}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row type="fullhouse" bind:row={card[9]} add={30} {shouldAddBonus}>
-            <SvgIcon type="mdi" path={FullHouse} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={FullHouse}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row
             n={4}
@@ -190,7 +259,12 @@
             add={40}
             {shouldAddBonus}
         >
-            <SvgIcon type="mdi" path={Poker} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Poker}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
         <Row
             n={5}
@@ -199,10 +273,15 @@
             add={50}
             {shouldAddBonus}
         >
-            <SvgIcon type="mdi" path={Yamb} color="var(--surface)" size="100%" />
+            <SvgIcon
+                type="mdi"
+                path={Yamb}
+                color="var(--surface)"
+                size="100%"
+            />
         </Row>
 
-        <div class="cell header side" />
+        <div class="cell header side"></div>
         <div class="cell header has-icon calc">{special_sums[0]}</div>
         <div class="cell header has-icon calc">{special_sums[1]}</div>
         <div class="cell header has-icon calc">{special_sums[2]}</div>

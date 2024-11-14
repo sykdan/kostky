@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { _, locale } from "svelte-i18n";
     import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
@@ -7,8 +7,13 @@
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import { dialogTrigger } from "../Lib/DialogTrigger";
+    import type { GameData } from "../Lib/SaveData";
 
-    export let metadata;
+    interface Props {
+        metadata: GameData;
+    }
+
+    let { metadata }: Props = $props();
 
     const emit = createEventDispatcher();
 </script>
@@ -24,12 +29,12 @@
                 : $_("main.no_played")}
         </span>
     </div>
-    <button class="play" on:click={() => emit("play")}>
+    <button class="play" onclick={() => emit("play")}>
         <SvgIcon type="mdi" path={Play} size="32" color="#141414" />
         {$_("main.play")}
     </button>
     <button
-        on:click={async () =>
+        onclick={async () =>
             (await dialogTrigger.prompt(
                 $_("main.delete"),
                 $_("main.delete_confirm") + "\n" + $_("common.noundo"),

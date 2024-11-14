@@ -1,19 +1,29 @@
-import { writable } from 'svelte/store';
+import { writable, type Writable } from 'svelte/store';
 
 function _dialogTrigger() {
-    const { subscribe, update, set } = writable({
+    interface DialogStore {
+        title: string,
+        message: string,
+        ok: string,
+        cancel: string | null,
+
+        visible: Boolean,
+        resolver: (value: Boolean) => void,
+    }
+
+    const { subscribe, update, set }: Writable<DialogStore> = writable({
         title: "",
         message: "",
         ok: "",
         cancel: "",
 
         visible: false,
-        resolver: (value) => { }
+        resolver: (value: Boolean) => { }
     });
 
     return {
         subscribe,
-        prompt: (title, message, ok, cancel = null) => {
+        prompt: (title: string, message: string, ok: string, cancel: string | null = null) => {
             return new Promise((r) => {
                 update(k => {
                     k.title = title

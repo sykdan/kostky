@@ -2,57 +2,64 @@
     import { mdiClose as Cross } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    export let value;
-
-    export let type:
-        | "singles"
-        | "free"
-        | "fullhouse"
-        | "multiples"
-        | "sequence";
-    export let n = 0;
-    export let add = 0;
-    export let shouldAddBonus: Boolean;
-
-    let invalid = false;
-
-    $: if (value != null) {
-        value = Math.max(value, 0);
-        let vl = value;
-        if (!shouldAddBonus) {
-            vl -= add;
-        }
-
-        switch (type) {
-            case "singles":
-                invalid = vl % n != 0 || vl > n * 5;
-                break;
-            case "free":
-                invalid = vl < 5 || vl > 30;
-                break;
-            case "fullhouse":
-                invalid = vl < 7 || vl > 28 || vl == 10 || vl == 25;
-                break;
-            case "multiples":
-                invalid = vl % n != 0 || vl > n * 6;
-                break;
-            case "sequence":
-                invalid = (vl != 0 && (vl - 6) % 10 != 0) || vl < 46 || vl > 76;
-                break;
-        }
-
-        if (vl == 0) {
-            invalid = false;
-        }
-        if (vl < 0) {
-            invalid = true;
-        }
-    } else {
-        invalid = false;
-        value = null;
+    interface Props {
+        value: any;
+        type: "singles" | "free" | "fullhouse" | "multiples" | "sequence";
+        n?: number;
+        add?: number;
+        shouldAddBonus: Boolean;
     }
 
-    function b(value) {
+    let {
+        value = $bindable(),
+        type,
+        n = 0,
+        add = 0,
+        shouldAddBonus,
+    }: Props = $props();
+
+    let invalid = $state(false);
+
+    $effect(() => {
+        if (value != null) {
+            value = Math.max(value, 0);
+            let vl = value;
+            if (!shouldAddBonus) {
+                vl -= add;
+            }
+
+            switch (type) {
+                case "singles":
+                    invalid = vl % n != 0 || vl > n * 5;
+                    break;
+                case "free":
+                    invalid = vl < 5 || vl > 30;
+                    break;
+                case "fullhouse":
+                    invalid = vl < 7 || vl > 28 || vl == 10 || vl == 25;
+                    break;
+                case "multiples":
+                    invalid = vl % n != 0 || vl > n * 6;
+                    break;
+                case "sequence":
+                    invalid =
+                        (vl != 0 && (vl - 6) % 10 != 0) || vl < 46 || vl > 76;
+                    break;
+            }
+
+            if (vl == 0) {
+                invalid = false;
+            }
+            if (vl < 0) {
+                invalid = true;
+            }
+        } else {
+            invalid = false;
+            value = null;
+        }
+    });
+
+    function b(value: number) {
         if (shouldAddBonus) {
             return value;
         }

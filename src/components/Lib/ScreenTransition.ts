@@ -1,4 +1,4 @@
-import { fly } from "svelte/transition";
+import { fly, type FlyParams } from "svelte/transition";
 
 function detectTouchSafari() {
     return [
@@ -25,20 +25,20 @@ function allowNext() {
     didOut = false;
 }
 
-function tr(node, options, params) {
+function tr(node: Element, options: FlyParams | undefined, params: { direction?: "in" | "out"; } | undefined) {
     if (!shouldTransition) {
         if (shouldAllowNext) {
-            if (params.direction == "in") {
+            if (params?.direction == "in") {
                 didIn = true;
             }
-            if (params.direction == "out") {
+            if (params?.direction == "out") {
                 didOut = true;
             }
             if (shouldAllowNext && didIn && didOut) {
                 shouldAllowNext = false;
             }
         } else {
-            return;
+            return {}
         }
     }
     return fly(node, options);

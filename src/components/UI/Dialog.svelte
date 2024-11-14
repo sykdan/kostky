@@ -19,11 +19,11 @@
             </div>
             <div class="buttons">
                 {#if $dialogTrigger.cancel}
-                    <button on:click={() => resolve(false)}>
+                    <button onclick={() => resolve(false)}>
                         {$dialogTrigger.cancel}
                     </button>
                 {/if}
-                <button class="ok" on:click={() => resolve(true)}>
+                <button class="ok" onclick={() => resolve(true)}>
                     {$dialogTrigger.ok}
                 </button>
             </div>
