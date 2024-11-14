@@ -189,6 +189,7 @@
         align-items: center;
         padding-right: 16px;
         color: var(--back);
+        cursor: pointer;
     }
 
     div.actions button :global(svg) {
