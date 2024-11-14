@@ -7,21 +7,24 @@
     "dev": "vite --host",
     "build": "vite build --base=./",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist --no-history"
+    "deploy": "gh-pages -d dist --no-history",
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@tsconfig/svelte": "^5.0.4",
     "gh-pages": "^6.2.0",
+    "sass": "^1.80.7",
     "svelte": "^5.2.0",
+    "svelte-check": "^4.0.7",
     "svelte-i18n": "^4.0.1",
     "svelte-preprocess": "^6.0.3",
-    "svelte-check": "^4.0.7",
-    "typescript": "~5.6.2",
     "tslib": "^2.8.1",
-    "@tsconfig/svelte": "^5.0.4",
+    "typescript": "~5.6.2",
     "vite": "^5.4.11",
     "vite-plugin-pwa": "^0.21.0",
-    "sass": "^1.80.7",
-    "workbox-window": "^7.3.0"
+    "workbox-window": "^7.3.0",
+    "@jamescoyle/svelte-icon": "^0.1.1",
+    "@mdi/js": "^7.4.47"
   }
 }

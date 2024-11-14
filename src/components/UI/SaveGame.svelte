@@ -2,8 +2,10 @@
     import { _, locale } from "svelte-i18n";
     import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
-    import Play from "svelte-material-icons/Play.svelte";
-    import Delete from "svelte-material-icons/Delete.svelte";
+
+    import { mdiPlay as Play, mdiDelete as Delete } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
+
     import { dialogTrigger } from "../Lib/DialogTrigger";
 
     export let metadata;
@@ -17,11 +19,14 @@
             {metadata.name}
         </span>
         <span class="lastplayed">
-            {metadata.last_played !== null ? new Date(metadata.last_played).toLocaleString() : $_("main.no_played")}
+            {metadata.last_played !== null
+                ? new Date(metadata.last_played).toLocaleString()
+                : $_("main.no_played")}
         </span>
     </div>
     <button class="play" on:click={() => emit("play")}>
-        <Play size="32" color="#141414" /> {$_("main.play")}
+        <SvgIcon type="mdi" path={Play} size="32" color="#141414" />
+        {$_("main.play")}
     </button>
     <button
         on:click={async () =>
@@ -33,7 +38,7 @@
             )) && emit("delete")}
         class="danger"
     >
-        <Delete size="32" color="#141414" />
+        <SvgIcon type="mdi" path={Delete} size="32" color="#141414" />
     </button>
 </div>
 

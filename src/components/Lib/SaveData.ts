@@ -34,4 +34,4 @@ function upgradeSaveData(data: GameData): GameData {
     return data;
 }
 
-    export { getNewGameData, getBlankGameCard, upgradeSaveData, VERSION, GAME_CARD_SIZE, type GameData, type GameCard };
+export { getNewGameData, getBlankGameCard, upgradeSaveData, VERSION, GAME_CARD_SIZE, type GameData, type GameCard };

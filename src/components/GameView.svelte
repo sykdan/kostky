@@ -4,12 +4,14 @@
     import { slide } from "svelte/transition";
     import tr from "./Lib/ScreenTransition";
 
-    import Back from "svelte-material-icons/ArrowLeft.svelte";
-    import Menu from "svelte-material-icons/DotsVertical.svelte";
-
-    import CrossOut from "svelte-material-icons/Close.svelte";
-    import WhoIsPlaying from "svelte-material-icons/HelpCircle.svelte";
-    import Clear from "svelte-material-icons/TrashCan.svelte";
+    import {
+        mdiArrowLeft as Back,
+        mdiDotsVertical as Menu,
+        mdiClose as CrossOut,
+        mdiHelpCircle as WhoIsPlaying,
+        mdiTrashCan as Clear,
+    } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
 
     import PlayingCard from "./Card/Sheet.svelte";
     import {
@@ -123,22 +125,22 @@
         on:leftbutton={() => emit("back")}
         on:rightbutton={() => (showActions = !showActions)}
     >
-        <Back slot="leftbutton" color="var(--surface)" size="28" />
-        <Menu slot="rightbutton" color="var(--surface)" size="28" />
+        <SvgIcon type="mdi" path={Back} slot="leftbutton" color="var(--surface)" size="28" />
+        <SvgIcon type="mdi" path={Menu} slot="rightbutton" color="var(--surface)" size="28" />
     </TopBar>
 
     {#if showActions}
         <div class="actions" transition:slide|local>
             <button on:click={zeroes} style="color: var(--front)">
-                <CrossOut color="var(--front)" size="28" />
+                <SvgIcon type="mdi" path={CrossOut} color="var(--front)" size="28" />
                 {$_("game.crossempty")}
             </button>
             <button on:click={order} style="color: var(--front)">
-                <WhoIsPlaying color="var(--front)" size="28" />
+                <SvgIcon type="mdi" path={WhoIsPlaying} color="var(--front)" size="28" />
                 {$_("game.whoisplaying")}
             </button>
             <button on:click={clear} style="color: var(--red)">
-                <Clear color="var(--red)" size="28" />
+                <SvgIcon type="mdi" path={Clear} color="var(--red)" size="28" />
                 {$_("game.reset")}
             </button>
         </div>

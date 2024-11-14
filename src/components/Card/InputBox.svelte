@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Cross from "svelte-material-icons/Close.svelte";
+    import { mdiClose as Cross } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
 
     export let value;
 
@@ -62,7 +63,7 @@
 <div class="cell">
     <input class:invalid type="number" pattern="[0-9]*" bind:value />
     <span class="overlay cross" class:crossed={value == 0}>
-        <Cross color="rgb(172, 0, 0)" size={48} />
+        <SvgIcon type="mdi" path={Cross} color="rgb(172, 0, 0)" size={48} />
     </span>
     {#if add > 0 && value}
         <span class="overlay number" class:invalid>

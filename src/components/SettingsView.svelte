@@ -3,7 +3,8 @@
     import { createEventDispatcher } from "svelte";
     import tr from "./Lib/ScreenTransition";
 
-    import Back from "svelte-material-icons/ArrowLeft.svelte";
+    import { mdiArrowLeft as Back } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
 
     import TopBar from "./UI/TopBar.svelte";
 
@@ -71,7 +72,13 @@
             emit("back");
         }}
     >
-        <Back slot="leftbutton" color="var(--surface)" size="28" />
+        <SvgIcon
+            type="mdi"
+            path={Back}
+            slot="leftbutton"
+            color="var(--surface)"
+            size="28"
+        />
     </TopBar>
 
     <div class="settings">
@@ -90,16 +97,21 @@
                     <option value="blue">{$_("settings.color_blue")}</option>
                     <option value="red">{$_("settings.color_red")}</option>
                     <option value="green">{$_("settings.color_green")}</option>
-                    <option value="yellow">{$_("settings.color_yellow")}</option>
-                    <option value="orange">{$_("settings.color_orange")}</option>
-                    <option value="purple">{$_("settings.color_purple")}</option>
+                    <option value="yellow">{$_("settings.color_yellow")}</option
+                    >
+                    <option value="orange">{$_("settings.color_orange")}</option
+                    >
+                    <option value="purple">{$_("settings.color_purple")}</option
+                    >
                     <option value="pink">{$_("settings.color_pink")}</option>
                     <option value="cyan">{$_("settings.color_cyan")}</option>
                 </optgroup>
 
                 {#if st__extrathemes == "yes"}
                     <optgroup label="Pride flags">
-                        <option value="rainbow">{$_("settings.color_rainbow")}</option>
+                        <option value="rainbow"
+                            >{$_("settings.color_rainbow")}</option
+                        >
                         <option value="gay">MLM</option>
                         <option value="lesbian">WLW</option>
                         <option value="bi">Bi</option>
@@ -108,7 +120,9 @@
                         <option value="pan">Pansexual</option>
                     </optgroup>
                 {:else}
-                    <option value="rainbow">{$_("settings.color_rainbow")}</option>
+                    <option value="rainbow"
+                        >{$_("settings.color_rainbow")}</option
+                    >
                 {/if}
             </select>
         </div>

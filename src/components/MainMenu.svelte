@@ -10,9 +10,12 @@
         upgradeSaveData,
     } from "./Lib/SaveData";
 
-    import NewGame from "svelte-material-icons/Plus.svelte";
-    import Settings from "svelte-material-icons/Cog.svelte";
-    import HowToPlay from "svelte-material-icons/Lightbulb.svelte";
+    import {
+        mdiPlus as NewGame,
+        mdiCog as Settings,
+        mdiLightbulb as HowToPlay,
+    } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
 
     import tr from "./Lib/ScreenTransition";
 
@@ -100,7 +103,7 @@
                 }}
                 transition:slide|local
             >
-                <NewGame />
+                <SvgIcon type="mdi" path={NewGame} />
                 {$_("main.newgame")}
             </button>
         {/if}
@@ -126,11 +129,11 @@
 
         <hr />
         <button on:click={() => emit("rules")}>
-            <HowToPlay />
+            <SvgIcon type="mdi" path={HowToPlay} />
             {$_("main.rules")}
         </button>
         <button on:click={() => emit("settings")}>
-            <Settings />
+            <SvgIcon type="mdi" path={Settings} />
             {$_("main.options")}
         </button>
     </div>
