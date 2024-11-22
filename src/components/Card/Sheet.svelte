@@ -28,8 +28,8 @@
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import Row from "./Row.svelte";
-    import { type GameCard } from "../Lib/SaveData.svelte";
-    import settings from "../Lib/Settings.svelte";
+    import { type GameCard } from "../../lib/SaveData.svelte";
+    import settings from "../../lib/Settings.svelte";
 
     // Variables for mid-game calculations
     const _GAMES = [0, 1, 2, 3];

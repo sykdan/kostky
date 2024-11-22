@@ -5,8 +5,8 @@
     import { mdiPlay as Play, mdiDelete as Delete } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import { dialogTrigger } from "../Lib/DialogTrigger.svelte";
-    import type { GameData } from "../Lib/SaveData.svelte";
+    import { dialogTrigger } from "../../lib/DialogTrigger.svelte";
+    import type { GameData } from "../../lib/SaveData.svelte";
 
     interface Props {
         metadata: GameData;

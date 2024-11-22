@@ -1,6 +1,6 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import tr from "./Lib/ScreenTransition";
+    import tr from "../lib/ScreenTransition";
 
     import {
         mdiArrowLeft as Back,
@@ -23,7 +23,7 @@
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import TopBar from "./UI/TopBar.svelte";
+    import TopBar from "./ui/TopBar.svelte";
 
     interface Props {
         onBack: () => any;

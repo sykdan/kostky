@@ -3,9 +3,9 @@
     import GameView from "./components/GameView.svelte";
     import GameRules from "./components/GameRules.svelte";
     import SettingsView from "./components/SettingsView.svelte";
-    import Dialog from "./components/UI/Dialog.svelte";
+    import Dialog from "./components/ui/Dialog.svelte";
     import { onMount } from "svelte";
-    import { allowNext } from "./components/Lib/ScreenTransition";
+    import { allowNext } from "./lib/ScreenTransition";
 
     enum Screen {
         MainMenu,

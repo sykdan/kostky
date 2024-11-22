@@ -1,13 +1,13 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
     import { slide } from "svelte/transition";
-    import SaveGame from "./UI/SaveGame.svelte";
+    import SaveGame from "./ui/SaveGame.svelte";
     import {
         getBlankGameCard,
         getNewGameData,
         type GameData,
         upgradeSaveData,
-    } from "./Lib/SaveData.svelte";
+    } from "../lib/SaveData.svelte";
 
     import {
         mdiPlus as NewGame,
@@ -16,8 +16,8 @@
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import tr from "./Lib/ScreenTransition";
-    import settings from "./Lib/Settings.svelte";
+    import tr from "../lib/ScreenTransition";
+    import settings from "../lib/Settings.svelte";
     import { tick } from "svelte";
 
     interface Props {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fade, fly } from "svelte/transition";
-    import { dialogTrigger } from "../Lib/DialogTrigger.svelte";
+    import { dialogTrigger } from "../../lib/DialogTrigger.svelte";
     import { circOut, quadOut } from "svelte/easing";
 
     function resolve(result: Boolean) {

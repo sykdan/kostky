@@ -2,7 +2,7 @@
     import { _, locale } from "svelte-i18n";
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
-    import tr from "./Lib/ScreenTransition";
+    import tr from "../lib/ScreenTransition";
 
     import {
         mdiArrowLeft as Back,
@@ -13,15 +13,15 @@
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import PlayingCard from "./Card/Sheet.svelte";
+    import PlayingCard from "./card/Sheet.svelte";
     import {
         getBlankGameCard,
         type GameData,
         type GameCard,
         GAME_CARD_SIZE,
-    } from "./Lib/SaveData.svelte";
-    import TopBar from "./UI/TopBar.svelte";
-    import { dialogTrigger } from "./Lib/DialogTrigger.svelte";
+    } from "../lib/SaveData.svelte";
+    import TopBar from "./ui/TopBar.svelte";
+    import { dialogTrigger } from "../lib/DialogTrigger.svelte";
 
     let showActions = $state(false);
 
