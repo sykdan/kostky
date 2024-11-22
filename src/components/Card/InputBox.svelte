@@ -68,51 +68,54 @@
 </script>
 
 <div class="cell">
-    <input class:invalid type="number" pattern="[0-9]*" bind:value />
-    <span class="overlay cross" class:crossed={value == 0}>
-        <SvgIcon type="mdi" path={Cross} color="rgb(172, 0, 0)" size={48} />
-    </span>
+    <input
+        class:invalid
+        class="number"
+        type="number"
+        pattern="[0-9]*"
+        bind:value
+    />
+
     {#if add > 0 && value}
         <span class="overlay number" class:invalid>
             {value + b(add)}
         </span>
+    {:else if value == 0}
+        <span class="overlay cross">
+            <SvgIcon type="mdi" path={Cross} color="rgb(172, 0, 0)" size={48} />
+        </span>
     {/if}
 </div>
 
-<style>
-    div {
+<style lang="scss">
+    .cell {
         position: relative;
     }
 
     input {
         padding: 0;
         border: none;
-        text-align: center;
-        font-size: 36px;
         width: 100%;
         height: 100%;
         border-radius: 16px;
-        background-color: var(--back-extra);
-        color: var(--front);
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        &:not(:focus) + .overlay {
+            display: grid;
+        }
     }
 
-    input.invalid,
-    span.number.invalid {
-        background-color: var(--back-error);
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    input[type="number"] {
-        -moz-appearance: textfield;
-        appearance: textfield;
-    }
-
-    span.overlay {
+    .overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -125,28 +128,25 @@
         display: none;
     }
 
-    span.cross {
+    .cross {
         background-color: rgb(255, 61, 61);
+
+        :global(svg) {
+            padding: 0;
+            width: var(--cell-size);
+        }
     }
 
-    span.cross :global(svg) {
-        padding: 0;
-        width: var(--cell-size);
-    }
-
-    span.number {
+    .number {
         width: 100%;
         height: 100%;
+        text-align: center;
         font-size: 36px;
         background-color: var(--back-extra);
         color: var(--front);
-    }
 
-    input:not(:focus) + span.cross.crossed {
-        display: grid;
-    }
-
-    input:not(:focus) + * + span.overlay {
-        display: grid;
+        &.invalid {
+            background-color: var(--back-error);
+        }
     }
 </style>

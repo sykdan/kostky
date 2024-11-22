@@ -2,7 +2,7 @@ import { mount } from 'svelte'
 // @ts-ignore
 import { registerSW } from 'virtual:pwa-register'
 import App from './App.svelte'
-import './app.scss'
+import './style/main.scss'
 import "./i18n/locale"
 
 registerSW({ immediate: true })

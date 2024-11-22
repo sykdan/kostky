@@ -78,3 +78,11 @@
 {:else if screen == Screen.SettingsView}
     <SettingsView onBack={back} />
 {/if}
+
+<style lang="scss">
+    @use "sass:meta";
+
+    :global {
+        @include meta.load-css("./style/theming.scss", $with: null);
+    }
+</style>
