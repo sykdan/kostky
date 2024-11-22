@@ -28,7 +28,8 @@
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import Row from "./Row.svelte";
-    import { type GameCard } from "../Lib/SaveData";
+    import { type GameCard } from "../Lib/SaveData.svelte";
+    import settings from "../Lib/Settings.svelte";
 
     // Variables for mid-game calculations
     const _GAMES = [0, 1, 2, 3];
@@ -63,9 +64,9 @@
     let special_sums: number[] = $derived(
         _GAMES.map((index) => {
             let bonus = card[8][index] ?? 0;
-            bonus += card[9][index] ? card[9][index] + b(30) : 0;
-            bonus += card[10][index] ? card[10][index] + b(40) : 0;
-            bonus += card[11][index] ? card[11][index] + b(50) : 0;
+            bonus += card[9][index] ?? 0;
+            bonus += card[10][index] ?? 0;
+            bonus += card[11][index] ?? 0;
             return bonus;
         }),
     );
@@ -81,7 +82,7 @@
         }
     });
 
-    let shouldAddBonus = localStorage.getItem("st__autobonus") != "no";
+    let shouldAddBonus = settings.autoBonus;
 
     interface Props {
         card: GameCard;
@@ -89,13 +90,6 @@
     }
 
     let { card = $bindable(), final_sum = $bindable(null) }: Props = $props();
-
-    function b(value: number) {
-        if (shouldAddBonus) {
-            return value;
-        }
-        return 0;
-    }
 </script>
 
 <div class="wrapper">

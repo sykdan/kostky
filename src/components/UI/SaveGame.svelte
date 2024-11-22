@@ -6,7 +6,7 @@
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import { dialogTrigger } from "../Lib/DialogTrigger";
-    import type { GameData } from "../Lib/SaveData";
+    import type { GameData } from "../Lib/SaveData.svelte";
 
     interface Props {
         metadata: GameData;

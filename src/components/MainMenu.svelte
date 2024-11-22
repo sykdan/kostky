@@ -7,7 +7,7 @@
         getNewGameData,
         type GameData,
         upgradeSaveData,
-    } from "./Lib/SaveData";
+    } from "./Lib/SaveData.svelte";
 
     import {
         mdiPlus as NewGame,
@@ -18,6 +18,7 @@
 
     import tr from "./Lib/ScreenTransition";
     import settings from "./Lib/Settings.svelte";
+    import { tick } from "svelte";
 
     interface Props {
         onPlay: (id: string) => any;
@@ -47,8 +48,9 @@
         newGame = null;
     }
 
-    function play(id: string) {
-        games[id] = upgradeSaveData(games[id]);
+    async function play(id: string) {
+        games[id] = upgradeSaveData(id, games[id]);
+        await tick();
         onPlay(id);
     }
 

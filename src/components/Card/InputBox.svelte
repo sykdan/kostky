@@ -18,53 +18,57 @@
         shouldAddBonus,
     }: Props = $props();
 
+    let inputValue: number | null = $state(
+        value != null ? value - (shouldAddBonus ? add : 0) : null,
+    );
     let invalid = $state(false);
 
     $effect(() => {
-        if (value != null) {
-            value = Math.max(value, 0);
-            let vl = value;
-            if (!shouldAddBonus) {
-                vl -= add;
-            }
-
-            switch (type) {
-                case "singles":
-                    invalid = vl % n != 0 || vl > n * 5;
-                    break;
-                case "free":
-                    invalid = vl < 5 || vl > 30;
-                    break;
-                case "fullhouse":
-                    invalid = vl < 7 || vl > 28 || vl == 10 || vl == 25;
-                    break;
-                case "multiples":
-                    invalid = vl % n != 0 || vl > n * 6;
-                    break;
-                case "sequence":
-                    invalid =
-                        (vl != 0 && (vl - 6) % 10 != 0) || vl < 46 || vl > 76;
-                    break;
-            }
-
-            if (vl == 0) {
-                invalid = false;
-            }
-            if (vl < 0) {
-                invalid = true;
-            }
-        } else {
+        if (inputValue == null) {
             invalid = false;
             value = null;
+            return;
+        }
+
+        inputValue = Math.max(inputValue, 0);
+        let vl = inputValue;
+
+        if (!shouldAddBonus) {
+            vl -= add;
+        }
+
+        switch (type) {
+            case "singles":
+                invalid = vl % n != 0 || vl > n * 5;
+                break;
+            case "free":
+                invalid = vl < 5 || vl > 30;
+                break;
+            case "fullhouse":
+                invalid = vl < 7 || vl > 28 || vl == 10 || vl == 25;
+                break;
+            case "multiples":
+                invalid = vl % n != 0 || vl > n * 6;
+                break;
+            case "sequence":
+                invalid = (vl != 0 && (vl - 6) % 10 != 0) || vl < 46 || vl > 76;
+                break;
+        }
+
+        if (vl == 0) {
+            invalid = false;
+        }
+
+        if (vl < 0) {
+            invalid = true;
+        }
+
+        if (inputValue) {
+            value = inputValue + (shouldAddBonus ? add : 0);
+        } else {
+            value = 0;
         }
     });
-
-    function b(value: number) {
-        if (shouldAddBonus) {
-            return value;
-        }
-        return 0;
-    }
 </script>
 
 <div class="cell">
@@ -73,12 +77,12 @@
         class="number"
         type="number"
         pattern="[0-9]*"
-        bind:value
+        bind:value={inputValue}
     />
 
     {#if add > 0 && value}
         <span class="overlay number" class:invalid>
-            {value + b(add)}
+            {value}
         </span>
     {:else if value == 0}
         <span class="overlay cross">

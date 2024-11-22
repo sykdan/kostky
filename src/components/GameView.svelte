@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { run } from "svelte/legacy";
-
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher, onMount } from "svelte";
+    import { onMount } from "svelte";
     import { slide } from "svelte/transition";
     import tr from "./Lib/ScreenTransition";
 
@@ -21,7 +19,7 @@
         type GameData,
         type GameCard,
         GAME_CARD_SIZE,
-    } from "./Lib/SaveData";
+    } from "./Lib/SaveData.svelte";
     import TopBar from "./UI/TopBar.svelte";
     import { dialogTrigger } from "./Lib/DialogTrigger";
 
