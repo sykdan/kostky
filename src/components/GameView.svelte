@@ -21,7 +21,7 @@
         GAME_CARD_SIZE,
     } from "./Lib/SaveData.svelte";
     import TopBar from "./UI/TopBar.svelte";
-    import { dialogTrigger } from "./Lib/DialogTrigger";
+    import { dialogTrigger } from "./Lib/DialogTrigger.svelte";
 
     let showActions = $state(false);
 

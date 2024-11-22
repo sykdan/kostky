@@ -1,15 +1,15 @@
 <script lang="ts">
     import { fade, fly } from "svelte/transition";
-    import { dialogTrigger } from "../Lib/DialogTrigger";
+    import { dialogTrigger } from "../Lib/DialogTrigger.svelte";
     import { circOut, quadOut } from "svelte/easing";
 
     function resolve(result: Boolean) {
-        $dialogTrigger.visible = false;
-        $dialogTrigger.resolver(result);
+        dialogTrigger.visible = false;
+        dialogTrigger.resolve(result);
     }
 </script>
 
-{#if $dialogTrigger.visible}
+{#if dialogTrigger.visible}
     <div class="dialog" transition:fade={{ duration: 300 }}>
         <div
             class="content"
@@ -17,19 +17,19 @@
             out:fly={{ y: 50, easing: quadOut }}
         >
             <div class="header">
-                {$dialogTrigger.title}
+                {dialogTrigger.title}
             </div>
             <div class="message">
-                {@html $dialogTrigger.message}
+                {@html dialogTrigger.message}
             </div>
             <div class="buttons">
-                {#if $dialogTrigger.cancel}
+                {#if dialogTrigger.cancel}
                     <button onclick={() => resolve(false)}>
-                        {$dialogTrigger.cancel}
+                        {dialogTrigger.cancel}
                     </button>
                 {/if}
                 <button class="ok" onclick={() => resolve(true)}>
-                    {$dialogTrigger.ok}
+                    {dialogTrigger.ok}
                 </button>
             </div>
         </div>
