@@ -78,7 +78,7 @@
     }
 
     function getValueForInput() {
-        return value != null ? value - (shouldAddBonus ? add : 0) : null;
+        return value != null ? Math.max(value - (shouldAddBonus ? add : 0), 0) : null;
     }
 
     $effect(() => {

@@ -4,7 +4,7 @@ class DialogTrigger {
     ok: string = $state("");
     cancel: string | null = $state("");
     visible: Boolean = $state(false);
-    resolve: (value: any) => void;
+    resolve: (value: any) => void = () => {};
 
     prompt(title: string, message: string, ok: string, cancel: string | null = null) {
         return new Promise((r) => {
