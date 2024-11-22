@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
+    import { run } from "svelte/legacy";
 
     import { _, locale } from "svelte-i18n";
     import { createEventDispatcher, onMount } from "svelte";
@@ -25,15 +25,17 @@
     import TopBar from "./UI/TopBar.svelte";
     import { dialogTrigger } from "./Lib/DialogTrigger";
 
-    const emit = createEventDispatcher();
     let showActions = $state(false);
 
     interface Props {
         id: string;
+        onBack: () => any;
     }
 
-    let { id }: Props = $props();
-    let gameData: GameData = $state(JSON.parse(localStorage.getItem("games")!)[id]);
+    let { id, onBack }: Props = $props();
+    let gameData: GameData = $state(
+        JSON.parse(localStorage.getItem("games")!)[id],
+    );
     let card: GameCard = $state(JSON.parse(localStorage.getItem(id)!));
 
     onMount(() => {
@@ -42,9 +44,9 @@
 
     function countFilled() {
         let sum = 0;
-        for(let row of card) {
-            for(let cell of row) {
-                sum += (cell !== null ? 1 : 0)
+        for (let row of card) {
+            for (let cell of row) {
+                sum += cell !== null ? 1 : 0;
             }
         }
         return sum;
@@ -65,7 +67,7 @@
     }
 
     function getFirstPlacedTime() {
-        if(!gameData.first_placed) return null;
+        if (!gameData.first_placed) return null;
         let date = new Date(gameData.first_placed);
         return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`;
     }
@@ -75,13 +77,13 @@
         if (gameData.first_placed) {
             message +=
                 $_("game.whoisplaying_time", {
-                    values: { time: `<b>${getFirstPlacedTime()}</b>`},
+                    values: { time: `<b>${getFirstPlacedTime()}</b>` },
                 }) + "\n";
         }
         message +=
             $_("game.whoisplaying_fields", {
                 values: {
-                    n: `<b>${GAME_CARD_SIZE - countFilled()}</b>`
+                    n: `<b>${GAME_CARD_SIZE - countFilled()}</b>`,
                 },
             }) + "\n";
 
@@ -107,7 +109,6 @@
         }
     }
 
-
     $effect(() => {
         localStorage.setItem(id, JSON.stringify(card));
         let filled = countFilled();
@@ -128,25 +129,35 @@
 <div class="game appscreen" in:tr out:tr>
     <TopBar
         title={gameData.name}
-        on:leftbutton={() => emit("back")}
-        on:rightbutton={() => (showActions = !showActions)}
+        onLeftButtonPressed={onBack}
+        onRightButtonPressed={() => (showActions = !showActions)}
     >
-        {#snippet leftbutton()}
-                <SvgIcon type="mdi" path={Back}  color="var(--surface)" size="28" />
-            {/snippet}
-        {#snippet rightbutton()}
-                <SvgIcon type="mdi" path={Menu}  color="var(--surface)" size="28" />
-            {/snippet}
+        {#snippet leftButtonContent()}
+            <SvgIcon type="mdi" path={Back} color="var(--surface)" size="28" />
+        {/snippet}
+        {#snippet rightButtonContent()}
+            <SvgIcon type="mdi" path={Menu} color="var(--surface)" size="28" />
+        {/snippet}
     </TopBar>
 
     {#if showActions}
         <div class="actions" transition:slide|local>
             <button onclick={zeroes} style="color: var(--front)">
-                <SvgIcon type="mdi" path={CrossOut} color="var(--front)" size="28" />
+                <SvgIcon
+                    type="mdi"
+                    path={CrossOut}
+                    color="var(--front)"
+                    size="28"
+                />
                 {$_("game.crossempty")}
             </button>
             <button onclick={order} style="color: var(--front)">
-                <SvgIcon type="mdi" path={WhoIsPlaying} color="var(--front)" size="28" />
+                <SvgIcon
+                    type="mdi"
+                    path={WhoIsPlaying}
+                    color="var(--front)"
+                    size="28"
+                />
                 {$_("game.whoisplaying")}
             </button>
             <button onclick={clear} style="color: var(--red)">

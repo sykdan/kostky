@@ -1,6 +1,5 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher, onMount } from "svelte";
     import { slide } from "svelte/transition";
     import SaveGame from "./UI/SaveGame.svelte";
     import {
@@ -20,7 +19,12 @@
     import tr from "./Lib/ScreenTransition";
     import settings from "./Lib/Settings.svelte";
 
-    const emit = createEventDispatcher();
+    interface Props {
+        onPlay: (id: string) => any;
+        onOpenRules: () => any;
+        onOpenSettings: () => any;
+    }
+    let { onPlay, onOpenRules, onOpenSettings }: Props = $props();
 
     let games: { [key: string]: GameData } = $state(
         JSON.parse(localStorage.getItem("games") || "{}"),
@@ -45,7 +49,7 @@
 
     function play(id: string) {
         games[id] = upgradeSaveData(games[id]);
-        emit("play", id);
+        onPlay(id);
     }
 
     function del(id: string) {
@@ -64,7 +68,8 @@
                         <stop
                             offset="{i == 0
                                 ? 0
-                                : (i / (settings.gradientValues.length - 1)) * 100}%"
+                                : (i / (settings.gradientValues.length - 1)) *
+                                  100}%"
                             stop-color={gradientPart}
                         />
                     {/each}
@@ -83,8 +88,8 @@
 
         {#each gameIds as key}
             <SaveGame
-                on:play={() => play(key)}
-                on:delete={() => del(key)}
+                onSaveSelected={() => play(key)}
+                onSaveDelete={() => del(key)}
                 metadata={games[key]}
             />
         {/each}
@@ -121,11 +126,11 @@
         {/if}
 
         <hr />
-        <button onclick={() => emit("rules")}>
+        <button onclick={onOpenRules}>
             <SvgIcon type="mdi" path={HowToPlay} />
             {$_("main.rules")}
         </button>
-        <button onclick={() => emit("settings")}>
+        <button onclick={onOpenSettings}>
             <SvgIcon type="mdi" path={Settings} />
             {$_("main.options")}
         </button>

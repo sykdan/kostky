@@ -1,6 +1,5 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
 
     import { mdiPlay as Play, mdiDelete as Delete } from "@mdi/js";
@@ -11,11 +10,11 @@
 
     interface Props {
         metadata: GameData;
+        onSaveSelected: () => any;
+        onSaveDelete: () => any;
     }
 
-    let { metadata }: Props = $props();
-
-    const emit = createEventDispatcher();
+    let { metadata, onSaveSelected, onSaveDelete }: Props = $props();
 </script>
 
 <div class="saved-game" transition:slide|local>
@@ -29,7 +28,7 @@
                 : $_("main.no_played")}
         </span>
     </div>
-    <button class="play" onclick={() => emit("play")}>
+    <button class="play" onclick={onSaveSelected}>
         <SvgIcon type="mdi" path={Play} size="32" color="#141414" />
         {$_("main.play")}
     </button>
@@ -40,7 +39,7 @@
                 $_("main.delete_confirm") + "\n" + $_("common.noundo"),
                 $_("common.yes"),
                 $_("common.no"),
-            )) && emit("delete")}
+            )) && onSaveDelete()}
         class="danger"
     >
         <SvgIcon type="mdi" path={Delete} size="32" color="#141414" />

@@ -55,26 +55,26 @@
 <Dialog />
 {#if screen == Screen.MainMenu}
     <MainMenu
-        on:play={(e) => {
+        onPlay={(game) => {
             allowNext();
             history.pushState(
-                setState({ screen: Screen.GameView, game: e.detail }),
+                setState({ screen: Screen.GameView, game: game }),
                 "",
             );
         }}
-        on:rules={() => {
+        onOpenRules={() => {
             allowNext();
             history.pushState(setState({ screen: Screen.GameRules }), "");
         }}
-        on:settings={() => {
+        onOpenSettings={() => {
             allowNext();
             history.pushState(setState({ screen: Screen.SettingsView }), "");
         }}
     />
 {:else if screen == Screen.GameView && selectedGameId}
-    <GameView on:back={back} id={selectedGameId} />
+    <GameView onBack={back} id={selectedGameId} />
 {:else if screen == Screen.GameRules}
-    <GameRules on:back={back} />
+    <GameRules onBack={back} />
 {:else if screen == Screen.SettingsView}
-    <SettingsView on:back={back} />
+    <SettingsView onBack={back} />
 {/if}

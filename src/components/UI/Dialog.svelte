@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { fade, scale } from "svelte/transition";
+    import { fade, fly } from "svelte/transition";
     import { dialogTrigger } from "../Lib/DialogTrigger";
+    import { circIn, circOut, sineOut } from "svelte/easing";
 
     function resolve(result: Boolean) {
         $dialogTrigger.visible = false;
@@ -10,7 +11,11 @@
 
 {#if $dialogTrigger.visible}
     <div class="dialog" transition:fade={{ duration: 300 }}>
-        <div class="content" transition:scale={{ start: 1.2 }}>
+        <div
+            class="content"
+            in:fly={{ y: -50, easing: circOut }}
+            out:fly={{ y: 50, easing: sineOut }}
+        >
             <div class="header">
                 {$dialogTrigger.title}
             </div>
@@ -42,6 +47,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        backdrop-filter: blur(5px);
     }
 
     div.content {

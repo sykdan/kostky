@@ -1,6 +1,5 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher } from "svelte";
     import tr from "./Lib/ScreenTransition";
 
     import {
@@ -26,19 +25,16 @@
 
     import TopBar from "./UI/TopBar.svelte";
 
-    const emit = createEventDispatcher();
-    let show_actions = $state(false);
+    interface Props {
+        onBack: () => any;
+    }
+    let { onBack }: Props = $props();
 </script>
 
 <div class="rulesscreen appscreen" in:tr out:tr>
-    <TopBar
-        title={$_("rules.title")}
-        hideRight={true}
-        on:leftbutton={() => emit("back")}
-        on:rightbutton={() => (show_actions = !show_actions)}
-    >
-        {#snippet leftbutton()}
-            <SvgIcon type="mdi" path={Back}  color="var(--surface)" size="28" />
+    <TopBar title={$_("rules.title")} onLeftButtonPressed={onBack}>
+        {#snippet leftButtonContent()}
+            <SvgIcon type="mdi" path={Back} color="var(--surface)" size="28" />
         {/snippet}
     </TopBar>
     <div class="rules">

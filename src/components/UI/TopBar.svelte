@@ -1,31 +1,36 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
+    import { type Snippet } from "svelte";
 
     interface Props {
         title?: string;
-        hideLeft?: boolean;
-        hideRight?: boolean;
-        leftbutton?: import('svelte').Snippet;
-        rightbutton?: import('svelte').Snippet;
+        leftButtonContent?: Snippet;
+        onLeftButtonPressed?: () => any;
+        rightButtonContent?: Snippet;
+        onRightButtonPressed?: () => any;
     }
 
     let {
         title = "",
-        hideLeft = false,
-        hideRight = false,
-        leftbutton,
-        rightbutton
+        leftButtonContent,
+        onLeftButtonPressed,
+        rightButtonContent,
+        onRightButtonPressed,
     }: Props = $props();
-    const emit = createEventDispatcher();
 </script>
 
 <div class="topbar">
-    <button onclick={() => emit("leftbutton")} class:hide={hideLeft}>
-        {@render leftbutton?.()}
+    <button
+        onclick={onLeftButtonPressed}
+        class:hide={leftButtonContent == null}
+    >
+        {@render leftButtonContent?.()}
     </button>
     {title}
-    <button onclick={() => emit("rightbutton")} class:hide={hideRight}>
-        {@render rightbutton?.()}
+    <button
+        onclick={onRightButtonPressed}
+        class:hide={rightButtonContent == null}
+    >
+        {@render rightButtonContent?.()}
     </button>
 </div>
 

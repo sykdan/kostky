@@ -1,6 +1,5 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher } from "svelte";
     import tr from "./Lib/ScreenTransition";
 
     import { mdiArrowLeft as Back } from "@mdi/js";
@@ -9,21 +8,24 @@
     import TopBar from "./UI/TopBar.svelte";
     import settings from "./Lib/Settings.svelte";
 
-    const emit = createEventDispatcher();
+    interface Props {
+        onBack: () => any;
+    }
+
+    let { onBack }: Props = $props();
 </script>
 
 <div class="appscreen" in:tr out:tr>
     <TopBar
         title={$_("settings.title")}
-        hideRight={true}
-        on:leftbutton={() => {
+        onLeftButtonPressed={() => {
             if (settings.color == "rainbow") {
                 settings.extraThemes = true;
             }
-            emit("back");
+            onBack();
         }}
     >
-        {#snippet leftbutton()}
+        {#snippet leftButtonContent()}
             <SvgIcon type="mdi" path={Back} color="var(--surface)" size="28" />
         {/snippet}
     </TopBar>
