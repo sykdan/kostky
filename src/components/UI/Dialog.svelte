@@ -1,7 +1,7 @@
 <script lang="ts">
     import { fade, fly } from "svelte/transition";
     import { dialogTrigger } from "../Lib/DialogTrigger";
-    import { circIn, circOut, sineOut } from "svelte/easing";
+    import { circOut, quadOut } from "svelte/easing";
 
     function resolve(result: Boolean) {
         $dialogTrigger.visible = false;
@@ -14,7 +14,7 @@
         <div
             class="content"
             in:fly={{ y: -50, easing: circOut }}
-            out:fly={{ y: 50, easing: sineOut }}
+            out:fly={{ y: 50, easing: quadOut }}
         >
             <div class="header">
                 {$dialogTrigger.title}
