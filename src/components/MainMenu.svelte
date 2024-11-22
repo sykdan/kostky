@@ -18,6 +18,7 @@
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import tr from "./Lib/ScreenTransition";
+    import settings from "./Lib/Settings.svelte";
 
     const emit = createEventDispatcher();
 
@@ -52,15 +53,6 @@
         games = games;
         localStorage.removeItem(id);
     }
-
-    let logoFill = getComputedStyle(document.body)
-        .getPropertyValue("--primary-detail")
-        ?.split("(")[1]
-        ?.split(")")[0]
-        ?.split(",")
-        ?.splice(1) ?? [
-        getComputedStyle(document.body).getPropertyValue("--primary"),
-    ];
 </script>
 
 <div class="mainmenu appscreen" in:tr out:tr>
@@ -68,11 +60,11 @@
         <svg class="logo" viewBox="0 0 92.604 18.785" fill="url(#gradient)">
             <defs>
                 <linearGradient id="gradient">
-                    {#each logoFill as gradientPart, i}
+                    {#each settings.gradientValues as gradientPart, i}
                         <stop
                             offset="{i == 0
                                 ? 0
-                                : (i / (logoFill.length - 1)) * 100}%"
+                                : (i / (settings.gradientValues.length - 1)) * 100}%"
                             stop-color={gradientPart}
                         />
                     {/each}
