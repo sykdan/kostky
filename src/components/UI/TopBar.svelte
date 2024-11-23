@@ -1,24 +1,43 @@
-<script>
-    import { createEventDispatcher } from "svelte";
+<script lang="ts">
+    import { type Snippet } from "svelte";
 
-    export let title = "";
-    export let hideLeft = false;
-    export let hideRight = false;
-    const emit = createEventDispatcher();
+    interface Props {
+        title?: string;
+        leftButtonContent?: Snippet;
+        onLeftButtonPressed?: () => any;
+        rightButtonContent?: Snippet;
+        onRightButtonPressed?: () => any;
+    }
+
+    let {
+        title = "",
+        leftButtonContent,
+        onLeftButtonPressed,
+        rightButtonContent,
+        onRightButtonPressed,
+    }: Props = $props();
 </script>
 
 <div class="topbar">
-    <button on:click={() => emit("leftbutton")} class:hide={hideLeft}>
-        <slot name="leftbutton" />
+    <button
+        onclick={onLeftButtonPressed}
+        class:hide={leftButtonContent == null}
+    >
+        {@render leftButtonContent?.()}
     </button>
     {title}
-    <button on:click={() => emit("rightbutton")} class:hide={hideRight}>
-        <slot name="rightbutton" />
+    <button
+        onclick={onRightButtonPressed}
+        class:hide={rightButtonContent == null}
+    >
+        {@render rightButtonContent?.()}
     </button>
 </div>
 
 <style>
     div.topbar {
+        position: sticky;
+        top: 0;
         background-color: var(--primary);
         background-image: var(--primary-detail);
         color: var(--surface);

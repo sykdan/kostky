@@ -1,14 +1,20 @@
-<script>
+<script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
-    import Play from "svelte-material-icons/Play.svelte";
-    import Delete from "svelte-material-icons/Delete.svelte";
-    import { dialogTrigger } from "../Lib/DialogTrigger";
 
-    export let metadata;
+    import { mdiPlay as Play, mdiDelete as Delete } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
 
-    const emit = createEventDispatcher();
+    import { dialogTrigger } from "../../lib/DialogTrigger.svelte";
+    import type { GameData } from "../../lib/SaveData.svelte";
+
+    interface Props {
+        metadata: GameData;
+        onSaveSelected: () => any;
+        onSaveDelete: () => any;
+    }
+
+    let { metadata, onSaveSelected, onSaveDelete }: Props = $props();
 </script>
 
 <div class="saved-game" transition:slide|local>
@@ -17,23 +23,26 @@
             {metadata.name}
         </span>
         <span class="lastplayed">
-            {metadata.last_played !== null ? new Date(metadata.last_played).toLocaleString() : $_("main.no_played")}
+            {metadata.last_played !== null
+                ? new Date(metadata.last_played).toLocaleString()
+                : $_("main.no_played")}
         </span>
     </div>
-    <button class="play" on:click={() => emit("play")}>
-        <Play size="32" color="#141414" /> {$_("main.play")}
+    <button class="play" onclick={onSaveSelected}>
+        <SvgIcon type="mdi" path={Play} size="32" color="#141414" />
+        {$_("main.play")}
     </button>
     <button
-        on:click={async () =>
+        onclick={async () =>
             (await dialogTrigger.prompt(
                 $_("main.delete"),
                 $_("main.delete_confirm") + "\n" + $_("common.noundo"),
                 $_("common.yes"),
                 $_("common.no"),
-            )) && emit("delete")}
+            )) && onSaveDelete()}
         class="danger"
     >
-        <Delete size="32" color="#141414" />
+        <SvgIcon type="mdi" path={Delete} size="32" color="#141414" />
     </button>
 </div>
 

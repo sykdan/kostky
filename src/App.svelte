@@ -3,35 +3,45 @@
     import GameView from "./components/GameView.svelte";
     import GameRules from "./components/GameRules.svelte";
     import SettingsView from "./components/SettingsView.svelte";
-    import Dialog from "./components/UI/Dialog.svelte";
+    import Dialog from "./components/ui/Dialog.svelte";
     import { onMount } from "svelte";
-    import { allowNext } from "./components/Lib/ScreenTransition";
+    import { allowNext } from "./lib/ScreenTransition";
 
-    enum SCREENS {
+    enum Screen {
         MainMenu,
         GameView,
         GameRules,
         SettingsView,
     }
 
+    interface ScreenData {
+        screen?: Screen;
+        game?: string;
+    }
+
     onMount(() => {
-        window.addEventListener("popstate", (event) => {
+        const handlePopState = (event: PopStateEvent) => {
             setState(event.state);
-        });
+        };
+
+        window.addEventListener("popstate", handlePopState);
+
+        () => {
+            window.removeEventListener("popstate", handlePopState);
+        };
     });
 
-    let screen: SCREENS = SCREENS.MainMenu;
-    let selectedGameId = null;
+    let screen: Screen = $state(Screen.MainMenu);
+    let selectedGameId: string | null = $state(null);
 
-    function setState(state) {
-        state ??= {};
-        if (state.game) {
+    function setState(state: ScreenData | null) {
+        if (state?.game) {
             selectedGameId = state.game;
         }
-        if (state.screen) {
+        if (state?.screen) {
             screen = state.screen;
         } else {
-            screen = SCREENS.MainMenu;
+            screen = Screen.MainMenu;
         }
         return state;
     }
@@ -43,28 +53,36 @@
 </script>
 
 <Dialog />
-{#if screen == SCREENS.MainMenu}
+{#if screen == Screen.MainMenu}
     <MainMenu
-        on:play={(e) => {
+        onPlay={(game) => {
             allowNext();
             history.pushState(
-                setState({ screen: SCREENS.GameView, game: e.detail }),
-                ""
+                setState({ screen: Screen.GameView, game: game }),
+                "",
             );
         }}
-        on:rules={() => {
+        onOpenRules={() => {
             allowNext();
-            history.pushState(setState({ screen: SCREENS.GameRules }), "");
+            history.pushState(setState({ screen: Screen.GameRules }), "");
         }}
-        on:settings={() => {
+        onOpenSettings={() => {
             allowNext();
-            history.pushState(setState({ screen: SCREENS.SettingsView }), "");
+            history.pushState(setState({ screen: Screen.SettingsView }), "");
         }}
     />
-{:else if screen == SCREENS.GameView}
-    <GameView on:back={back} id={selectedGameId} />
-{:else if screen == SCREENS.GameRules}
-    <GameRules on:back={back} />
-{:else if screen == SCREENS.SettingsView}
-    <SettingsView on:back={back} />
+{:else if screen == Screen.GameView && selectedGameId}
+    <GameView onBack={back} id={selectedGameId} />
+{:else if screen == Screen.GameRules}
+    <GameRules onBack={back} />
+{:else if screen == Screen.SettingsView}
+    <SettingsView onBack={back} />
 {/if}
+
+<style lang="scss">
+    @use "sass:meta";
+
+    :global {
+        @include meta.load-css("./style/theming.scss", $with: null);
+    }
+</style>

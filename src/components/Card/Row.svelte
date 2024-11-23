@@ -1,23 +1,30 @@
 <script lang="ts">
     import InputBox from "./InputBox.svelte";
 
-    export let type:
-        | "singles"
-        | "free"
-        | "fullhouse"
-        | "multiples"
-        | "sequence";
-    export let n: 1 | 2 | 3 | 4 | 5 | 6 = 1;
-    export let row;
-    export let add = 0;
+    interface Props {
+        type:  "singles" | "free" | "fullhouse" | "multiples" | "sequence";
+        n?: 1 | 2 | 3 | 4 | 5 | 6;
+        row: any;
+        add?: number;
+        shouldAddBonus: Boolean;
+        children?: import('svelte').Snippet;
+    }
 
-    export let shouldAddBonus: Boolean
+    let {
+        type,
+        n = undefined,
+        row = $bindable(),
+        add = 0,
+        shouldAddBonus,
+        children
+    }: Props = $props();
 </script>
 
 <!-- Icon -->
 <div class="cell side has-icon gradient-downward">
-    <slot />
+    {@render children?.()}
 </div>
+
 <!-- Input boxes -->
 <InputBox {n} {type} bind:value={row[0]} {add} {shouldAddBonus}/>
 <InputBox {n} {type} bind:value={row[1]} {add} {shouldAddBonus}/>

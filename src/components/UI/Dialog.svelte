@@ -1,30 +1,35 @@
 <script lang="ts">
-    import { fade, scale } from "svelte/transition";
-    import { dialogTrigger } from "../Lib/DialogTrigger";
+    import { fade, fly } from "svelte/transition";
+    import { dialogTrigger } from "../../lib/DialogTrigger.svelte";
+    import { circOut, quadOut } from "svelte/easing";
 
     function resolve(result: Boolean) {
-        $dialogTrigger.visible = false;
-        $dialogTrigger.resolver(result);
+        dialogTrigger.visible = false;
+        dialogTrigger.resolve(result);
     }
 </script>
 
-{#if $dialogTrigger.visible}
+{#if dialogTrigger.visible}
     <div class="dialog" transition:fade={{ duration: 300 }}>
-        <div class="content" transition:scale={{ start: 1.2 }}>
+        <div
+            class="content"
+            in:fly={{ y: -50, easing: circOut }}
+            out:fly={{ y: 50, easing: quadOut }}
+        >
             <div class="header">
-                {$dialogTrigger.title}
+                {dialogTrigger.title}
             </div>
             <div class="message">
-                {@html $dialogTrigger.message}
+                {@html dialogTrigger.message}
             </div>
             <div class="buttons">
-                {#if $dialogTrigger.cancel}
-                    <button on:click={() => resolve(false)}>
-                        {$dialogTrigger.cancel}
+                {#if dialogTrigger.cancel}
+                    <button onclick={() => resolve(false)}>
+                        {dialogTrigger.cancel}
                     </button>
                 {/if}
-                <button class="ok" on:click={() => resolve(true)}>
-                    {$dialogTrigger.ok}
+                <button class="ok" onclick={() => resolve(true)}>
+                    {dialogTrigger.ok}
                 </button>
             </div>
         </div>
@@ -42,6 +47,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        backdrop-filter: blur(5px);
+        pointer-events: all;
+        touch-action: none;
+        overscroll-behavior: contain;
     }
 
     div.content {

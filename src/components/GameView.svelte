@@ -1,60 +1,54 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import { createEventDispatcher, onMount } from "svelte";
+    import { onMount } from "svelte";
     import { slide } from "svelte/transition";
-    import tr from "./Lib/ScreenTransition";
+    import tr from "../lib/ScreenTransition";
 
-    import Back from "svelte-material-icons/ArrowLeft.svelte";
-    import Menu from "svelte-material-icons/DotsVertical.svelte";
+    import {
+        mdiArrowLeft as Back,
+        mdiDotsVertical as Menu,
+        mdiClose as CrossOut,
+        mdiHelpCircle as WhoIsPlaying,
+        mdiTrashCan as Clear,
+    } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import CrossOut from "svelte-material-icons/Close.svelte";
-    import WhoIsPlaying from "svelte-material-icons/HelpCircle.svelte";
-    import Clear from "svelte-material-icons/TrashCan.svelte";
-
-    import PlayingCard from "./Card/Sheet.svelte";
+    import PlayingCard from "./card/Sheet.svelte";
     import {
         getBlankGameCard,
         type GameData,
         type GameCard,
         GAME_CARD_SIZE,
-    } from "./Lib/SaveData";
-    import TopBar from "./UI/TopBar.svelte";
-    import { dialogTrigger } from "./Lib/DialogTrigger";
+    } from "../lib/SaveData.svelte";
+    import TopBar from "./ui/TopBar.svelte";
+    import { dialogTrigger } from "../lib/DialogTrigger.svelte";
+    import Screen from "./ui/Screen.svelte";
 
-    const emit = createEventDispatcher();
-    let showActions = false;
+    let showActions = $state(false);
 
-    export let id: string;
-    let gameData: GameData = JSON.parse(localStorage.getItem("games"))[id];
-    let card: GameCard = JSON.parse(localStorage.getItem(id));
-    $: {
-        localStorage.setItem(id, JSON.stringify(card));
-        let filled = countFilled();
-        if (filled == 0) {
-            gameData.first_placed = null;
-        } else if (filled == 1) {
-            gameData.first_placed = +new Date();
-        }
+    interface Props {
+        id: string;
+        onBack: () => any;
     }
-    $: {
-        let g = JSON.parse(localStorage.getItem("games"));
-        g[id] = gameData;
-        localStorage.setItem("games", JSON.stringify(g));
-    }
+
+    let { id, onBack }: Props = $props();
+    let gameData: GameData = $state(
+        JSON.parse(localStorage.getItem("games")!)[id],
+    );
+    let card: GameCard = $state(JSON.parse(localStorage.getItem(id)!));
 
     onMount(() => {
         gameData.last_played = +new Date();
     });
 
     function countFilled() {
-        return card.reduce(
-            (carry, x) =>
-                (carry += x.reduce(
-                    (carry, x) => (carry += x !== null ? 1 : 0),
-                    0,
-                )),
-            0,
-        );
+        let sum = 0;
+        for (let row of card) {
+            for (let cell of row) {
+                sum += cell !== null ? 1 : 0;
+            }
+        }
+        return sum;
     }
 
     async function zeroes() {
@@ -72,6 +66,7 @@
     }
 
     function getFirstPlacedTime() {
+        if (!gameData.first_placed) return null;
         let date = new Date(gameData.first_placed);
         return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`;
     }
@@ -81,16 +76,13 @@
         if (gameData.first_placed) {
             message +=
                 $_("game.whoisplaying_time", {
-                    values: { time: "<b>" + getFirstPlacedTime() + "</b>" },
+                    values: { time: `<b>${getFirstPlacedTime()}</b>` },
                 }) + "\n";
         }
         message +=
             $_("game.whoisplaying_fields", {
                 values: {
-                    n:
-                        "<b>" +
-                        (GAME_CARD_SIZE - countFilled()).toString() +
-                        "</b>",
+                    n: `<b>${GAME_CARD_SIZE - countFilled()}</b>`,
                 },
             }) + "\n";
 
@@ -115,37 +107,86 @@
             showActions = false;
         }
     }
+
+    $effect(() => {
+        localStorage.setItem(id, JSON.stringify(card));
+        let filled = countFilled();
+        if (filled == 0) {
+            gameData.first_placed = null;
+        } else if (filled == 1) {
+            gameData.first_placed = +new Date();
+        }
+    });
+
+    $effect(() => {
+        let games = JSON.parse(localStorage.getItem("games")!);
+        games[id] = gameData;
+        localStorage.setItem("games", JSON.stringify(games));
+    });
 </script>
 
-<div class="game appscreen" in:tr out:tr>
-    <TopBar
-        title={gameData.name}
-        on:leftbutton={() => emit("back")}
-        on:rightbutton={() => (showActions = !showActions)}
-    >
-        <Back slot="leftbutton" color="var(--surface)" size="28" />
-        <Menu slot="rightbutton" color="var(--surface)" size="28" />
-    </TopBar>
+<Screen>
+    {#snippet topBar()}
+        <TopBar
+            title={gameData.name}
+            onLeftButtonPressed={onBack}
+            onRightButtonPressed={() => (showActions = !showActions)}
+        >
+            {#snippet leftButtonContent()}
+                <SvgIcon
+                    type="mdi"
+                    path={Back}
+                    color="var(--surface)"
+                    size="28"
+                />
+            {/snippet}
+            {#snippet rightButtonContent()}
+                <SvgIcon
+                    type="mdi"
+                    path={Menu}
+                    color="var(--surface)"
+                    size="28"
+                />
+            {/snippet}
+        </TopBar>
+    {/snippet}
 
-    {#if showActions}
-        <div class="actions" transition:slide|local>
-            <button on:click={zeroes} style="color: var(--front)">
-                <CrossOut color="var(--front)" size="28" />
-                {$_("game.crossempty")}
-            </button>
-            <button on:click={order} style="color: var(--front)">
-                <WhoIsPlaying color="var(--front)" size="28" />
-                {$_("game.whoisplaying")}
-            </button>
-            <button on:click={clear} style="color: var(--red)">
-                <Clear color="var(--red)" size="28" />
-                {$_("game.reset")}
-            </button>
-        </div>
-    {/if}
+    {#snippet screenContent()}
+        {#if showActions}
+            <div class="actions" transition:slide|local>
+                <button onclick={zeroes} style="color: var(--front)">
+                    <SvgIcon
+                        type="mdi"
+                        path={CrossOut}
+                        color="var(--front)"
+                        size="28"
+                    />
+                    {$_("game.crossempty")}
+                </button>
+                <button onclick={order} style="color: var(--front)">
+                    <SvgIcon
+                        type="mdi"
+                        path={WhoIsPlaying}
+                        color="var(--front)"
+                        size="28"
+                    />
+                    {$_("game.whoisplaying")}
+                </button>
+                <button onclick={clear} style="color: var(--red)">
+                    <SvgIcon
+                        type="mdi"
+                        path={Clear}
+                        color="var(--red)"
+                        size="28"
+                    />
+                    {$_("game.reset")}
+                </button>
+            </div>
+        {/if}
 
-    <PlayingCard bind:card />
-</div>
+        <PlayingCard bind:card />
+    {/snippet}
+</Screen>
 
 <style>
     div.actions {
@@ -163,6 +204,7 @@
         box-shadow:
             0 1px 3px rgba(0, 0, 0, 0.12),
             0 1px 2px rgba(0, 0, 0, 0.24);
+        overflow-y: clip;
     }
 
     div.actions button {
@@ -177,6 +219,7 @@
         align-items: center;
         padding-right: 16px;
         color: var(--back);
+        cursor: pointer;
     }
 
     div.actions button :global(svg) {

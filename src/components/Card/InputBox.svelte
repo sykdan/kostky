@@ -1,23 +1,51 @@
 <script lang="ts">
-    import Cross from "svelte-material-icons/Close.svelte";
+    import { mdiClose as Cross } from "@mdi/js";
+    import SvgIcon from "@jamescoyle/svelte-icon";
 
-    export let value;
+    interface Props {
+        value: any;
+        type: "singles" | "free" | "fullhouse" | "multiples" | "sequence";
+        n?: number;
+        add?: number;
+        shouldAddBonus: Boolean;
+    }
 
-    export let type:
-        | "singles"
-        | "free"
-        | "fullhouse"
-        | "multiples"
-        | "sequence";
-    export let n = 0;
-    export let add = 0;
-    export let shouldAddBonus: Boolean;
+    let {
+        value = $bindable(),
+        type,
+        n = 0,
+        add = 0,
+        shouldAddBonus,
+    }: Props = $props();
 
-    let invalid = false;
+    let inputValue: number | null = $derived(getValueForInput());
+    let invalid = $state(false);
 
-    $: if (value != null) {
-        value = Math.max(value, 0);
-        let vl = value;
+    function setInput(newValue: number | null) {
+        checkValidity();
+
+        if (newValue == null) {
+            value = null;
+            return;
+        }
+
+        newValue = Math.max(newValue, 0);
+
+        if (newValue) {
+            value = newValue + (shouldAddBonus ? add : 0);
+        } else {
+            value = 0;
+        }
+    }
+
+    function checkValidity() {
+        if (inputValue == null) {
+            invalid = false;
+            return;
+        }
+
+        let vl = inputValue;
+
         if (!shouldAddBonus) {
             vl -= add;
         }
@@ -43,68 +71,76 @@
         if (vl == 0) {
             invalid = false;
         }
+
         if (vl < 0) {
             invalid = true;
         }
-    } else {
-        invalid = false;
-        value = null;
     }
 
-    function b(value) {
-        if (shouldAddBonus) {
-            return value;
-        }
-        return 0;
+    function getValueForInput() {
+        return value != null
+            ? Math.max(value - (shouldAddBonus ? add : 0), 0)
+            : null;
     }
+
+    $effect(() => {
+        checkValidity();
+    });
 </script>
 
 <div class="cell">
-    <input class:invalid type="number" pattern="[0-9]*" bind:value />
-    <span class="overlay cross" class:crossed={value == 0}>
-        <Cross color="rgb(172, 0, 0)" size={48} />
-    </span>
+    <input
+        class:invalid
+        class="number"
+        type="number"
+        pattern="[0-9]*"
+        value={inputValue}
+        oninput={(e) => {
+            let value = (e.target as HTMLInputElement).value;
+            setInput(value ? parseInt(value) : null);
+        }}
+    />
+
     {#if add > 0 && value}
         <span class="overlay number" class:invalid>
-            {value + b(add)}
+            {value}
+        </span>
+    {:else if value == 0}
+        <span class="overlay cross">
+            <SvgIcon type="mdi" path={Cross} color="rgb(172, 0, 0)" size={48} />
         </span>
     {/if}
 </div>
 
-<style>
-    div {
+<style lang="scss">
+    .cell {
         position: relative;
     }
 
     input {
         padding: 0;
         border: none;
-        text-align: center;
-        font-size: 36px;
         width: 100%;
         height: 100%;
         border-radius: 16px;
-        background-color: var(--back-extra);
-        color: var(--front);
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        &:not(:focus) + .overlay {
+            display: grid;
+        }
     }
 
-    input.invalid,
-    span.number.invalid {
-        background-color: var(--back-error);
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    input[type="number"] {
-        -moz-appearance: textfield;
-        appearance: textfield;
-    }
-
-    span.overlay {
+    .overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -117,28 +153,25 @@
         display: none;
     }
 
-    span.cross {
+    .cross {
         background-color: rgb(255, 61, 61);
+
+        :global(svg) {
+            padding: 0;
+            width: var(--cell-size);
+        }
     }
 
-    span.cross :global(svg) {
-        padding: 0;
-        width: var(--cell-size);
-    }
-
-    span.number {
+    .number {
         width: 100%;
         height: 100%;
+        text-align: center;
         font-size: 36px;
         background-color: var(--back-extra);
         color: var(--front);
-    }
 
-    input:not(:focus) + span.cross.crossed {
-        display: grid;
-    }
-
-    input:not(:focus) + * + span.overlay {
-        display: grid;
+        &.invalid {
+            background-color: var(--back-error);
+        }
     }
 </style>

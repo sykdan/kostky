@@ -1,3 +1,4 @@
+import { expoOut } from "svelte/easing";
 import { fly } from "svelte/transition";
 
 function detectTouchSafari() {
@@ -25,23 +26,23 @@ function allowNext() {
     didOut = false;
 }
 
-function tr(node, options, params) {
+function tr(node: Element, options: { invert: boolean }, params: { direction?: "in" | "out"; } | undefined) {
     if (!shouldTransition) {
         if (shouldAllowNext) {
-            if (params.direction == "in") {
+            if (params?.direction == "in") {
                 didIn = true;
             }
-            if (params.direction == "out") {
+            if (params?.direction == "out") {
                 didOut = true;
             }
             if (shouldAllowNext && didIn && didOut) {
                 shouldAllowNext = false;
             }
         } else {
-            return;
+            return {}
         }
     }
-    return fly(node, options);
+    return fly(node, { duration: 400, x: (options.invert ? 100 : -100).toString() + "vw", easing: expoOut });
 }
 
 export default tr;

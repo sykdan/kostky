@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 html[theme="dark"] {
     --front: #eef0f2;
     --back: #141414;
@@ -16,7 +18,7 @@ html[theme="dark"] {
 
 @mixin colorScheme($name, $colors...) {
     html[color="#{$name}"] {
-        @if length($colors) == 1 {
+        @if list.length($colors) == 1 {
             --primary: #{$colors};
         } @else {
             --primary: var(--black);
