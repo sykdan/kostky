@@ -293,12 +293,8 @@
 
 <style>
     div.wrapper {
-        height: 100%;
-        width: 100%;
         display: flex;
         flex-direction: column;
-        overflow-y: auto;
-        overflow-x: auto;
         align-items: center;
         padding-top: 8px;
         padding-bottom: 8px;

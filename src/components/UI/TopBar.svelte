@@ -36,6 +36,8 @@
 
 <style>
     div.topbar {
+        position: sticky;
+        top: 0;
         background-color: var(--primary);
         background-image: var(--primary-detail);
         color: var(--surface);

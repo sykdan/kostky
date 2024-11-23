@@ -24,6 +24,7 @@
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import TopBar from "./ui/TopBar.svelte";
+    import Screen from "./ui/Screen.svelte";
 
     interface Props {
         onBack: () => any;
@@ -31,120 +32,151 @@
     let { onBack }: Props = $props();
 </script>
 
-<div class="rulesscreen appscreen" in:tr out:tr>
-    <TopBar title={$_("rules.title")} onLeftButtonPressed={onBack}>
-        {#snippet leftButtonContent()}
-            <SvgIcon type="mdi" path={Back} color="var(--surface)" size="28" />
-        {/snippet}
-    </TopBar>
-    <div class="rules">
-        <p>
-            {@html $_("rules.intro_1")}
-        </p>
-        <p>
-            {@html $_("rules.intro_2")}
-        </p>
-        <p>
-            {@html $_("rules.intro_3")}
-        </p>
-        <h2>{@html $_("rules.rows")}</h2>
-        <p>{@html $_("rules.rows_intro")}</p>
-        <p><SvgIcon type="mdi" path={Dice1} /> {@html $_("rules.rows_1")}</p>
-        <p><SvgIcon type="mdi" path={Dice2} /> {@html $_("rules.rows_2")}</p>
-        <p><SvgIcon type="mdi" path={Dice3} /> {@html $_("rules.rows_3")}</p>
-        <p><SvgIcon type="mdi" path={Dice4} /> {@html $_("rules.rows_4")}</p>
-        <p><SvgIcon type="mdi" path={Dice5} /> {@html $_("rules.rows_5")}</p>
-        <p><SvgIcon type="mdi" path={Dice6} /> {@html $_("rules.rows_6")}</p>
-        <p>
-            <SvgIcon type="mdi" path={Maximum} />
-            {@html $_("rules.rows_max")}
-        </p>
-        <p>
-            <SvgIcon type="mdi" path={Minimum} />
-            {@html $_("rules.rows_min")}
-        </p>
-        <p style="margin-bottom: 0">
-            <SvgIcon type="mdi" path={Sequence} />
-            {@html $_("rules.rows_str")}
-        </p>
-        <ul>
-            <li>
-                {@html $_("rules.rows_str_66")}
-            </li>
-            <li>
-                {@html $_("rules.rows_str_56")}
-            </li>
-            <li>
-                {@html $_("rules.rows_str_46")}
-            </li>
-            <li>
-                {@html $_("rules.rows_str_76")}
-            </li>
-        </ul>
-        <p>
-            <SvgIcon type="mdi" path={FullHouse} />
-            {@html $_("rules.rows_fh")}*
-        </p>
-        <p>
-            <SvgIcon type="mdi" path={Poker} />
-            {@html $_("rules.rows_poker")}*
-        </p>
-        <p>
-            <SvgIcon type="mdi" path={Yamb} />
-            {@html $_("rules.rows_yamb")}*
-        </p>
-        <p>
-            * {@html $_("rules.rows_autobonus")}
-        </p>
-        <h2>{@html $_("rules.cols")}</h2>
-        <p>
-            {@html $_("rules.cols_intro")}
-        </p>
-        <p>
-            <SvgIcon type="mdi" path={Down} />
-            {@html $_("rules.cols_down")}
-        </p>
-        <p><SvgIcon type="mdi" path={Both} /> {@html $_("rules.cols_any")}</p>
-        <p>
-            <SvgIcon type="mdi" path={Up} />
-            {@html $_("rules.cols_up")}
-        </p>
-        <p>
-            <SvgIcon type="mdi" path={Announced} />
-            {@html $_("rules.cols_announce")}
-        </p>
+<Screen>
+    {#snippet topBar()}
+        <TopBar title={$_("rules.title")} onLeftButtonPressed={onBack}>
+            {#snippet leftButtonContent()}
+                <SvgIcon
+                    type="mdi"
+                    path={Back}
+                    color="var(--surface)"
+                    size="28"
+                />
+            {/snippet}
+        </TopBar>
+    {/snippet}
 
-        <h2>{@html $_("rules.tips")}</h2>
-        <p>
-            {@html $_("rules.tips_1")}
-        </p>
-        <p>
-            {@html $_("rules.tips_2")}
-        </p>
-        <p>
-            {@html $_("rules.tips_3")}
-        </p>
-        <h2>{@html $_("rules.scoring")}</h2>
-        <p style="margin-bottom: 0">
-            {@html $_("rules.scoring_1")}
-        </p>
-        <ul>
-            <li>
-                {@html $_("rules.scoring_2")}
-            </li>
-            <li>
-                {@html $_("rules.scoring_3")}
-            </li>
-            <li>
-                {@html $_("rules.scoring_4")}
-            </li>
-            <li>{@html $_("rules.scoring_5")}</li>
-        </ul>
-        <p>
-            {@html $_("rules.scoring_6")}
-        </p>
-    </div>
-</div>
+    {#snippet screenContent()}
+        <div class="rules">
+            <p>
+                {@html $_("rules.intro_1")}
+            </p>
+            <p>
+                {@html $_("rules.intro_2")}
+            </p>
+            <p>
+                {@html $_("rules.intro_3")}
+            </p>
+            <h2>{@html $_("rules.rows")}</h2>
+            <p>{@html $_("rules.rows_intro")}</p>
+            <p>
+                <SvgIcon type="mdi" path={Dice1} />
+                {@html $_("rules.rows_1")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Dice2} />
+                {@html $_("rules.rows_2")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Dice3} />
+                {@html $_("rules.rows_3")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Dice4} />
+                {@html $_("rules.rows_4")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Dice5} />
+                {@html $_("rules.rows_5")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Dice6} />
+                {@html $_("rules.rows_6")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Maximum} />
+                {@html $_("rules.rows_max")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Minimum} />
+                {@html $_("rules.rows_min")}
+            </p>
+            <p style="margin-bottom: 0">
+                <SvgIcon type="mdi" path={Sequence} />
+                {@html $_("rules.rows_str")}
+            </p>
+            <ul>
+                <li>
+                    {@html $_("rules.rows_str_66")}
+                </li>
+                <li>
+                    {@html $_("rules.rows_str_56")}
+                </li>
+                <li>
+                    {@html $_("rules.rows_str_46")}
+                </li>
+                <li>
+                    {@html $_("rules.rows_str_76")}
+                </li>
+            </ul>
+            <p>
+                <SvgIcon type="mdi" path={FullHouse} />
+                {@html $_("rules.rows_fh")}*
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Poker} />
+                {@html $_("rules.rows_poker")}*
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Yamb} />
+                {@html $_("rules.rows_yamb")}*
+            </p>
+            <p>
+                * {@html $_("rules.rows_autobonus")}
+            </p>
+            <h2>{@html $_("rules.cols")}</h2>
+            <p>
+                {@html $_("rules.cols_intro")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Down} />
+                {@html $_("rules.cols_down")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Both} />
+                {@html $_("rules.cols_any")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Up} />
+                {@html $_("rules.cols_up")}
+            </p>
+            <p>
+                <SvgIcon type="mdi" path={Announced} />
+                {@html $_("rules.cols_announce")}
+            </p>
+
+            <h2>{@html $_("rules.tips")}</h2>
+            <p>
+                {@html $_("rules.tips_1")}
+            </p>
+            <p>
+                {@html $_("rules.tips_2")}
+            </p>
+            <p>
+                {@html $_("rules.tips_3")}
+            </p>
+            <h2>{@html $_("rules.scoring")}</h2>
+            <p style="margin-bottom: 0">
+                {@html $_("rules.scoring_1")}
+            </p>
+            <ul>
+                <li>
+                    {@html $_("rules.scoring_2")}
+                </li>
+                <li>
+                    {@html $_("rules.scoring_3")}
+                </li>
+                <li>
+                    {@html $_("rules.scoring_4")}
+                </li>
+                <li>{@html $_("rules.scoring_5")}</li>
+            </ul>
+            <p>
+                {@html $_("rules.scoring_6")}
+            </p>
+        </div>
+    {/snippet}
+</Screen>
 
 <style>
     div.rules {

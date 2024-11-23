@@ -22,6 +22,7 @@
     } from "../lib/SaveData.svelte";
     import TopBar from "./ui/TopBar.svelte";
     import { dialogTrigger } from "../lib/DialogTrigger.svelte";
+    import Screen from "./ui/Screen.svelte";
 
     let showActions = $state(false);
 
@@ -124,49 +125,68 @@
     });
 </script>
 
-<div class="game appscreen" in:tr out:tr>
-    <TopBar
-        title={gameData.name}
-        onLeftButtonPressed={onBack}
-        onRightButtonPressed={() => (showActions = !showActions)}
-    >
-        {#snippet leftButtonContent()}
-            <SvgIcon type="mdi" path={Back} color="var(--surface)" size="28" />
-        {/snippet}
-        {#snippet rightButtonContent()}
-            <SvgIcon type="mdi" path={Menu} color="var(--surface)" size="28" />
-        {/snippet}
-    </TopBar>
-
-    {#if showActions}
-        <div class="actions" transition:slide|local>
-            <button onclick={zeroes} style="color: var(--front)">
+<Screen>
+    {#snippet topBar()}
+        <TopBar
+            title={gameData.name}
+            onLeftButtonPressed={onBack}
+            onRightButtonPressed={() => (showActions = !showActions)}
+        >
+            {#snippet leftButtonContent()}
                 <SvgIcon
                     type="mdi"
-                    path={CrossOut}
-                    color="var(--front)"
+                    path={Back}
+                    color="var(--surface)"
                     size="28"
                 />
-                {$_("game.crossempty")}
-            </button>
-            <button onclick={order} style="color: var(--front)">
+            {/snippet}
+            {#snippet rightButtonContent()}
                 <SvgIcon
                     type="mdi"
-                    path={WhoIsPlaying}
-                    color="var(--front)"
+                    path={Menu}
+                    color="var(--surface)"
                     size="28"
                 />
-                {$_("game.whoisplaying")}
-            </button>
-            <button onclick={clear} style="color: var(--red)">
-                <SvgIcon type="mdi" path={Clear} color="var(--red)" size="28" />
-                {$_("game.reset")}
-            </button>
-        </div>
-    {/if}
+            {/snippet}
+        </TopBar>
+    {/snippet}
 
-    <PlayingCard bind:card />
-</div>
+    {#snippet screenContent()}
+        {#if showActions}
+            <div class="actions" transition:slide|local>
+                <button onclick={zeroes} style="color: var(--front)">
+                    <SvgIcon
+                        type="mdi"
+                        path={CrossOut}
+                        color="var(--front)"
+                        size="28"
+                    />
+                    {$_("game.crossempty")}
+                </button>
+                <button onclick={order} style="color: var(--front)">
+                    <SvgIcon
+                        type="mdi"
+                        path={WhoIsPlaying}
+                        color="var(--front)"
+                        size="28"
+                    />
+                    {$_("game.whoisplaying")}
+                </button>
+                <button onclick={clear} style="color: var(--red)">
+                    <SvgIcon
+                        type="mdi"
+                        path={Clear}
+                        color="var(--red)"
+                        size="28"
+                    />
+                    {$_("game.reset")}
+                </button>
+            </div>
+        {/if}
+
+        <PlayingCard bind:card />
+    {/snippet}
+</Screen>
 
 <style>
     div.actions {
@@ -184,6 +204,7 @@
         box-shadow:
             0 1px 3px rgba(0, 0, 0, 0.12),
             0 1px 2px rgba(0, 0, 0, 0.24);
+        overflow-y: clip;
     }
 
     div.actions button {

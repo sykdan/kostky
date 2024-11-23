@@ -18,21 +18,21 @@
         shouldAddBonus,
     }: Props = $props();
 
-    let inputValue: number | null = $state(getValueForInput());
+    let inputValue: number | null = $derived(getValueForInput());
     let invalid = $state(false);
 
-    function onContentChange() {
+    function setInput(newValue: number | null) {
         checkValidity();
 
-        if (inputValue == null) {
+        if (newValue == null) {
             value = null;
             return;
         }
 
-        inputValue = Math.max(inputValue, 0);
+        newValue = Math.max(newValue, 0);
 
-        if (inputValue) {
-            value = inputValue + (shouldAddBonus ? add : 0);
+        if (newValue) {
+            value = newValue + (shouldAddBonus ? add : 0);
         } else {
             value = 0;
         }
@@ -78,11 +78,12 @@
     }
 
     function getValueForInput() {
-        return value != null ? Math.max(value - (shouldAddBonus ? add : 0), 0) : null;
+        return value != null
+            ? Math.max(value - (shouldAddBonus ? add : 0), 0)
+            : null;
     }
 
     $effect(() => {
-        inputValue = getValueForInput();
         checkValidity();
     });
 </script>
@@ -93,8 +94,11 @@
         class="number"
         type="number"
         pattern="[0-9]*"
-        bind:value={inputValue}
-        oninput={onContentChange}
+        value={inputValue}
+        oninput={(e) => {
+            let value = (e.target as HTMLInputElement).value;
+            setInput(value ? parseInt(value) : null);
+        }}
     />
 
     {#if add > 0 && value}

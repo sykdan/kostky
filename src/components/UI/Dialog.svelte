@@ -48,6 +48,9 @@
         align-items: center;
         justify-content: center;
         backdrop-filter: blur(5px);
+        pointer-events: all;
+        touch-action: none;
+        overscroll-behavior: contain;
     }
 
     div.content {
