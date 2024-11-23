@@ -1,7 +1,7 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
     import { slide } from "svelte/transition";
-    import SaveGame from "./UI/SaveGame.svelte";
+    import SaveGame from "./ui/SaveGame.svelte";
     import {
         getBlankGameCard,
         getNewGameData,
@@ -19,7 +19,7 @@
     import tr from "../lib/ScreenTransition";
     import settings from "../lib/Settings.svelte";
     import { tick } from "svelte";
-    import Screen from "./UI/Screen.svelte";
+    import Screen from "./ui/Screen.svelte";
 
     interface Props {
         onPlay: (id: string) => any;

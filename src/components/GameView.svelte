@@ -13,16 +13,16 @@
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import PlayingCard from "./Card/Sheet.svelte";
+    import PlayingCard from "./card/Sheet.svelte";
     import {
         getBlankGameCard,
         type GameData,
         type GameCard,
         GAME_CARD_SIZE,
     } from "../lib/SaveData.svelte";
-    import TopBar from "./UI/TopBar.svelte";
+    import TopBar from "./ui/TopBar.svelte";
     import { dialogTrigger } from "../lib/DialogTrigger.svelte";
-    import Screen from "./UI/Screen.svelte";
+    import Screen from "./ui/Screen.svelte";
 
     let showActions = $state(false);
 
