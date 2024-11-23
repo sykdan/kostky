@@ -23,8 +23,8 @@
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import TopBar from "./ui/TopBar.svelte";
-    import Screen from "./ui/Screen.svelte";
+    import TopBar from "./UI/TopBar.svelte";
+    import Screen from "./UI/Screen.svelte";
 
     interface Props {
         onBack: () => any;

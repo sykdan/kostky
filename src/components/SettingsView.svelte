@@ -5,9 +5,9 @@
     import { mdiArrowLeft as Back } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import TopBar from "./ui/TopBar.svelte";
+    import TopBar from "./UI/TopBar.svelte";
     import settings from "../lib/Settings.svelte";
-    import Screen from "./ui/Screen.svelte";
+    import Screen from "./UI/Screen.svelte";
 
     interface Props {
         onBack: () => any;
