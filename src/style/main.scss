@@ -27,8 +27,9 @@ html {
 
 html, body, #app {
     overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
     overflow-x: hidden;
-    overflow-x: clip;
+    -webkit-overflow-x: clip;
 }
 
 

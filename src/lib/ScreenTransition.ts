@@ -1,5 +1,5 @@
-import { fade, fly, type FlyParams } from "svelte/transition";
-import { elasticOut, sineOut } from 'svelte/easing';
+import { expoOut } from "svelte/easing";
+import { fly } from "svelte/transition";
 
 function detectTouchSafari() {
     return [
@@ -26,21 +26,7 @@ function allowNext() {
     didOut = false;
 }
 
-
-function spin(node: Element, { duration }: {duration: number}) {
-    return {
-        duration,
-        css: (t: number) => {
-            const eased = sineOut(t);
-
-            return `opacity: ${eased};`;
-        }
-    };
-}
-
-export {spin};
-
-function tr(node: Element, options: FlyParams | undefined, params: { direction?: "in" | "out"; } | undefined) {
+function tr(node: Element, options: { invert: boolean }, params: { direction?: "in" | "out"; } | undefined) {
     if (!shouldTransition) {
         if (shouldAllowNext) {
             if (params?.direction == "in") {
@@ -56,7 +42,7 @@ function tr(node: Element, options: FlyParams | undefined, params: { direction?:
             return {}
         }
     }
-    return fade(node, {duration: 200});
+    return fly(node, { duration: 400, x: (options.invert ? 100 : -100).toString() + "vw", easing: expoOut });
 }
 
 export default tr;

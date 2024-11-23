@@ -5,14 +5,15 @@
     import type { Snippet } from "svelte";
 
     interface Props {
+        base?: boolean,
         topBar?: Snippet;
         screenContent: Snippet;
     }
 
-    let { topBar, screenContent }: Props = $props();
+    let { base = false, topBar, screenContent }: Props = $props();
 </script>
 
-<div class="screen" in:tr>
+<div class="screen" in:tr={{invert: !base}} out:tr={{invert: !base}}>
     {@render topBar?.()}
     {@render screenContent?.()}
 </div>
