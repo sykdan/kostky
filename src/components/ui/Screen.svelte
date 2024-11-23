@@ -1,6 +1,5 @@
 <script lang="ts">
     import tr from "../../lib/ScreenTransition";
-    import { fade, fly, type FlyParams } from "svelte/transition";
 
     import type { Snippet } from "svelte";
 
