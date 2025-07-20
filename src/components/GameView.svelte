@@ -23,6 +23,7 @@
     import TopBar from "./ui/TopBar.svelte";
     import { dialogTrigger } from "../lib/DialogTrigger.svelte";
     import Screen from "./ui/Screen.svelte";
+    import { offclick } from "../lib/Utils";
 
     let showActions = $state(false);
 
@@ -153,7 +154,7 @@
 
     {#snippet screenContent()}
         {#if showActions}
-            <div class="actions" transition:slide|local>
+            <div {@attach offclick((e: Event) => showActions = false)} class="actions" transition:slide|local>
                 <button onclick={zeroes} style="color: var(--front)">
                     <SvgIcon
                         type="mdi"

@@ -11,11 +11,13 @@
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
   },
   "devDependencies": {
+    "@jamescoyle/svelte-icon": "^0.1.1",
+    "@mdi/js": "^7.4.47",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@tsconfig/svelte": "^5.0.4",
     "gh-pages": "^6.2.0",
     "sass": "^1.80.7",
-    "svelte": "^5.2.0",
+    "svelte": "^5.36.10",
     "svelte-check": "^4.0.7",
     "svelte-i18n": "^4.0.1",
     "svelte-preprocess": "^6.0.3",
@@ -23,8 +25,6 @@
     "typescript": "~5.6.2",
     "vite": "^5.4.11",
     "vite-plugin-pwa": "^0.21.0",
-    "workbox-window": "^7.3.0",
-    "@jamescoyle/svelte-icon": "^0.1.1",
-    "@mdi/js": "^7.4.47"
+    "workbox-window": "^7.3.0"
   }
 }
