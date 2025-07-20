@@ -53,6 +53,7 @@
 </script>
 
 <Dialog />
+
 {#if screen == Screen.MainMenu}
     <MainMenu
         onPlay={(game) => {
