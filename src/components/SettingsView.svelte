@@ -111,17 +111,17 @@
                         onclick={async () => {
                             if (
                                 !(await dialogTrigger.prompt(
-                                    $_("Co znamená {settings_autobonus}?", {
+                                    $_("settings.autobonus_explanation", {
                                         values: {
                                             settings_autobonus:
                                                 $_("settings.autobonus"),
                                         },
                                     }),
-                                    "Je-li tato možnost zapnutá, aplikace Vám automaticky přičítá bonusy za některé řádky. Zapisujete pouze součet na kostkách.\n\n" +
-                                        "Je-li tato možnost vypnutá, bonusy si přičítáte sami. Zapisujete součet na kostkách + bonus.\n\n" +
-                                        "Pro více informací o bonusech nahlédněte do pravidel.",
+                                    $_("settings.autobonus_explanation_1") + "\n\n" +
+                                    $_("settings.autobonus_explanation_2") + "\n\n" +
+                                    $_("settings.autobonus_explanation_3"),
                                     $_("common.ok"),
-                                    "Otevřít pravidla",
+                                    $_("settings.open_rules"),
                                 ))
                             ) {
                                 onOpenRules();

@@ -47,6 +47,11 @@
         "autobonus": "Připočítat bonusy",
         "autobonus_yes": "Ano",
         "autobonus_no": "Ne",
+        "autobonus_explanation": "Co znamená {settings_autobonus}?",
+        "autobonus_explanation_1": "Je-li tato možnost zapnutá, aplikace Vám automaticky přičítá bonusy za některé řádky. Zapisujete pouze součet na kostkách.",
+        "autobonus_explanation_2": "Je-li tato možnost vypnutá, bonusy si přičítáte sami. Zapisujete součet na kostkách + bonus.",
+        "autobonus_explanation_3": "Pro více informací o bonusech nahlédněte do pravidel.",
+        "open_rules": "Otevřít pravidla",
         "locale": "Jazyk"
     },
     "rules": {
