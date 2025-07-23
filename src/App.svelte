@@ -12,8 +12,7 @@
         popScreen,
         setScreen,
     } from "./lib/Navigation.svelte";
-
-    currentState;
+    import "./style/theming.scss";
 
     onMount(() => {
         const handlePopState = (event: PopStateEvent) => {
@@ -56,11 +55,3 @@
         }}
     />
 {/if}
-
-<style lang="scss">
-    @use "sass:meta";
-
-    :global {
-        @include meta.load-css("./style/theming.scss", $with: null);
-    }
-</style>

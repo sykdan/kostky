@@ -146,6 +146,10 @@
                 </button>
             </div>
         </div>
+        <div class="credit">
+            Made by Daniel Sýkora (2023 - {new Date().getFullYear()})
+            <a target="_blank" href="https://github.com/sykdan/kostky">Source code</a>
+        </div>
     {/snippet}
 </Screen>
 
@@ -251,5 +255,15 @@
         color: var(--front);
         margin: 16px 0;
         margin-top: 8px;
+    }
+
+    .credit {
+        text-align: center;
+        font-size: small;
+        color: var(--front);
+    }
+
+    .credit a {
+        color: var(--blue);
     }
 </style>
