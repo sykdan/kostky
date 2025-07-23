@@ -1,18 +1,24 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
 
-    import { mdiArrowLeft as Back } from "@mdi/js";
+    import {
+        mdiArrowLeft as Back,
+        mdiTranslate as Languages,
+        mdiHelpCircle as Help,
+    } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import TopBar from "./ui/TopBar.svelte";
     import settings from "../lib/Settings.svelte";
     import Screen from "./ui/Screen.svelte";
+    import { dialogTrigger } from "../lib/DialogTrigger.svelte";
 
     interface Props {
         onBack: () => any;
+        onOpenRules: () => any;
     }
 
-    let { onBack }: Props = $props();
+    let { onBack, onOpenRules }: Props = $props();
 </script>
 
 <Screen>
@@ -52,32 +58,37 @@
                 <label for="color">{$_("settings.color")}</label>
                 <select name="color" bind:value={settings.color}>
                     <optgroup label="Plain colors">
-                        <option value="blue">{$_("settings.color_blue")}</option
-                        >
-                        <option value="red">{$_("settings.color_red")}</option>
-                        <option value="green"
-                            >{$_("settings.color_green")}</option
-                        >
-                        <option value="yellow"
-                            >{$_("settings.color_yellow")}</option
-                        >
-                        <option value="orange"
-                            >{$_("settings.color_orange")}</option
-                        >
-                        <option value="purple"
-                            >{$_("settings.color_purple")}</option
-                        >
-                        <option value="pink">{$_("settings.color_pink")}</option
-                        >
-                        <option value="cyan">{$_("settings.color_cyan")}</option
-                        >
+                        <option value="blue">
+                            {$_("settings.color_blue")}
+                        </option>
+                        <option value="red">
+                            {$_("settings.color_red")}
+                        </option>
+                        <option value="green">
+                            {$_("settings.color_green")}
+                        </option>
+                        <option value="yellow">
+                            {$_("settings.color_yellow")}
+                        </option>
+                        <option value="orange">
+                            {$_("settings.color_orange")}
+                        </option>
+                        <option value="purple">
+                            {$_("settings.color_purple")}
+                        </option>
+                        <option value="pink">
+                            {$_("settings.color_pink")}
+                        </option>
+                        <option value="cyan">
+                            {$_("settings.color_cyan")}
+                        </option>
                     </optgroup>
 
                     {#if settings.extraThemes}
                         <optgroup label="Pride flags">
-                            <option value="rainbow"
-                                >{$_("settings.color_rainbow")}</option
-                            >
+                            <option value="rainbow">
+                                {$_("settings.color_rainbow")}
+                            </option>
                             <option value="gay">MLM</option>
                             <option value="lesbian">WLW</option>
                             <option value="bi">Bi</option>
@@ -86,14 +97,45 @@
                             <option value="pan">Pansexual</option>
                         </optgroup>
                     {:else}
-                        <option value="rainbow"
-                            >{$_("settings.color_rainbow")}</option
-                        >
+                        <option value="rainbow">
+                            {$_("settings.color_rainbow")}
+                        </option>
                     {/if}
                 </select>
             </div>
             <div class="row">
-                <label for="autobonus">{$_("settings.autobonus")}</label>
+                <label for="autobonus">
+                    {$_("settings.autobonus")}
+                    <button
+                        class="help-button"
+                        onclick={async () => {
+                            if (
+                                !(await dialogTrigger.prompt(
+                                    $_("Co znamená {settings_autobonus}?", {
+                                        values: {
+                                            settings_autobonus:
+                                                $_("settings.autobonus"),
+                                        },
+                                    }),
+                                    "Je-li tato možnost zapnutá, aplikace Vám automaticky přičítá bonusy za některé řádky. Zapisujete pouze součet na kostkách.\n\n" +
+                                        "Je-li tato možnost vypnutá, bonusy si přičítáte sami. Zapisujete součet na kostkách + bonus.\n\n" +
+                                        "Pro více informací o bonusech nahlédněte do pravidel.",
+                                    $_("common.ok"),
+                                    "Otevřít pravidla",
+                                ))
+                            ) {
+                                onOpenRules();
+                            }
+                        }}
+                    >
+                        <SvgIcon
+                            type="mdi"
+                            path={Help}
+                            color="var(--front)"
+                            size="28"
+                        />
+                    </button>
+                </label>
                 <select name="autobonus" bind:value={settings.autoBonus}>
                     <option value={true}>{$_("settings.autobonus_yes")}</option>
                     <option value={false}>{$_("settings.autobonus_no")}</option>
@@ -101,9 +143,13 @@
             </div>
             <div class="row">
                 <label for="locale">
-                    {$_("settings.locale")}{$locale == "en"
-                        ? ""
-                        : " / Language"}
+                    <SvgIcon
+                        type="mdi"
+                        path={Languages}
+                        color="var(--front)"
+                        size="28"
+                    />
+                    {$_("settings.locale")}
                 </label>
                 <select name="locale" bind:value={settings.locale}>
                     <option value="cs" lang="cs">Česky</option>
@@ -129,8 +175,21 @@
         margin-bottom: 4px;
     }
 
+    .row label {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
     label {
         flex: 1;
+    }
+
+    .help-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
     }
 
     select {

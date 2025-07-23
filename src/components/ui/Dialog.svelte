@@ -3,7 +3,7 @@
     import { dialogTrigger } from "../../lib/DialogTrigger.svelte";
     import { circOut, quadOut } from "svelte/easing";
 
-    function resolve(result: Boolean) {
+    function resolve(result: boolean) {
         dialogTrigger.visible = false;
         dialogTrigger.resolve(result);
     }

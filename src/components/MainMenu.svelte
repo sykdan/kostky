@@ -16,7 +16,6 @@
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import tr from "../lib/ScreenTransition";
     import settings from "../lib/Settings.svelte";
     import { tick } from "svelte";
     import Screen from "./ui/Screen.svelte";

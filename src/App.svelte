@@ -77,7 +77,13 @@
 {:else if screen == Screen.GameRules}
     <GameRules onBack={back} />
 {:else if screen == Screen.SettingsView}
-    <SettingsView onBack={back} />
+    <SettingsView
+        onBack={back}
+        onOpenRules={() => {
+            allowNext();
+            history.pushState(setState({ screen: Screen.GameRules }), "");
+        }}
+    />
 {/if}
 
 <style lang="scss">
