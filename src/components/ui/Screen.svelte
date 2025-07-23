@@ -1,18 +1,17 @@
 <script lang="ts">
-    import tr from "../../lib/ScreenTransition";
+    import { screenSlide } from "../../lib/Navigation.svelte";
 
     import type { Snippet } from "svelte";
 
     interface Props {
-        base?: boolean,
         topBar?: Snippet;
         screenContent: Snippet;
     }
 
-    let { base = false, topBar, screenContent }: Props = $props();
+    let {topBar, screenContent }: Props = $props();
 </script>
 
-<div class="screen" transition:tr={{invert: !base}}>
+<div class="screen" transition:screenSlide>
     {@render topBar?.()}
     <div class="content">
         {@render screenContent?.()}

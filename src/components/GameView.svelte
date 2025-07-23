@@ -2,7 +2,6 @@
     import { _, locale } from "svelte-i18n";
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
-    import tr from "../lib/ScreenTransition";
 
     import {
         mdiArrowLeft as Back,

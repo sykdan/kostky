@@ -5,23 +5,19 @@
     import SettingsView from "./components/SettingsView.svelte";
     import Dialog from "./components/ui/Dialog.svelte";
     import { onMount } from "svelte";
-    import { allowNext } from "./lib/ScreenTransition";
+    import {
+        currentState,
+        Screen,
+        pushScreen,
+        popScreen,
+        setScreen,
+    } from "./lib/Navigation.svelte";
 
-    enum Screen {
-        MainMenu,
-        GameView,
-        GameRules,
-        SettingsView,
-    }
-
-    interface ScreenData {
-        screen?: Screen;
-        game?: string;
-    }
+    currentState;
 
     onMount(() => {
         const handlePopState = (event: PopStateEvent) => {
-            setState(event.state);
+            setScreen(event.state);
         };
 
         window.addEventListener("popstate", handlePopState);
@@ -31,25 +27,7 @@
         };
     });
 
-    let screen: Screen = $state(Screen.MainMenu);
-    let selectedGameId: string | null = $state(null);
-
-    function setState(state: ScreenData | null) {
-        if (state?.game) {
-            selectedGameId = state.game;
-        }
-        if (state?.screen) {
-            screen = state.screen;
-        } else {
-            screen = Screen.MainMenu;
-        }
-        return state;
-    }
-
-    function back() {
-        allowNext();
-        history.back();
-    }
+    let screen: Screen = $derived(currentState.screen);
 </script>
 
 <Dialog />
@@ -57,31 +35,24 @@
 {#if screen == Screen.MainMenu}
     <MainMenu
         onPlay={(game) => {
-            allowNext();
-            history.pushState(
-                setState({ screen: Screen.GameView, game: game }),
-                "",
-            );
+            pushScreen({ screen: Screen.GameView, game: game });
         }}
         onOpenRules={() => {
-            allowNext();
-            history.pushState(setState({ screen: Screen.GameRules }), "");
+            pushScreen({ screen: Screen.GameRules });
         }}
         onOpenSettings={() => {
-            allowNext();
-            history.pushState(setState({ screen: Screen.SettingsView }), "");
+            pushScreen({ screen: Screen.SettingsView });
         }}
     />
-{:else if screen == Screen.GameView && selectedGameId}
-    <GameView onBack={back} id={selectedGameId} />
+{:else if screen == Screen.GameView && currentState.game}
+    <GameView onBack={popScreen} id={currentState.game} />
 {:else if screen == Screen.GameRules}
-    <GameRules onBack={back} />
+    <GameRules onBack={popScreen} />
 {:else if screen == Screen.SettingsView}
     <SettingsView
-        onBack={back}
+        onBack={popScreen}
         onOpenRules={() => {
-            allowNext();
-            history.pushState(setState({ screen: Screen.GameRules }), "");
+            pushScreen({ screen: Screen.GameRules });
         }}
     />
 {/if}

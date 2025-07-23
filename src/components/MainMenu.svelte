@@ -61,7 +61,7 @@
     }
 </script>
 
-<Screen base={true}>
+<Screen>
     {#snippet screenContent()}
         <div class="mainmenu">
             <div class="controls">
