@@ -1,6 +1,5 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
-    import tr from "../lib/ScreenTransition";
 
     import { mdiArrowLeft as Back } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";

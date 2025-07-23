@@ -31,8 +31,6 @@ class YambSettings {
     }
 
     private registerChangeHooks() {
-        let _autoBonusLastValue = this.autoBonus;
-
         $effect.root(() => {
             $effect(() => {
                 localStorage.setItem("st__theme", this.theme);
@@ -40,6 +38,9 @@ class YambSettings {
             });
             $effect(() => {
                 localStorage.setItem("st__autobonus", booleanToString(this.autoBonus));
+            });
+            $effect(() => {
+                localStorage.setItem("st__extrathemes", booleanToString(this.extraThemes));
             });
             $effect(() => {
                 localStorage.setItem("st__color", this.color);
