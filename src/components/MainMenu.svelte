@@ -153,6 +153,7 @@
     div.mainmenu {
         display: flex;
         justify-content: center;
+        padding: 0 8px;
     }
 
     div.controls {

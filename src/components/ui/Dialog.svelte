@@ -39,8 +39,8 @@
 <style>
     div.dialog {
         position: fixed;
-        height: 100vh;
-        width: 100vw;
+        height: 100dvh;
+        width: 100dvw;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 100;
         display: flex;
@@ -51,6 +51,8 @@
         pointer-events: all;
         touch-action: none;
         overscroll-behavior: contain;
+        box-sizing: border-box;
+        padding: 0 8px;
     }
 
     div.content {
@@ -75,6 +77,7 @@
         font-size: 28px;
         user-select: none;
         border-radius: 16px 16px 0 0;
+        padding: 0 8px;
     }
 
     div.message {
