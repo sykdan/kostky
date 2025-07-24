@@ -4,7 +4,10 @@
     import {
         mdiArrowLeft as Back,
         mdiTranslate as Languages,
+        mdiBrightness6 as LightDarkTheme,
+        mdiBrush as ColorScheme,
         mdiHelpCircle as Help,
+        mdiPlusCircleMultiple as AutoBonus,
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
@@ -12,6 +15,8 @@
     import settings from "../lib/Settings.svelte";
     import Screen from "./ui/Screen.svelte";
     import { dialogTrigger } from "../lib/DialogTrigger.svelte";
+    import Accordion from "./ui/Accordion.svelte";
+    import Switch from "./ui/Switch.svelte";
 
     interface Props {
         onBack: () => any;
@@ -45,17 +50,15 @@
 
     {#snippet screenContent()}
         <div class="settings">
-            <div class="row">
-                <label for="theme">{$_("settings.theme")}</label>
+            <Accordion label={$_("settings.theme")} icon={LightDarkTheme}>
                 <select name="theme" bind:value={settings.theme}>
                     <option value="light">{$_("settings.theme_light")}</option>
                     <option value="dark">{$_("settings.theme_dark")}</option>
                     <option value="system">{$_("settings.theme_system")}</option
                     >
                 </select>
-            </div>
-            <div class="row">
-                <label for="color">{$_("settings.color")}</label>
+            </Accordion>
+            <Accordion label={$_("settings.color")} icon={ColorScheme}>
                 <select name="color" bind:value={settings.color}>
                     <optgroup label="Plain colors">
                         <option value="blue">
@@ -102,9 +105,15 @@
                         </option>
                     {/if}
                 </select>
-            </div>
-            <div class="row">
-                <label for="autobonus">
+            </Accordion>
+            <div class="row card">
+                <SvgIcon
+                    type="mdi"
+                    path={AutoBonus}
+                    color="var(--front)"
+                    size="28"
+                />
+                <span>
                     {$_("settings.autobonus")}
                     <button
                         class="help-button"
@@ -117,9 +126,11 @@
                                                 $_("settings.autobonus"),
                                         },
                                     }),
-                                    $_("settings.autobonus_explanation_1") + "\n\n" +
-                                    $_("settings.autobonus_explanation_2") + "\n\n" +
-                                    $_("settings.autobonus_explanation_3"),
+                                    $_("settings.autobonus_explanation_1") +
+                                        "\n\n" +
+                                        $_("settings.autobonus_explanation_2") +
+                                        "\n\n" +
+                                        $_("settings.autobonus_explanation_3"),
                                     $_("common.ok"),
                                     $_("settings.open_rules"),
                                 ))
@@ -135,28 +146,16 @@
                             size="28"
                         />
                     </button>
-                </label>
-                <select name="autobonus" bind:value={settings.autoBonus}>
-                    <option value={true}>{$_("settings.autobonus_yes")}</option>
-                    <option value={false}>{$_("settings.autobonus_no")}</option>
-                </select>
+                </span>
+                <Switch bind:on={settings.autoBonus}/>
             </div>
-            <div class="row">
-                <label for="locale">
-                    <SvgIcon
-                        type="mdi"
-                        path={Languages}
-                        color="var(--front)"
-                        size="28"
-                    />
-                    {$_("settings.locale")}
-                </label>
+            <Accordion label={$_("settings.locale")} icon={Languages}>
                 <select name="locale" bind:value={settings.locale}>
                     <option value="cs" lang="cs">Česky</option>
                     <option value="en" lang="en">English</option>
                     <option value="bs" lang="bs">Bosanski</option>
                 </select>
-            </div>
+            </Accordion>
         </div>
     {/snippet}
 </Screen>
@@ -168,21 +167,32 @@
         width: 100%;
         max-width: 450px;
         box-sizing: border-box;
+        color: var(--front);
     }
 
-    .settings > .row {
+    .row {
         display: flex;
+        flex-direction: row;
         margin-bottom: 4px;
+        padding: 0.5em 1em;
+        gap: 0.8em;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        justify-content: flex-start;
     }
 
-    .row label {
+    .row span {
         display: flex;
-        gap: 16px;
+        gap: 8px;
         align-items: center;
+        flex: 1;
     }
 
-    label {
-        flex: 1;
+    .row span button {
+        text-align: start;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
     }
 
     .help-button {

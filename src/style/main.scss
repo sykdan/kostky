@@ -26,7 +26,9 @@ html {
     -webkit-user-select: none;
 }
 
-html, body, #app {
+html,
+body,
+#app {
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
     overflow: clip;
@@ -37,4 +39,20 @@ body {
     margin: 0;
     background: var(--back);
     -webkit-tap-highlight-color: transparent;
+}
+
+.card {
+    background-color: var(--back-extra);
+    border-radius: 16px;
+    font-size: 24px;
+}
+
+input[type="checkbox"].switch {
+}
+
+input[type="checkbox"].switch::after {
+    content: "a";
+    display: block;
+    visibility: visible;
+    background-color: red;
 }

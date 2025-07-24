@@ -17,7 +17,7 @@
     let { metadata, onSaveSelected, onSaveDelete }: Props = $props();
 </script>
 
-<div class="saved-game" transition:slide|local>
+<div class="saved-game card" transition:slide|local>
     <div class="info">
         <span class="name">
             {metadata.name}
@@ -50,10 +50,7 @@
     .saved-game {
         display: flex;
         padding: 16px;
-        background-color: var(--back-extra);
-        color: var(--front);
         margin-bottom: 8px;
-        border-radius: 16px;
     }
 
     .saved-game .info {

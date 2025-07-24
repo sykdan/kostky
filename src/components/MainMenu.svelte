@@ -106,6 +106,7 @@
 
                 {#if !newGame}
                     <button
+                        class="card"
                         onclick={() => {
                             newGame = getNewGameData();
                         }}
@@ -136,11 +137,11 @@
                 {/if}
 
                 <hr />
-                <button onclick={onOpenRules}>
+                <button class="card" onclick={onOpenRules}>
                     <SvgIcon type="mdi" path={HowToPlay} />
                     {$_("main.rules")}
                 </button>
-                <button onclick={onOpenSettings}>
+                <button class="card" onclick={onOpenSettings}>
                     <SvgIcon type="mdi" path={Settings} />
                     {$_("main.options")}
                 </button>
@@ -148,7 +149,9 @@
         </div>
         <div class="credit">
             Made by Daniel Sýkora (2023 - {new Date().getFullYear()})
-            <a target="_blank" href="https://github.com/sykdan/kostky">Source code</a>
+            <a target="_blank" href="https://github.com/sykdan/kostky"
+                >Source code</a
+            >
         </div>
     {/snippet}
 </Screen>
@@ -176,10 +179,8 @@
     button {
         font-size: xx-large;
         padding: 0.2em 1em;
-        background-color: var(--back-extra);
         color: var(--front);
         border: none;
-        border-radius: 16px;
 
         transition: 0.2s;
         margin-bottom: 8px;
