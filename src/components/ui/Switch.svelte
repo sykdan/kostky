@@ -5,44 +5,47 @@
     let { on = $bindable(false) }: Props = $props();
 </script>
 
-<button class:checked={on} onclick={() => (on = !on)}> </button>
+<button class:checked={on} onclick={() => (on = !on)}></button>
 
 <style lang="scss">
     @use "sass:math";
-    $width: 30px;
-    $knobWidth: 20px;
+    $width: 60px;
+    $height: 30px;
 
     button {
-        background-color: var(--back);
+        background-color: var(--dark);
         border: none;
-        width: 30px;
-        height: math.div($width, 2);
+        width: $width;
+        min-width: $width;
+        height: $height;
+        min-height: $height;
         position: relative;
         padding: 0;
         cursor: pointer;
-        border-radius: math.div($width, 2);
+        border-radius: $height;
+        box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px;
+        transition: background-color 0.3s;
 
         &::after {
             content: " ";
-            background-color: var(--front);
+            background-color: var(--light);
             display: block;
-            height: $knobWidth;
-            width: $knobWidth;
-            border-radius: $knobWidth;
+            height: $height;
+            width: $height;
+            border-radius: $height;
             position: absolute;
             top: 0;
-            transform: translate(
-                math.div($knobWidth, -2),
-                math.div($width - $knobWidth, -4)
-            );
-            transition: 0.3s;
+            transform: scale(1.05) translate(0, 0);
+            transition: transform 0.3s;
         }
 
-        &.checked::after {
-            transform: translate(
-                math.div($knobWidth, -2) + $width,
-                math.div($width - $knobWidth, -4)
-            );
+        &.checked {
+            background-color: var(--gold);
+            &::after {
+                opacity: 1;
+                transform: scale(1.05) translate($width - $height, 0);
+                box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px;
+            }
         }
     }
 </style>

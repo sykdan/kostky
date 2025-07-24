@@ -42,6 +42,7 @@
         padding: 0.5em 1em;
         width: 100%;
         color: var(--front);
+        box-sizing: border-box;
     }
 
     .accordion button {

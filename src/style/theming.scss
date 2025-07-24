@@ -1,27 +1,42 @@
-@use 'sass:list';
-@use 'sass:math';
-@use 'sass:color';
+@use "sass:list";
+@use "sass:math";
+@use "sass:color";
 
-html[theme="dark"] {
-    --front: #eef0f2;
-    --back: #141414;
+:root {
+    --light: #eef0f2;
+    --dark: #141414;
+    --front: var(--dark);
+    --back: var(--light);
+    --back-extra: #d4d5d6;
+    --back-error: #ffc4c5;
+}
+
+[data-theme="light"] {
+    --front: var(--dark);
+    --back: var(--light);
+    --back-extra: #d4d5d6;
+    --back-error: #ffc4c5;
+}
+
+[data-theme="dark"] {
+    --front: var(--light);
+    --back: var(--dark);
     --back-extra: #323232;
     --back-error: #5b2020;
 }
 
 @media (prefers-color-scheme: dark) {
-    html[theme="system"] {
-        --front: #eef0f2;
-        --back: #141414;
+    [data-theme="system"] {
+        --front: var(--light);
+        --back: var(--dark);
         --back-extra: #323232;
         --back-error: #5b2020;
     }
 }
 
 @mixin colorScheme($name, $colors...) {
-    html[color="#{$name}"] {
+    [data-color="#{$name}"] {
         --primary: #{list.nth($colors, 1)};
-
 
         @if list.length($colors) > 1 {
             $gradient: ();
@@ -35,6 +50,8 @@ html[theme="dark"] {
             .gradient-downward {
                 --primary-detail: linear-gradient(to bottom, #{$gradient});
             }
+        } @else {
+            --primary-detail: none;
         }
         @content;
     }

@@ -17,6 +17,7 @@
     import { dialogTrigger } from "../lib/DialogTrigger.svelte";
     import Accordion from "./ui/Accordion.svelte";
     import Switch from "./ui/Switch.svelte";
+    import ThemePreview from "./ui/ThemePreview.svelte";
 
     interface Props {
         onBack: () => any;
@@ -24,7 +25,39 @@
     }
 
     let { onBack, onOpenRules }: Props = $props();
+
+    async function autobonusHelp() {
+        if (
+            !(await dialogTrigger.prompt(
+                $_("settings.autobonus_explanation", {
+                    values: {
+                        settings_autobonus: $_("settings.autobonus"),
+                    },
+                }),
+                $_("settings.autobonus_explanation_1") +
+                    "\n\n" +
+                    $_("settings.autobonus_explanation_2") +
+                    "\n\n" +
+                    $_("settings.autobonus_explanation_3"),
+                $_("common.ok"),
+                $_("settings.open_rules"),
+            ))
+        ) {
+            onOpenRules();
+        }
+    }
 </script>
+
+{#snippet colorSchemeSetting(identifier: string, label: string)}
+    <button
+        class:selected={settings.color === identifier}
+        onclick={() => (settings.color = identifier)}
+    >
+        {label}
+
+        <div data-color={identifier} class="sample"></div>
+    </button>
+{/snippet}
 
 <Screen>
     {#snippet topBar()}
@@ -51,110 +84,133 @@
     {#snippet screenContent()}
         <div class="settings">
             <Accordion label={$_("settings.theme")} icon={LightDarkTheme}>
-                <select name="theme" bind:value={settings.theme}>
-                    <option value="light">{$_("settings.theme_light")}</option>
-                    <option value="dark">{$_("settings.theme_dark")}</option>
-                    <option value="system">{$_("settings.theme_system")}</option
+                <div class="themes">
+                    <button
+                        onclick={() => (settings.theme = "light")}
+                        class:selected={settings.theme == "light"}
                     >
-                </select>
+                        <ThemePreview theme="light" />
+                        <div class="theme-name">
+                            {$_("settings.theme_light")}
+                        </div>
+                    </button>
+                    <button
+                        onclick={() => (settings.theme = "dark")}
+                        class:selected={settings.theme == "dark"}
+                    >
+                        <ThemePreview theme="dark" />
+                        <div class="theme-name">
+                            {$_("settings.theme_dark")}
+                        </div>
+                    </button>
+                    <button
+                        onclick={() => (settings.theme = "system")}
+                        class:selected={settings.theme == "system"}
+                    >
+                        <ThemePreview theme="system" />
+                        <div class="theme-name">
+                            {$_("settings.theme_system")}
+                        </div>
+                    </button>
+                </div>
             </Accordion>
             <Accordion label={$_("settings.color")} icon={ColorScheme}>
-                <select name="color" bind:value={settings.color}>
-                    <optgroup label="Plain colors">
-                        <option value="blue">
-                            {$_("settings.color_blue")}
-                        </option>
-                        <option value="red">
-                            {$_("settings.color_red")}
-                        </option>
-                        <option value="green">
-                            {$_("settings.color_green")}
-                        </option>
-                        <option value="yellow">
-                            {$_("settings.color_yellow")}
-                        </option>
-                        <option value="orange">
-                            {$_("settings.color_orange")}
-                        </option>
-                        <option value="purple">
-                            {$_("settings.color_purple")}
-                        </option>
-                        <option value="pink">
-                            {$_("settings.color_pink")}
-                        </option>
-                        <option value="cyan">
-                            {$_("settings.color_cyan")}
-                        </option>
-                    </optgroup>
+                <div class="options">
+                    {@render colorSchemeSetting(
+                        "blue",
+                        $_("settings.color_blue"),
+                    )}
+                    {@render colorSchemeSetting(
+                        "red",
+                        $_("settings.color_red"),
+                    )}
+                    {@render colorSchemeSetting(
+                        "green",
+                        $_("settings.color_green"),
+                    )}
+                    {@render colorSchemeSetting(
+                        "yellow",
+                        $_("settings.color_yellow"),
+                    )}
+                    {@render colorSchemeSetting(
+                        "orange",
+                        $_("settings.color_orange"),
+                    )}
+                    {@render colorSchemeSetting(
+                        "purple",
+                        $_("settings.color_purple"),
+                    )}
+                    {@render colorSchemeSetting(
+                        "pink",
+                        $_("settings.color_pink"),
+                    )}
+                    {@render colorSchemeSetting(
+                        "cyan",
+                        $_("settings.color_cyan"),
+                    )}
+
+                    {@render colorSchemeSetting(
+                        "rainbow",
+                        $_("settings.color_rainbow"),
+                    )}
 
                     {#if settings.extraThemes}
-                        <optgroup label="Pride flags">
-                            <option value="rainbow">
-                                {$_("settings.color_rainbow")}
-                            </option>
-                            <option value="gay">MLM</option>
-                            <option value="lesbian">WLW</option>
-                            <option value="bi">Bi</option>
-                            <option value="trans">Trans</option>
-                            <option value="ace">Asexual</option>
-                            <option value="pan">Pansexual</option>
-                        </optgroup>
-                    {:else}
-                        <option value="rainbow">
-                            {$_("settings.color_rainbow")}
-                        </option>
+                        {@render colorSchemeSetting("gay", "MLM")}
+                        {@render colorSchemeSetting("lesbian", "WLW")}
+                        {@render colorSchemeSetting("bi", "Bi")}
+                        {@render colorSchemeSetting("trans", "Trans")}
+                        {@render colorSchemeSetting("ace", "Asexual")}
+                        {@render colorSchemeSetting("pan", "Pansexual")}
                     {/if}
-                </select>
+                </div>
             </Accordion>
             <div class="row card">
-                <SvgIcon
-                    type="mdi"
-                    path={AutoBonus}
-                    color="var(--front)"
-                    size="28"
-                />
-                <span>
+                <button
+                    class="extra"
+                    onclick={() => (settings.autoBonus = !settings.autoBonus)}
+                >
+                    <SvgIcon
+                        type="mdi"
+                        path={AutoBonus}
+                        color="var(--front)"
+                        size="28"
+                    />
                     {$_("settings.autobonus")}
-                    <button
-                        class="help-button"
-                        onclick={async () => {
-                            if (
-                                !(await dialogTrigger.prompt(
-                                    $_("settings.autobonus_explanation", {
-                                        values: {
-                                            settings_autobonus:
-                                                $_("settings.autobonus"),
-                                        },
-                                    }),
-                                    $_("settings.autobonus_explanation_1") +
-                                        "\n\n" +
-                                        $_("settings.autobonus_explanation_2") +
-                                        "\n\n" +
-                                        $_("settings.autobonus_explanation_3"),
-                                    $_("common.ok"),
-                                    $_("settings.open_rules"),
-                                ))
-                            ) {
-                                onOpenRules();
-                            }
-                        }}
-                    >
-                        <SvgIcon
-                            type="mdi"
-                            path={Help}
-                            color="var(--front)"
-                            size="28"
-                        />
-                    </button>
-                </span>
-                <Switch bind:on={settings.autoBonus}/>
+                </button>
+                <button class="help-button" onclick={autobonusHelp}>
+                    <SvgIcon
+                        type="mdi"
+                        path={Help}
+                        color="var(--front)"
+                        size="28"
+                    />
+                </button>
+                <Switch bind:on={settings.autoBonus} />
             </div>
             <Accordion label={$_("settings.locale")} icon={Languages}>
-                <select name="locale" bind:value={settings.locale}>
-                    <option value="cs" lang="cs">Česky</option>
-                    <option value="en" lang="en">English</option>
-                    <option value="bs" lang="bs">Bosanski</option>
-                </select>
+                <div class="options">
+                    <button
+                        class:selected={settings.locale == "cs"}
+                        onclick={() => (settings.locale = "cs")}
+                        lang="cs"
+                    >
+                        Česky
+                    </button>
+                    <button
+                        class:selected={settings.locale == "en"}
+                        onclick={() => (settings.locale = "en")}
+                        lang="en"
+                    >
+                        English
+                    </button>
+                    <button
+                        class:selected={settings.locale == "bs"}
+                        onclick={() => (settings.locale = "bs")}
+                        lang="bs"
+                    >
+                        Bosanski
+                    </button>
+                </div>
             </Accordion>
         </div>
     {/snippet}
@@ -162,7 +218,7 @@
 
 <style>
     .settings {
-        padding: 16px;
+        padding: 8px;
         align-self: center;
         width: 100%;
         max-width: 450px;
@@ -181,18 +237,20 @@
         justify-content: flex-start;
     }
 
-    .row span {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        flex: 1;
-    }
-
-    .row span button {
+    button {
         text-align: start;
         background-color: transparent;
         border: none;
         cursor: pointer;
+    }
+
+    button.extra {
+        flex: 1;
+        display: flex;
+        gap: 0.8em;
+        align-items: center;
+        padding: 0.5em 1em;
+        margin: -0.5em -1em;
     }
 
     .help-button {
@@ -200,18 +258,70 @@
         border: none;
         cursor: pointer;
         padding: 0;
+        display: inline-flex;
     }
 
-    select {
-        border: none;
-        border-radius: 16px;
-        padding: 4px 8px;
-        background-color: var(--back-extra);
+    .options {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
     }
 
-    select,
-    label {
+    .options button {
+        padding: 8px 16px;
+        margin: 0px -16px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+
+        display: flex;
+        align-items: center;
+    }
+
+    .options button.selected {
+        background-color: var(--back);
+    }
+
+    .themes {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .themes button {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .themes .theme-name {
+        margin-top: 16px;
+        padding: 8px 16px;
+        border-radius: 8px;
+    }
+
+    .themes button .theme-name {
+        transition: background-color 0.3s;
+    }
+    
+    .themes button.selected .theme-name {
+        transition: all 0.3s;
+        background-color: var(--gold);
+        color: var(--black);
+    }
+
+    button {
         font-size: 24px;
         color: var(--front);
+        padding: 0;
+    }
+
+    [data-color].sample {
+        background-color: var(--primary);
+        background-image: var(--primary-detail);
+        height: 30px;
+        width: 60px;
+        margin-left: auto;
+        border-radius: 20px;
     }
 </style>

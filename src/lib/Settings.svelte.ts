@@ -34,7 +34,7 @@ class YambSettings {
         $effect.root(() => {
             $effect(() => {
                 localStorage.setItem("st__theme", this.theme);
-                document.querySelector("html")!.setAttribute("theme", this.theme);
+                document.querySelector("html")!.dataset.theme = this.theme;
             });
             $effect(() => {
                 localStorage.setItem("st__autobonus", booleanToString(this.autoBonus));
@@ -44,7 +44,7 @@ class YambSettings {
             });
             $effect(() => {
                 localStorage.setItem("st__color", this.color);
-                document.querySelector("html")!.setAttribute("color", this.color);
+                document.querySelector("html")!.dataset.color = this.color;
                 let primaryColorHex = getComputedStyle(document.body).getPropertyValue('--primary') || "#000000"
                 document.querySelector('meta[name="theme-color"]')!.setAttribute("content", primaryColorHex);
                 this.gradientValues = getComputedStyle(document.body)

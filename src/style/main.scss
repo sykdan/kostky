@@ -10,11 +10,6 @@ html {
     --blue: #3487d4;
     --white: #eef0f2;
     --black: #141414;
-
-    --front: var(--black);
-    --back: var(--white);
-    --back-extra: #d4d5d6;
-    --back-error: #ffc4c5;
 }
 
 * {
@@ -45,14 +40,4 @@ body {
     background-color: var(--back-extra);
     border-radius: 16px;
     font-size: 24px;
-}
-
-input[type="checkbox"].switch {
-}
-
-input[type="checkbox"].switch::after {
-    content: "a";
-    display: block;
-    visibility: visible;
-    background-color: red;
 }
