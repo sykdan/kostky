@@ -11,12 +11,14 @@
         pushScreen,
         popScreen,
         setScreen,
+        userPushedState
     } from "./lib/Navigation.svelte";
     import "./style/theming.scss";
+    import { dialogTrigger } from "./lib/DialogTrigger.svelte";
 
     onMount(() => {
         const handlePopState = (event: PopStateEvent) => {
-            setScreen(event.state);
+            userPushedState(event);
         };
 
         window.addEventListener("popstate", handlePopState);

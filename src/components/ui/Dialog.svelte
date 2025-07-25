@@ -2,11 +2,25 @@
     import { fade, fly } from "svelte/transition";
     import { dialogTrigger } from "../../lib/DialogTrigger.svelte";
     import { circOut, quadOut } from "svelte/easing";
+    import { freezeScreen, unfreezeScreen } from "../../lib/Navigation.svelte";
+    import { untrack } from "svelte";
 
     function resolve(result: boolean) {
         dialogTrigger.visible = false;
         dialogTrigger.resolve(result);
     }
+
+    $effect(() => {
+        if (dialogTrigger.visible) {
+            untrack(() => {
+                freezeScreen();
+            });
+        } else {
+            untrack(() => {
+                unfreezeScreen();
+            });
+        }
+    });
 </script>
 
 {#if dialogTrigger.visible}

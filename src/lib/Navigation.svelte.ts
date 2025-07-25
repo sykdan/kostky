@@ -1,5 +1,4 @@
-import { cubicInOut, cubicOut, expoOut } from "svelte/easing";
-import { fly } from "svelte/transition";
+import { expoOut } from "svelte/easing";
 
 export enum Screen {
     MainMenu,
@@ -7,6 +6,9 @@ export enum Screen {
     GameRules,
     SettingsView,
 }
+
+
+let frozen = $state(false);
 
 export interface State {
     screen: Screen;
@@ -19,7 +21,7 @@ export let currentState: State & { level: number } = $state({
     level: 0
 });
 
-history.replaceState($state.snapshot(currentState), "");
+history.pushState($state.snapshot(currentState), "");
 
 function changeState(state: State) {
     Object.assign(currentState, state);
@@ -54,6 +56,30 @@ export function popScreen() {
     direction = -1;
     allowNext();
     history.back();
+}
+
+export function freezeScreen() {
+    console.log("freezeScreen")
+    if (!frozen) {
+        frozen = true;
+    }
+}
+
+export function unfreezeScreen() {
+    console.log("unfreezeScreen")
+    if (frozen) {
+        frozen = false;
+    }
+}
+
+export function userPushedState(event: PopStateEvent) {
+    console.log(event)
+    if (frozen) {
+        console.log("prevent nav")
+        history.pushState($state.snapshot(currentState), "");
+    } else {
+        setScreen(event.state);
+    }
 }
 
 function detectTouchSafari() {
