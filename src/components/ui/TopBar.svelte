@@ -34,7 +34,7 @@
 {/snippet}
 
 <div
-    class="sticky z-20 top-0 text-center flex justify-between items-center text-3xl bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-900 text-neutral-50 shadow-xl"
+    class="sticky z-20 top-0 text-center flex justify-between items-center text-3xl bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-900 text-neutral-50 shadow-md"
 >
     {@render actionButton(leftButtonContent, onLeftButtonPressed)}
     {title}

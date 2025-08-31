@@ -3,7 +3,7 @@
     import settings from "../../lib/Settings.svelte";
 </script>
 
-<svg class="w-full scale-90 aspect-[3/1]" viewBox="0 0 92.604 18.785" fill="url(#gradient)">
+<svg class="w-full scale-90 aspect-[3/1] drop-shadow-md" viewBox="0 0 92.604 18.785" fill="url(#gradient)">
     <defs>
         <linearGradient id="gradient">
             {#each settings.gradientValues as gradientPart, i}

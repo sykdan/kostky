@@ -14,6 +14,7 @@
         mdiCog as Settings,
         mdiBook as HowToPlay,
         mdiShareVariant as Share,
+        mdiInformation as About,
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
@@ -27,8 +28,15 @@
         onOpenRules: () => any;
         onOpenSettings: () => any;
         onOpenShare: () => any;
+        onOpenAbout: () => any;
     }
-    let { onPlay, onOpenRules, onOpenSettings, onOpenShare }: Props = $props();
+    let {
+        onPlay,
+        onOpenRules,
+        onOpenSettings,
+        onOpenShare,
+        onOpenAbout,
+    }: Props = $props();
 
     let games: { [key: string]: GameData } = $state(
         JSON.parse(localStorage.getItem("games") || "{}"),
@@ -106,18 +114,19 @@
                                 bind:value={newGame.name}
                             />
                             {#if newGame.name}
-                                <button
-                                    onclick={createGame}
-                                    class="btn rounded-2xl gap-3 bg-neutral-50 dark:bg-neutral-900 hover:bg-amber-300 active:bg-amber-300"
-                                    transition:slide|local
-                                >
-                                    <SvgIcon
-                                        type="mdi"
-                                        path={NewGame}
-                                        size={32}
-                                    />
-                                    {$_("main.newgame_create")}
-                                </button>
+                                <div transition:slide|local>
+                                    <Button
+                                        onclick={createGame}
+                                        class="bg-neutral-50 dark:bg-neutral-900"
+                                    >
+                                        <SvgIcon
+                                            type="mdi"
+                                            path={NewGame}
+                                            size={32}
+                                        />
+                                        {$_("main.newgame_create")}
+                                    </Button>
+                                </div>
                             {/if}
                         </div>
                     {/if}
@@ -131,18 +140,15 @@
                     <SvgIcon type="mdi" path={Settings} size={32} />
                     {$_("main.options")}
                 </Button>
+                <hr class="mx-4 opacity-25" />
                 <Button onclick={onOpenShare}>
                     <SvgIcon type="mdi" path={Share} size={32} />
                     {$_("main.share")}
                 </Button>
-            </div>
-            <div class="mt-2 text-center text-xs">
-                Made by Daniel Sýkora (2023 - {new Date().getFullYear()})
-                <a
-                    class="underline text-blue-400"
-                    target="_blank"
-                    href="https://github.com/sykdan/kostky">Source code</a
-                >
+                <Button onclick={onOpenAbout}>
+                    <SvgIcon type="mdi" path={About} size={32} />
+                    {$_("main.about")}
+                </Button>
             </div>
         </div>
     {/snippet}
