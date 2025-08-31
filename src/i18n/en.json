@@ -14,6 +14,7 @@
         "delete": "Delete game card",
         "delete_confirm": "Really delete this game card?",
         "rules": "Rules",
+        "share": "Share",
         "options": "Options",
         "no_played": "Never played"
     },
@@ -96,5 +97,10 @@
         "scoring_4": "Sum up points scored in Straight, Full House, Poker and Yamb without any special measures.",
         "scoring_5": "The sum of these three subcalculations is the total score for a single column.",
         "scoring_6": "The total scores of all four columns are then combined into a single number, your final score. The app does all of this for you and displays your final score at the bottom of the screen."
+    },
+    "share": {
+        "title": "Share the app",
+        "share": "Want to play with others? Ask them to open the app on their device:",
+        "qrcode": "You can also let them scan this QR code:"
     }
 }

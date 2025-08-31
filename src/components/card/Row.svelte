@@ -22,7 +22,7 @@
 
 <!-- Icon -->
 <div
-    class="aspect-[1/2] bg-primary-500 bg-gradient-to-b bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+    class="aspect-[1/2] bg-primary-500 bg-gradient-to-b bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900"
 >
     {@render children?.()}
 </div>

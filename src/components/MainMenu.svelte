@@ -13,10 +13,10 @@
         mdiPlus as NewGame,
         mdiCog as Settings,
         mdiBook as HowToPlay,
+        mdiShareVariant as Share,
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
-    import settings from "../lib/Settings.svelte";
     import { tick } from "svelte";
     import Screen from "./ui/Screen.svelte";
     import Logo from "./ui/Logo.svelte";
@@ -26,8 +26,9 @@
         onPlay: (id: string) => any;
         onOpenRules: () => any;
         onOpenSettings: () => any;
+        onOpenShare: () => any;
     }
-    let { onPlay, onOpenRules, onOpenSettings }: Props = $props();
+    let { onPlay, onOpenRules, onOpenSettings, onOpenShare }: Props = $props();
 
     let games: { [key: string]: GameData } = $state(
         JSON.parse(localStorage.getItem("games") || "{}"),
@@ -66,7 +67,7 @@
 <Screen>
     {#snippet screenContent()}
         <div class="flex flex-col items-center">
-            <div class="flex flex-col max-w-100 w-full gap-2">
+            <div class="flex flex-col max-w-120 w-full gap-2">
                 <Logo />
                 <div
                     class="flex flex-col rounded-2xl bg-neutral-200 dark:bg-neutral-700"
@@ -129,6 +130,10 @@
                 <Button onclick={onOpenSettings}>
                     <SvgIcon type="mdi" path={Settings} size={32} />
                     {$_("main.options")}
+                </Button>
+                <Button onclick={onOpenShare}>
+                    <SvgIcon type="mdi" path={Share} size={32} />
+                    {$_("main.share")}
                 </Button>
             </div>
             <div class="mt-2 text-center text-xs">

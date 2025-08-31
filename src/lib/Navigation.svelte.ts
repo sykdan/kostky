@@ -5,6 +5,7 @@ export enum Screen {
     GameView,
     GameRules,
     SettingsView,
+    ShareView
 }
 
 

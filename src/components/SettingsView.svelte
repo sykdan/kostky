@@ -94,7 +94,7 @@
     {/snippet}
 
     {#snippet screenContent()}
-        <div class="max-w-100 w-full self-center">
+        <div class="max-w-120 w-full self-center">
             <Accordion label={$_("settings.theme")} icon={LightDarkTheme}>
                 <div class="grid grid-cols-3 m-2 gap-2">
                     {#each themeOptions as themeOption}
