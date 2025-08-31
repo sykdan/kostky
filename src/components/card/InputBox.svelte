@@ -88,10 +88,12 @@
     });
 </script>
 
-<div class="cell">
+<div class="rounded-2xl bg-neutral-200 dark:bg-neutral-700 relative">
     <input
-        class:invalid
-        class="number"
+        class={[
+            "peer text-center text-4xl rounded-2xl w-full h-full aspect-square",
+            invalid && "bg-red-200 dark:bg-red-900",
+        ]}
         type="number"
         pattern="[0-9]*"
         value={inputValue}
@@ -102,76 +104,32 @@
     />
 
     {#if add > 0 && value}
-        <span class="overlay number" class:invalid>
+        <span
+            class={[
+                "peer-focus:hidden pointer-events-none absolute bg-neutral-200 dark:bg-neutral-700 left-0 top-0 w-full h-full flex items-center justify-center rounded-2xl text-4xl",
+                invalid && "bg-red-200 dark:bg-red-900",
+            ]}
+        >
             {value}
         </span>
     {:else if value == 0}
-        <span class="overlay cross">
-            <SvgIcon type="mdi" path={Cross} color="rgb(172, 0, 0)" size={48} />
+        <span
+            class="peer-focus:hidden pointer-events-none absolute bg-red-400 text-red-700 left-0 top-0 w-full h-full flex items-center justify-center rounded-2xl"
+        >
+            <SvgIcon type="mdi" path={Cross} size={48} />
         </span>
     {/if}
 </div>
 
-<style lang="scss">
-    .cell {
-        position: relative;
-    }
-
+<style>
     input {
-        padding: 0;
-        border: none;
-        width: 100%;
-        height: 100%;
-        border-radius: 16px;
-
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        &[type="number"] {
-            -moz-appearance: textfield;
-            appearance: textfield;
-        }
-
-        &:not(:focus) + .overlay {
-            display: grid;
-        }
+        -moz-appearance: textfield;
+        appearance: textfield;
     }
 
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        border-radius: 16px;
-        align-items: center;
-        justify-content: center;
-        display: none;
-    }
-
-    .cross {
-        background-color: rgb(255, 61, 61);
-
-        :global(svg) {
-            padding: 0;
-            width: var(--cell-size);
-        }
-    }
-
-    .number {
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        font-size: 36px;
-        background-color: var(--back-extra);
-        color: var(--front);
-
-        &.invalid {
-            background-color: var(--back-error);
-        }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 </style>

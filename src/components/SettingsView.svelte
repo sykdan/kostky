@@ -16,8 +16,8 @@
     import Screen from "./ui/Screen.svelte";
     import { dialogTrigger } from "../lib/DialogTrigger.svelte";
     import Accordion from "./ui/Accordion.svelte";
-    import Switch from "./ui/Switch.svelte";
-    import ThemePreview from "./ui/ThemePreview.svelte";
+    import ThemePreview, { type ThemeOption } from "./ui/ThemePreview.svelte";
+    import { supportedLanguages } from "../i18n/locale";
 
     interface Props {
         onBack: () => any;
@@ -46,17 +46,35 @@
             onOpenRules();
         }
     }
+
+    const themeOptions: ThemeOption[] = ["light", "dark", "system"];
 </script>
 
 {#snippet colorSchemeSetting(identifier: string, label: string)}
     <button
+        class={[
+            "flex items-center justify-between btn px-4 rounded-2xl",
+            settings.color === identifier &&
+                "not-hover:bg-neutral-300 dark:not-hover:bg-neutral-600",
+        ]}
         class:selected={settings.color === identifier}
         onclick={() => (settings.color = identifier)}
     >
         {label}
 
-        <div data-color={identifier} class="sample"></div>
+        <div
+            data-color={identifier}
+            class="bg-primary-500 w-14 h-7 rounded-full bg-theme-gradient bg-linear-to-l"
+        ></div>
     </button>
+{/snippet}
+
+{#snippet separator(content: string)}
+    <div class="flex items-center mx-2">
+        <hr class="grow" />
+        <span class="mx-4">{content}</span>
+        <hr class="grow" />
+    </div>
 {/snippet}
 
 <Screen>
@@ -71,51 +89,35 @@
             }}
         >
             {#snippet leftButtonContent()}
-                <SvgIcon
-                    type="mdi"
-                    path={Back}
-                    color="var(--surface)"
-                    size="28"
-                />
+                <SvgIcon type="mdi" path={Back} size="28" />
             {/snippet}
         </TopBar>
     {/snippet}
 
     {#snippet screenContent()}
-        <div class="settings">
+        <div class="max-w-100 w-full self-center">
             <Accordion label={$_("settings.theme")} icon={LightDarkTheme}>
-                <div class="themes">
-                    <button
-                        onclick={() => (settings.theme = "light")}
-                        class:selected={settings.theme == "light"}
-                    >
-                        <ThemePreview theme="light" />
-                        <div class="theme-name">
-                            {$_("settings.theme_light")}
-                        </div>
-                    </button>
-                    <button
-                        onclick={() => (settings.theme = "dark")}
-                        class:selected={settings.theme == "dark"}
-                    >
-                        <ThemePreview theme="dark" />
-                        <div class="theme-name">
-                            {$_("settings.theme_dark")}
-                        </div>
-                    </button>
-                    <button
-                        onclick={() => (settings.theme = "system")}
-                        class:selected={settings.theme == "system"}
-                    >
-                        <ThemePreview theme="system" />
-                        <div class="theme-name">
-                            {$_("settings.theme_system")}
-                        </div>
-                    </button>
+                <div class="flex m-2 mt-4 gap-2">
+                    {#each themeOptions as themeOption}
+                        <button
+                            class="btn flex flex-col flex-1 items-center rounded-2xl"
+                            onclick={() => (settings.theme = themeOption)}
+                            class:selected={settings.theme == themeOption}
+                        >
+                            <ThemePreview theme={themeOption} />
+                            <div class="text-center xl mt-2">
+                                {$_("settings.theme_" + themeOption)}
+                            </div>
+                        </button>
+                    {/each}
                 </div>
             </Accordion>
             <Accordion label={$_("settings.color")} icon={ColorScheme}>
-                <div class="options">
+                <div class="m-2 gap-2 flex flex-col">
+                    {#if settings.extraThemes}
+                        {@render separator("Plain colors")}
+                    {/if}
+
                     {@render colorSchemeSetting(
                         "blue",
                         $_("settings.color_blue"),
@@ -149,6 +151,10 @@
                         $_("settings.color_cyan"),
                     )}
 
+                    {#if settings.extraThemes}
+                        {@render separator("Pride flags")}
+                    {/if}
+
                     {@render colorSchemeSetting(
                         "rainbow",
                         $_("settings.color_rainbow"),
@@ -164,164 +170,56 @@
                     {/if}
                 </div>
             </Accordion>
-            <div class="row card">
-                <button
-                    class="extra"
-                    onclick={() => (settings.autoBonus = !settings.autoBonus)}
-                >
-                    <SvgIcon
-                        type="mdi"
-                        path={AutoBonus}
-                        color="var(--front)"
-                        size="28"
-                    />
-                    {$_("settings.autobonus")}
-                </button>
-                <button class="help-button" onclick={autobonusHelp}>
-                    <SvgIcon
-                        type="mdi"
-                        path={Help}
-                        color="var(--front)"
-                        size="28"
-                    />
-                </button>
-                <Switch bind:on={settings.autoBonus} />
-            </div>
+            <Accordion label={$_("settings.autobonus")} icon={AutoBonus}>
+                <div class="flex flex-col p-2 gap-2">
+                    <button
+                        class={[
+                            "btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300",
+                            settings.autoBonus &&
+                                "bg-neutral-300 dark:bg-neutral-600",
+                        ]}
+                        onclick={() => (settings.autoBonus = true)}
+                    >
+                        {$_("common.yes")}
+                    </button>
+                    <button
+                        class={[
+                            "btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300",
+                            !settings.autoBonus &&
+                                "bg-neutral-300 dark:bg-neutral-600",
+                        ]}
+                        onclick={() => (settings.autoBonus = false)}
+                    >
+                        {$_("common.no")}
+                    </button>
+                    <button
+                        class={"btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300"}
+                        onclick={autobonusHelp}
+                    >
+                        <div class="me-3 my-2">
+                            <SvgIcon type="mdi" path={Help} size="28" />
+                        </div>
+                        {$_("settings.autobonus_explanation_button")}
+                    </button>
+                </div>
+            </Accordion>
             <Accordion label={$_("settings.locale")} icon={Languages}>
-                <div class="options">
-                    <button
-                        class:selected={settings.locale == "cs"}
-                        onclick={() => (settings.locale = "cs")}
-                        lang="cs"
-                    >
-                        Česky
-                    </button>
-                    <button
-                        class:selected={settings.locale == "en"}
-                        onclick={() => (settings.locale = "en")}
-                        lang="en"
-                    >
-                        English
-                    </button>
-                    <button
-                        class:selected={settings.locale == "bs"}
-                        onclick={() => (settings.locale = "bs")}
-                        lang="bs"
-                    >
-                        Bosanski
-                    </button>
+                <div class="flex flex-col p-2 gap-2">
+                    {#each Object.entries(supportedLanguages) as [key, langName], i}
+                        <button
+                            class={[
+                                "btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300",
+                                settings.locale === key &&
+                                    "bg-neutral-300 dark:bg-neutral-600",
+                            ]}
+                            onclick={() => (settings.locale = key)}
+                            lang={key}
+                        >
+                            {langName}
+                        </button>
+                    {/each}
                 </div>
             </Accordion>
         </div>
     {/snippet}
 </Screen>
-
-<style>
-    .settings {
-        padding: 8px;
-        align-self: center;
-        width: 100%;
-        max-width: 450px;
-        box-sizing: border-box;
-        color: var(--front);
-    }
-
-    .row {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 4px;
-        padding: 0.5em 1em;
-        gap: 0.8em;
-        flex-shrink: 0;
-        box-sizing: border-box;
-        justify-content: flex-start;
-    }
-
-    button {
-        text-align: start;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
-
-    button.extra {
-        flex: 1;
-        display: flex;
-        gap: 0.8em;
-        align-items: center;
-        padding: 0.5em 1em;
-        margin: -0.5em -1em;
-    }
-
-    .help-button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        display: inline-flex;
-    }
-
-    .options {
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-    }
-
-    .options button {
-        padding: 8px 16px;
-        margin: 0px -16px;
-        border-radius: 8px;
-        transition: background-color 0.2s;
-
-        display: flex;
-        align-items: center;
-    }
-
-    .options button.selected {
-        background-color: var(--back);
-    }
-
-    .themes {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .themes button {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .themes .theme-name {
-        margin-top: 16px;
-        padding: 8px 16px;
-        border-radius: 8px;
-    }
-
-    .themes button .theme-name {
-        transition: background-color 0.3s;
-    }
-    
-    .themes button.selected .theme-name {
-        transition: all 0.3s;
-        background-color: var(--gold);
-        color: var(--black);
-    }
-
-    button {
-        font-size: 24px;
-        color: var(--front);
-        padding: 0;
-    }
-
-    [data-color].sample {
-        background-color: var(--primary);
-        background-image: var(--primary-detail);
-        height: 30px;
-        width: 60px;
-        margin-left: auto;
-        border-radius: 20px;
-    }
-</style>

@@ -13,7 +13,6 @@
         setScreen,
         userPushedState
     } from "./lib/Navigation.svelte";
-    import "./style/theming.scss";
     import { dialogTrigger } from "./lib/DialogTrigger.svelte";
 
     onMount(() => {

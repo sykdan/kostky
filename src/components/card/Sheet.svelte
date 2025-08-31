@@ -92,159 +92,126 @@
     let { card = $bindable(), final_sum = $bindable(null) }: Props = $props();
 </script>
 
-<div class="wrapper">
-    <div class="sheet">
-        <div class="cell header side"></div>
+<div class="flex flex-col items-center">
+    <div class="grid w-full max-w-100 min-w-50 gap-1 content-start">
+        <div></div>
 
-        <div class="cell header has-icon">
-            <SvgIcon
-                type="mdi"
-                path={Down}
-                color="var(--surface)"
-                size="100%"
-            />
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+        >
+            <SvgIcon type="mdi" path={Down} size="100%" />
         </div>
-        <div class="cell header has-icon">
-            <SvgIcon
-                type="mdi"
-                path={Both}
-                color="var(--surface)"
-                size="100%"
-            />
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+        >
+            <SvgIcon type="mdi" path={Both} size="100%" />
         </div>
-        <div class="cell header has-icon">
-            <SvgIcon type="mdi" path={Up} color="var(--surface)" size="100%" />
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+        >
+            <SvgIcon type="mdi" path={Up} size="100%" />
         </div>
-        <div class="cell header has-icon">
-            <SvgIcon
-                type="mdi"
-                path={Announced}
-                color="var(--surface)"
-                size="100%"
-            />
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+        >
+            <SvgIcon type="mdi" path={Announced} size="100%" />
         </div>
 
         <Row n={1} type="singles" bind:row={card[0]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Dice1}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Dice1} size="100%" />
         </Row>
         <Row n={2} type="singles" bind:row={card[1]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Dice2}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Dice2} size="100%" />
         </Row>
         <Row n={3} type="singles" bind:row={card[2]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Dice3}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Dice3} size="100%" />
         </Row>
         <Row n={4} type="singles" bind:row={card[3]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Dice4}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Dice4} size="100%" />
         </Row>
         <Row n={5} type="singles" bind:row={card[4]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Dice5}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Dice5} size="100%" />
         </Row>
         <Row n={6} type="singles" bind:row={card[5]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Dice6}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Dice6} size="100%" />
         </Row>
 
-        <div class="cell header side"></div>
+        <div></div>
         <div
-            class="cell header has-icon calc"
-            class:good={singles_sums[0] > 60}
+            class={[
+                "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
+                singles_sums[0] > 60
+                    ? "bg-green-600"
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+            ]}
         >
             {singles_sums[0]}
         </div>
         <div
-            class="cell header has-icon calc"
-            class:good={singles_sums[1] > 60}
+            class={[
+                "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
+                singles_sums[1] > 60
+                    ? "bg-green-600"
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+            ]}
         >
             {singles_sums[1]}
         </div>
         <div
-            class="cell header has-icon calc"
-            class:good={singles_sums[2] > 60}
+            class={[
+                "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
+                singles_sums[2] > 60
+                    ? "bg-green-600"
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+            ]}
         >
             {singles_sums[2]}
         </div>
         <div
-            class="cell header has-icon calc"
-            class:good={singles_sums[3] > 60}
+            class={[
+                "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
+                singles_sums[3] > 60
+                    ? "bg-green-600"
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+            ]}
         >
             {singles_sums[3]}
         </div>
 
         <Row type="free" bind:row={card[6]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Maximum}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Maximum} size="100%" />
         </Row>
         <Row type="free" bind:row={card[7]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Minimum}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Minimum} size="100%" />
         </Row>
 
-        <div class="cell header side"></div>
-        <div class="cell header has-icon calc">
+        <div></div>
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
             {minmax_sums[0]}{card[0][0] == null && minmax_sums[0] ? "?" : ""}
         </div>
-        <div class="cell header has-icon calc">
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
             {minmax_sums[1]}{card[0][1] == null && minmax_sums[1] ? "?" : ""}
         </div>
-        <div class="cell header has-icon calc">
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
             {minmax_sums[2]}{card[0][2] == null && minmax_sums[2] ? "?" : ""}
         </div>
-        <div class="cell header has-icon calc">
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
             {minmax_sums[3]}{card[0][3] == null && minmax_sums[3] ? "?" : ""}
         </div>
 
         <Row type="sequence" bind:row={card[8]} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={Sequence}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Sequence} size="100%" />
         </Row>
         <Row type="fullhouse" bind:row={card[9]} add={30} {shouldAddBonus}>
-            <SvgIcon
-                type="mdi"
-                path={FullHouse}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={FullHouse} size="100%" />
         </Row>
         <Row
             n={4}
@@ -253,12 +220,7 @@
             add={40}
             {shouldAddBonus}
         >
-            <SvgIcon
-                type="mdi"
-                path={Poker}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Poker} size="100%" />
         </Row>
         <Row
             n={5}
@@ -267,116 +229,44 @@
             add={50}
             {shouldAddBonus}
         >
-            <SvgIcon
-                type="mdi"
-                path={Yamb}
-                color="var(--surface)"
-                size="100%"
-            />
+            <SvgIcon type="mdi" path={Yamb} size="100%" />
         </Row>
 
-        <div class="cell header side"></div>
-        <div class="cell header has-icon calc">{special_sums[0]}</div>
-        <div class="cell header has-icon calc">{special_sums[1]}</div>
-        <div class="cell header has-icon calc">{special_sums[2]}</div>
-        <div class="cell header has-icon calc">{special_sums[3]}</div>
+        <div></div>
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
+            {special_sums[0]}
+        </div>
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
+            {special_sums[1]}
+        </div>
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
+            {special_sums[2]}
+        </div>
+        <div
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+        >
+            {special_sums[3]}
+        </div>
     </div>
     {#if final_sum != null}
-        <div class="final_sum" transition:scale|local>
-            {$_("game.finalscore")}:<br />
-            <b>
-                {final_sum}
-            </b>
+        <div
+            class="sticky bottom-2 bg-green-600 text-neutral-50 px-3 py-2 text-center rounded-2xl shadow-2xl"
+            transition:scale|local
+        >
+            <div class="text-xl">{$_("game.finalscore")}</div>
+            <div class="font-bold text-3xl">{final_sum}</div>
         </div>
     {/if}
 </div>
 
 <style>
-    div.wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        background-color: var(--back);
-    }
-
-    div.sheet {
-        width: 100%;
-        max-width: 400px;
-        min-width: 100px;
-
-        display: grid;
+    .grid {
         grid-template-columns: 1fr 2fr 2fr 2fr 2fr;
-        gap: 4px;
-        align-content: start;
-    }
-
-    :global(.cell) {
-        aspect-ratio: 1/1;
-        width: 100%;
-        border-radius: 16px;
-    }
-
-    :global(.cell.header) {
-        background-color: var(--primary);
-        background-image: var(--primary-detail);
-        aspect-ratio: 2/1;
-    }
-
-    :global(.cell.side) {
-        background-color: var(--primary);
-        background-image: var(--primary-detail);
-        aspect-ratio: 1/2;
-    }
-
-    :global(.cell.header.side) {
-        background: transparent;
-        aspect-ratio: 1/1;
-    }
-
-    :global(.row) {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-    }
-
-    div.calc {
-        color: var(--surface);
-        text-align: center;
-        font-size: 24px;
-    }
-
-    div.good {
-        background: var(--green);
-        color: var(--white);
-    }
-
-    :global(.has-icon) {
-        display: grid;
-        align-content: center;
-        justify-content: center;
-    }
-
-    :global(.has-icon) :global(svg) {
-        transform: scale(0.85);
-    }
-
-    .final_sum {
-        position: sticky;
-        bottom: 8px;
-        background-color: var(--green);
-        padding: 8px 16px;
-        margin-bottom: 8px;
-        margin-top: 8px;
-        border-radius: 16px;
-        color: white;
-        font-size: 18px;
-        text-align: center;
-    }
-
-    .final_sum b {
-        font-size: 24px;
     }
 </style>

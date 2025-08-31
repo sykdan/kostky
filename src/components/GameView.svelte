@@ -133,52 +133,46 @@
             onRightButtonPressed={() => (showActions = !showActions)}
         >
             {#snippet leftButtonContent()}
-                <SvgIcon
-                    type="mdi"
-                    path={Back}
-                    color="var(--surface)"
-                    size="28"
-                />
+                <SvgIcon type="mdi" path={Back} size="28" />
             {/snippet}
             {#snippet rightButtonContent()}
-                <SvgIcon
-                    type="mdi"
-                    path={Menu}
-                    color="var(--surface)"
-                    size="28"
-                />
+                <SvgIcon type="mdi" path={Menu} size="28" />
             {/snippet}
         </TopBar>
     {/snippet}
 
     {#snippet screenContent()}
         {#if showActions}
-            <div {@attach offclick((e: Event) => showActions = false)} class="actions" transition:slide|local>
-                <button onclick={zeroes} style="color: var(--front)">
-                    <SvgIcon
-                        type="mdi"
-                        path={CrossOut}
-                        color="var(--front)"
-                        size="28"
-                    />
+            <div
+                {@attach offclick((e: Event) => (showActions = false))}
+                class="fixed z-10 right-0 top-12 flex flex-col rounded-2xl m-4 bg-neutral-200 dark:bg-neutral-700 shadow-2xl"
+                transition:slide|local
+            >
+                <button
+                    onclick={zeroes}
+                    class="btn justify-start rounded-t-2xl active:rounded-2xl gap-3 px-3"
+                >
+                    <SvgIcon type="mdi" path={CrossOut} size={32} />
                     {$_("game.crossempty")}
                 </button>
-                <button onclick={order} style="color: var(--front)">
-                    <SvgIcon
-                        type="mdi"
-                        path={WhoIsPlaying}
-                        color="var(--front)"
-                        size="28"
-                    />
+                <div
+                    class="border-b-2 border-neutral-300 dark:border-neutral-500"
+                ></div>
+                <button
+                    onclick={order}
+                    class="btn justify-start active:rounded-2xl gap-3 px-3"
+                >
+                    <SvgIcon type="mdi" path={WhoIsPlaying} size={32} />
                     {$_("game.whoisplaying")}
                 </button>
-                <button onclick={clear} style="color: var(--red)">
-                    <SvgIcon
-                        type="mdi"
-                        path={Clear}
-                        color="var(--red)"
-                        size="28"
-                    />
+                <div
+                    class="border-b-2 border-neutral-300 dark:border-neutral-500"
+                ></div>
+                <button
+                    class="btn text-red-500 hover:text-red-800 justify-start rounded-b-2xl active:rounded-2xl gap-3 px-3"
+                    onclick={clear}
+                >
+                    <SvgIcon type="mdi" path={Clear} size={32} />
                     {$_("game.reset")}
                 </button>
             </div>
@@ -187,47 +181,3 @@
         <PlayingCard bind:card />
     {/snippet}
 </Screen>
-
-<style>
-    div.actions {
-        position: fixed;
-        right: 0;
-        top: 48px;
-        display: flex;
-        flex-direction: column;
-        background-color: var(--back-extra);
-        padding: 4px;
-        z-index: 2;
-        gap: 4px;
-        margin: 8px;
-        border-radius: 16px;
-        box-shadow:
-            0 1px 3px rgba(0, 0, 0, 0.12),
-            0 1px 2px rgba(0, 0, 0, 0.24);
-        overflow-y: clip;
-    }
-
-    div.actions button {
-        background-color: transparent;
-        padding: 8px;
-        font-size: large;
-        border: none;
-        border-radius: 12px;
-        transition: 0.2s;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-right: 16px;
-        color: var(--back);
-        cursor: pointer;
-    }
-
-    div.actions button :global(svg) {
-        margin-right: 8px;
-    }
-
-    div.actions button:hover,
-    div.actions button:active {
-        background-color: rgba(255, 255, 255, 0.16);
-    }
-</style>
