@@ -27,14 +27,17 @@
     @apply active:scale-90 transition-transform;
 }
 
-* {
-    font-family: "Jost", "Roboto", sans-serif;
+@layer base {
+    * {
+        font-family: "Jost", "Roboto", sans-serif;
+    }
+
+    *:not(input) {
+        user-select: none;
+        -webkit-user-select: none;
+    }
 }
 
-*:not(input) {
-    user-select: none;
-    -webkit-user-select: none;
-}
 
 html,
 body,

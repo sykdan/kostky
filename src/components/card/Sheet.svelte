@@ -93,26 +93,26 @@
 </script>
 
 <div class="flex flex-col items-center">
-    <div class="grid w-full max-w-100 min-w-50 gap-1 content-start">
+    <div class="grid w-full max-w-120 min-w-50 gap-1 content-start">
         <div></div>
 
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900"
         >
             <SvgIcon type="mdi" path={Down} size="100%" />
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900"
         >
             <SvgIcon type="mdi" path={Both} size="100%" />
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900"
         >
             <SvgIcon type="mdi" path={Up} size="100%" />
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900"
         >
             <SvgIcon type="mdi" path={Announced} size="100%" />
         </div>
@@ -142,7 +142,7 @@
                 "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
                 singles_sums[0] > 60
                     ? "bg-green-600"
-                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-900",
             ]}
         >
             {singles_sums[0]}
@@ -152,7 +152,7 @@
                 "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
                 singles_sums[1] > 60
                     ? "bg-green-600"
-                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-900",
             ]}
         >
             {singles_sums[1]}
@@ -162,7 +162,7 @@
                 "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
                 singles_sums[2] > 60
                     ? "bg-green-600"
-                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-900",
             ]}
         >
             {singles_sums[2]}
@@ -172,7 +172,7 @@
                 "aspect-[2/1] rounded-2xl text-neutral-50 text-3xl flex items-center justify-center",
                 singles_sums[3] > 60
                     ? "bg-green-600"
-                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950",
+                    : "bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-900",
             ]}
         >
             {singles_sums[3]}
@@ -187,22 +187,22 @@
 
         <div></div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {minmax_sums[0]}{card[0][0] == null && minmax_sums[0] ? "?" : ""}
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {minmax_sums[1]}{card[0][1] == null && minmax_sums[1] ? "?" : ""}
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {minmax_sums[2]}{card[0][2] == null && minmax_sums[2] ? "?" : ""}
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {minmax_sums[3]}{card[0][3] == null && minmax_sums[3] ? "?" : ""}
         </div>
@@ -234,22 +234,22 @@
 
         <div></div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {special_sums[0]}
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {special_sums[1]}
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {special_sums[2]}
         </div>
         <div
-            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-950 text-3xl flex items-center justify-center"
+            class="aspect-[2/1] bg-primary-500 bg-gradient-to-r bg-theme-gradient rounded-2xl text-neutral-50 surface:text-neutral-900 text-3xl flex items-center justify-center"
         >
             {special_sums[3]}
         </div>

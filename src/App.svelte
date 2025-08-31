@@ -11,9 +11,10 @@
         pushScreen,
         popScreen,
         setScreen,
-        userPushedState
+        userPushedState,
     } from "./lib/Navigation.svelte";
     import { dialogTrigger } from "./lib/DialogTrigger.svelte";
+    import ShareView from "./components/ShareView.svelte";
 
     onMount(() => {
         const handlePopState = (event: PopStateEvent) => {
@@ -43,11 +44,16 @@
         onOpenSettings={() => {
             pushScreen({ screen: Screen.SettingsView });
         }}
+        onOpenShare={() => {
+            pushScreen({ screen: Screen.ShareView });
+        }}
     />
 {:else if screen == Screen.GameView && currentState.game}
     <GameView onBack={popScreen} id={currentState.game} />
 {:else if screen == Screen.GameRules}
     <GameRules onBack={popScreen} />
+{:else if screen == Screen.ShareView}
+    <ShareView onBack={popScreen} />
 {:else if screen == Screen.SettingsView}
     <SettingsView
         onBack={popScreen}
