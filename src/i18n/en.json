@@ -47,6 +47,7 @@
         "autobonus": "Auto-apply bonuses",
         "autobonus_yes": "Yes",
         "autobonus_no": "No",
+        "autobonus_explanation_button": "What does this do?",
         "autobonus_explanation": "What does {settings_autobonus} mean?",
         "autobonus_explanation_1": "When this option is enabled, the app will automatically add bonus points for certain combinations. You only need to type in the sum you threw.",
         "autobonus_explanation_2": "When this option is disabled, you add bonus points yourself. You need to type in the sum you threw AND the bonus.",

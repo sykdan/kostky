@@ -11,29 +11,10 @@
     let {topBar, screenContent }: Props = $props();
 </script>
 
-<div class="screen" transition:screenSlide>
+<div class="w-dvw h-dvh fixed top-0 left-0 flex flex-col overflow-hidden" transition:screenSlide>
     {@render topBar?.()}
-    <div class="content">
+    <div class="flex flex-col grow p-2 overflow-auto">
         {@render screenContent?.()}
     </div>
 </div>
 
-<style>
-    .screen {
-        width: 100vw;
-        height: 100dvh;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: var(--back);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    .content {
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-    }
-</style>

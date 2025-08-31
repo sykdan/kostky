@@ -24,107 +24,44 @@
 </script>
 
 {#if dialogTrigger.visible}
-    <div class="dialog" transition:fade={{ duration: 300 }}>
+    <div
+        class="fixed h-dvh w-dvw bg-black/50 z-20 flex flex-col items-center justify-center backdrop-blur-sm touch-none pointer-events-[all] overscroll-contain p-2"
+        transition:fade={{ duration: 300 }}
+    >
         <div
-            class="content"
+            class="flex flex-col max-w-100 w-full rounded-2xl bg-neutral-50 dark:bg-neutral-900 shadow-xl whitespace-pre-line"
             in:fly={{ y: -50, easing: circOut }}
             out:fly={{ y: 50, easing: quadOut }}
         >
-            <div class="header">
+            <div
+                class="bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950 text-neutral-50 text-center text-2xl py-1 rounded-t-2xl"
+            >
                 {dialogTrigger.title}
             </div>
-            <div class="message">
+
+            <div class="text-2xl m-4">
                 {@html dialogTrigger.message}
             </div>
-            <div class="buttons">
+            <div
+                class="bg-neutral-200 dark:bg-neutral-700 flex justify-end p-2 rounded-b-2xl gap-2"
+            >
                 {#if dialogTrigger.cancel}
-                    <button onclick={() => resolve(false)}>
+                    <button
+                        class="btn rounded-2xl text-xl px-4 pt-2"
+                        onclick={() => resolve(false)}
+                    >
                         {dialogTrigger.cancel}
                     </button>
                 {/if}
-                <button class="ok" onclick={() => resolve(true)}>
-                    {dialogTrigger.ok}
+                <button
+                    class="group btn bg-primary-500 p-0 rounded-2xl bg-gradient-to-r bg-theme-gradient surface:text-neutral-950 text-neutral-50"
+                    onclick={() => resolve(true)}
+                >
+                    <div class="scale-101 transition group-hover:bg-amber-300 group-hover:text-neutral-950 group-active:bg-amber-300 group-active:text-neutral-950 px-4 rounded-2xl text-xl h-full flex items-center">
+                        {dialogTrigger.ok}
+                    </div>
                 </button>
             </div>
         </div>
     </div>
 {/if}
-
-<style>
-    div.dialog {
-        position: fixed;
-        height: 100dvh;
-        width: 100dvw;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(5px);
-        pointer-events: all;
-        touch-action: none;
-        overscroll-behavior: contain;
-        box-sizing: border-box;
-        padding: 0 8px;
-    }
-
-    div.content {
-        display: flex;
-        flex-direction: column;
-        max-width: 500px;
-        width: 100%;
-        border-radius: 16px;
-        background-color: var(--back);
-        color: var(--front);
-        box-shadow:
-            0 1px 3px rgba(0, 0, 0, 0.12),
-            0 1px 2px rgba(0, 0, 0, 0.24);
-        white-space: pre-line;
-    }
-
-    div.header {
-        background-color: var(--primary);
-        background-image: var(--primary-detail);
-        color: var(--surface);
-        text-align: center;
-        font-size: 28px;
-        user-select: none;
-        border-radius: 16px 16px 0 0;
-        padding: 0 8px;
-    }
-
-    div.message {
-        font-size: 24px;
-        margin: 16px;
-    }
-
-    div.buttons {
-        background-color: var(--back-extra);
-        display: flex;
-        justify-content: end;
-        gap: 8px;
-        border-radius: 0 0 16px 16px;
-        padding: 8px;
-    }
-
-    div.buttons button {
-        font-size: 20px;
-        border: none;
-        border-radius: 18px;
-        padding: 8px;
-        background-color: transparent;
-        color: var(--front);
-    }
-
-    div.buttons button.ok {
-        background-color: var(--primary);
-        background-image: var(--primary-detail);
-        padding: 8px 16px;
-        color: var(--surface);
-    }
-
-    div.buttons button:hover {
-        cursor: pointer;
-    }
-</style>

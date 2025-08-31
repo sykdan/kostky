@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "./font/jost.css";
+/* Run `npm run fetch-assets` if this fails. */
+@import "./theming.css";
+
+@theme inline {
+    --color-primary-50: var(--color-primary-50);
+    --color-primary-100: var(--color-primary-100);
+    --color-primary-200: var(--color-primary-200);
+    --color-primary-300: var(--color-primary-300);
+    --color-primary-400: var(--color-primary-400);
+    --color-primary-500: var(--color-primary-500);
+    --color-primary-600: var(--color-primary-600);
+    --color-primary-700: var(--color-primary-700);
+    --color-primary-800: var(--color-primary-800);
+    --color-primary-900: var(--color-primary-900);
+    --color-primary-950: var(--color-primary-950);
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@utility bg-theme-gradient {
+    --tw-gradient-stops: var(--tw-gradient-position), var(--bg-gradient-colors);
+}
+
+@utility squishy {
+    @apply active:scale-90 transition-transform;
+}
+
+* {
+    font-family: "Jost", "Roboto", sans-serif;
+}
+
+*:not(input) {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+html,
+body,
+#app {
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+    overflow: clip;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    @apply m-0 bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50
+}
+
+
+@layer components {
+    .card {
+        background-color: var(--back-extra);
+        border-radius: 16px;
+        font-size: 24px;
+    }
+
+
+    .btn {
+        @apply squishy bg-neutral-200 hover:bg-amber-300 active:bg-amber-300 dark:bg-neutral-700 dark:hover:text-neutral-900 dark:active:text-neutral-900 text-3xl py-2 transition-all cursor-pointer flex justify-center items-center;
+    }
+}

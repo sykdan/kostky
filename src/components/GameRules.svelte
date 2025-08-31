@@ -46,7 +46,7 @@
     {/snippet}
 
     {#snippet screenContent()}
-        <div class="rules">
+        <div class="rules p-2">
             <p>
                 {@html $_("rules.intro_1")}
             </p>
@@ -59,39 +59,39 @@
             <h2>{@html $_("rules.rows")}</h2>
             <p>{@html $_("rules.rows_intro")}</p>
             <p>
-                <SvgIcon type="mdi" path={Dice1} />
+                <SvgIcon type="mdi" path={Dice1} size={32} />
                 {@html $_("rules.rows_1")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Dice2} />
+                <SvgIcon type="mdi" path={Dice2} size={32} />
                 {@html $_("rules.rows_2")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Dice3} />
+                <SvgIcon type="mdi" path={Dice3} size={32} />
                 {@html $_("rules.rows_3")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Dice4} />
+                <SvgIcon type="mdi" path={Dice4} size={32} />
                 {@html $_("rules.rows_4")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Dice5} />
+                <SvgIcon type="mdi" path={Dice5} size={32} />
                 {@html $_("rules.rows_5")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Dice6} />
+                <SvgIcon type="mdi" path={Dice6} size={32} />
                 {@html $_("rules.rows_6")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Maximum} />
+                <SvgIcon type="mdi" path={Maximum} size={32} />
                 {@html $_("rules.rows_max")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Minimum} />
+                <SvgIcon type="mdi" path={Minimum} size={32} />
                 {@html $_("rules.rows_min")}
             </p>
-            <p style="margin-bottom: 0">
-                <SvgIcon type="mdi" path={Sequence} />
+            <p>
+                <SvgIcon type="mdi" path={Sequence} size={32} />
                 {@html $_("rules.rows_str")}
             </p>
             <ul>
@@ -109,38 +109,38 @@
                 </li>
             </ul>
             <p>
-                <SvgIcon type="mdi" path={FullHouse} />
-                {@html $_("rules.rows_fh")}*
+                <SvgIcon type="mdi" path={FullHouse} size={32} />
+                {@html $_("rules.rows_fh")}<span class="text-amber-300">*</span>
             </p>
             <p>
-                <SvgIcon type="mdi" path={Poker} />
-                {@html $_("rules.rows_poker")}*
+                <SvgIcon type="mdi" path={Poker} size={32} />
+                {@html $_("rules.rows_poker")}<span class="text-amber-300">*</span>
             </p>
             <p>
-                <SvgIcon type="mdi" path={Yamb} />
-                {@html $_("rules.rows_yamb")}*
+                <SvgIcon type="mdi" path={Yamb} size={32} />
+                {@html $_("rules.rows_yamb")}<span class="text-amber-300">*</span>
             </p>
-            <p>
-                * {@html $_("rules.rows_autobonus")}
+            <p class="text-lg">
+                <span class="text-amber-300">*</span> {@html $_("rules.rows_autobonus")}
             </p>
             <h2>{@html $_("rules.cols")}</h2>
             <p>
                 {@html $_("rules.cols_intro")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Down} />
+                <SvgIcon type="mdi" path={Down} size={32} />
                 {@html $_("rules.cols_down")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Both} />
+                <SvgIcon type="mdi" path={Both} size={32} />
                 {@html $_("rules.cols_any")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Up} />
+                <SvgIcon type="mdi" path={Up} size={32} />
                 {@html $_("rules.cols_up")}
             </p>
             <p>
-                <SvgIcon type="mdi" path={Announced} />
+                <SvgIcon type="mdi" path={Announced} size={32} />
                 {@html $_("rules.cols_announce")}
             </p>
 
@@ -155,7 +155,7 @@
                 {@html $_("rules.tips_3")}
             </p>
             <h2>{@html $_("rules.scoring")}</h2>
-            <p style="margin-bottom: 0">
+            <p>
                 {@html $_("rules.scoring_1")}
             </p>
             <ul>
@@ -178,31 +178,32 @@
 </Screen>
 
 <style>
-    div.rules {
-        color: var(--front);
-        padding: 1em;
-        overflow-y: auto;
-    }
+    @reference "../style/main.css";
 
-    p {
-        font-size: 140%;
-    }
+    @layer base {
+        ul {
+            @apply ms-8 mb-4 -mt-2;
+        }
 
-    ul {
-        margin-top: 0;
-    }
+        li {
+            @apply text-2xl mb-2;
+        }
 
-    li {
-        font-size: 120%;
-    }
+        li::before {
+            content: " ";
+            @apply inline-block w-2 h-2 bg-current rounded-full me-3 align-middle;
+        }
 
-    :global(div.rules svg) {
-        height: 48px;
-        width: 48px;
-        vertical-align: middle;
-    }
+        p {
+            @apply text-2xl mb-4;
+        }
 
-    :global(div.rules svg path) {
-        fill: var(--front);
+        h2 {
+            @apply text-4xl border-b-2 mb-4;
+        }
+
+        .rules :global(svg) {
+            @apply inline align-top;
+        }
     }
 </style>

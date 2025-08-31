@@ -18,62 +18,25 @@
     }: Props = $props();
 </script>
 
-<div class="topbar">
+{#snippet actionButton(
+    content: Snippet | undefined,
+    onclick: (() => any) | undefined,
+)}
     <button
-        onclick={onLeftButtonPressed}
-        class:hide={leftButtonContent == null}
+        class={[
+            "p-2 transition-all rounded-full cursor-pointer hover:bg-black/25 active:bg-black/25 squishy",
+            !content && "invisible",
+        ]}
+        {onclick}
     >
-        {@render leftButtonContent?.()}
+        {@render content?.()}
     </button>
+{/snippet}
+
+<div
+    class="sticky z-20 top-0 text-center flex justify-between items-center text-3xl bg-primary-500 bg-gradient-to-r bg-theme-gradient surface:text-neutral-950 text-neutral-50 shadow-xl"
+>
+    {@render actionButton(leftButtonContent, onLeftButtonPressed)}
     {title}
-    <button
-        onclick={onRightButtonPressed}
-        class:hide={rightButtonContent == null}
-    >
-        {@render rightButtonContent?.()}
-    </button>
+    {@render actionButton(rightButtonContent, onRightButtonPressed)}
 </div>
-
-<style>
-    div.topbar {
-        position: sticky;
-        top: 0;
-        background-color: var(--primary);
-        background-image: var(--primary-detail);
-        color: var(--surface);
-        text-align: center;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 28px;
-        box-shadow:
-            0 1px 3px rgba(0, 0, 0, 0.12),
-            0 1px 2px rgba(0, 0, 0, 0.24);
-        z-index: 10;
-        user-select: none;
-    }
-
-    div.topbar button {
-        background-color: transparent;
-        padding: 10px;
-        font-size: medium;
-        border: none;
-        border-radius: 50%;
-        transition: 0.2s;
-        cursor: pointer;
-    }
-
-    div.topbar button.hide {
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-    div.topbar button:hover,
-    div.topbar button:active {
-        background-color: rgba(0, 0, 0, 0.23);
-    }
-
-    div.topbar button :global(svg) {
-        vertical-align: middle;
-    }
-</style>

@@ -1,0 +1,240 @@
+@use "sass:list";
+@use "sass:math";
+@use "sass:color";
+
+[data-color="blue"] {
+    --color-primary-50: oklch(93.22% 0.032 285.79);
+    --color-primary-100: oklch(87.34% 0.061 283.03);
+    --color-primary-200: oklch(73.93% 0.131 280.78);
+    --color-primary-300: oklch(61.7% 0.198 276.36);
+    --color-primary-400: oklch(48.96% 0.267 266.81);
+    --color-primary-500: oklch(35.29% 0.2 265.95);
+    --color-primary-600: oklch(30.9% 0.175 265.96);
+    --color-primary-700: oklch(27.28% 0.155 265.91);
+    --color-primary-800: oklch(22.74% 0.129 266.21);
+    --color-primary-900: oklch(18.6% 0.106 266.04);
+    --color-primary-950: oklch(13.81% 0.078 266.45);
+    --bg-gradient-colors: none;
+}
+
+[data-color="red"] {
+    --color-primary-50: oklch(95.17% 0.024 17.65);
+    --color-primary-100: oklch(90.23% 0.051 18.17);
+    --color-primary-200: oklch(81.49% 0.104 19.58);
+    --color-primary-300: oklch(71.91% 0.175 22.51);
+    --color-primary-400: oklch(62.61% 0.257 29.23);
+    --color-primary-500: oklch(52.3% 0.215 29.23);
+    --color-primary-600: oklch(44.52% 0.183 29.23);
+    --color-primary-700: oklch(37.25% 0.153 29.23);
+    --color-primary-800: oklch(30.04% 0.123 29.23);
+    --color-primary-900: oklch(21.88% 0.09 29.23);
+    --color-primary-950: oklch(17.39% 0.071 29.23);
+    --bg-gradient-colors: none;
+}
+
+[data-color="green"] {
+    --color-primary-50: oklch(96.89% 0.047 147.08);
+    --color-primary-100: oklch(93.74% 0.1 146.35);
+    --color-primary-200: oklch(87.4% 0.238 144.79);
+    --color-primary-300: oklch(81.48% 0.225 144.84);
+    --color-primary-400: oklch(76.35% 0.21 144.88);
+    --color-primary-500: oklch(71.43% 0.197 144.81);
+    --color-primary-600: oklch(59.58% 0.165 144.8);
+    --color-primary-700: oklch(47.71% 0.132 144.79);
+    --color-primary-800: oklch(37.02% 0.102 144.93);
+    --color-primary-900: oklch(25.1% 0.069 145.03);
+    --color-primary-950: oklch(19.19% 0.053 144.18);
+    --bg-gradient-colors: none;
+}
+
+[data-color="yellow"] {
+    --color-primary-50: oklch(98.26% 0.012 67.7);
+    --color-primary-100: oklch(95.76% 0.031 70.53);
+    --color-primary-200: oklch(91.57% 0.066 72.71);
+    --color-primary-300: oklch(88.32% 0.102 76.76);
+    --color-primary-400: oklch(83.99% 0.16 81.08);
+    --color-primary-500: oklch(79.88% 0.164 82.3);
+    --color-primary-600: oklch(66.86% 0.138 82.43);
+    --color-primary-700: oklch(53.62% 0.11 82.21);
+    --color-primary-800: oklch(39.85% 0.082 82.12);
+    --color-primary-900: oklch(26.85% 0.055 82.96);
+    --color-primary-950: oklch(20.87% 0.043 84.6);
+    --bg-gradient-colors: none;
+}
+
+[data-color="orange"] {
+    --color-primary-50: oklch(96.67% 0.016 22.18);
+    --color-primary-100: oklch(93.54% 0.033 27.14);
+    --color-primary-200: oklch(86.92% 0.07 26.22);
+    --color-primary-300: oklch(80.62% 0.11 28.58);
+    --color-primary-400: oklch(74.18% 0.158 31.78);
+    --color-primary-500: oklch(67.49% 0.218 38.56);
+    --color-primary-600: oklch(57.27% 0.185 38.62);
+    --color-primary-700: oklch(46.46% 0.151 38.35);
+    --color-primary-800: oklch(35.8% 0.116 38.33);
+    --color-primary-900: oklch(25.02% 0.081 38.23);
+    --color-primary-950: oklch(19.5% 0.063 38.48);
+    --bg-gradient-colors: none;
+}
+
+[data-color="purple"] {
+    --color-primary-50: oklch(94.25% 0.031 297.77);
+    --color-primary-100: oklch(88.51% 0.064 297.05);
+    --color-primary-200: oklch(76.95% 0.134 296.85);
+    --color-primary-300: oklch(65.82% 0.207 296.14);
+    --color-primary-400: oklch(54.64% 0.286 295.6);
+    --color-primary-500: oklch(42.25% 0.231 295.45);
+    --color-primary-600: oklch(36.34% 0.199 295.2);
+    --color-primary-700: oklch(31.62% 0.173 295.6);
+    --color-primary-800: oklch(26.08% 0.142 295.93);
+    --color-primary-900: oklch(20.36% 0.111 295.89);
+    --color-primary-950: oklch(16.18% 0.088 295.9);
+    --bg-gradient-colors: none;
+}
+
+[data-color="pink"] {
+    --color-primary-50: oklch(96.78% 0.017 349.61);
+    --color-primary-100: oklch(92.82% 0.04 347.98);
+    --color-primary-200: oklch(86.31% 0.081 348.35);
+    --color-primary-300: oklch(79.24% 0.132 347.5);
+    --color-primary-400: oklch(72.35% 0.192 347.82);
+    --color-primary-500: oklch(65.98% 0.254 347.56);
+    --color-primary-600: oklch(55.38% 0.214 347.59);
+    --color-primary-700: oklch(45.42% 0.175 347.49);
+    --color-primary-800: oklch(35.5% 0.137 348.06);
+    --color-primary-900: oklch(24.62% 0.096 347.41);
+    --color-primary-950: oklch(19.82% 0.077 347.33);
+    --bg-gradient-colors: none;
+}
+
+[data-color="cyan"] {
+    --color-primary-50: oklch(96.9% 0.041 196.45);
+    --color-primary-100: oklch(93.72% 0.087 195.75);
+    --color-primary-200: oklch(88.11% 0.133 194.99);
+    --color-primary-300: oklch(82.04% 0.124 194.99);
+    --color-primary-400: oklch(76.96% 0.117 194.99);
+    --color-primary-500: oklch(71.82% 0.109 194.99);
+    --color-primary-600: oklch(60.02% 0.091 194.99);
+    --color-primary-700: oklch(48.25% 0.073 195);
+    --color-primary-800: oklch(37.39% 0.057 194.99);
+    --color-primary-900: oklch(25.32% 0.038 195);
+    --color-primary-950: oklch(19.53% 0.029 195.03);
+    --bg-gradient-colors: none;
+}
+
+[data-color="rainbow"] {
+    --color-primary-50: oklch(95.88% 0.017 17.56);
+    --color-primary-100: oklch(92.72% 0.032 20.16);
+    --color-primary-200: oklch(84.41% 0.075 19.79);
+    --color-primary-300: oklch(77.26% 0.117 22.04);
+    --color-primary-400: oklch(70.09% 0.169 24.11);
+    --color-primary-500: oklch(62.31% 0.221 28.97);
+    --color-primary-600: oklch(53.03% 0.188 28.8);
+    --color-primary-700: oklch(43.22% 0.153 29.08);
+    --color-primary-800: oklch(33.43% 0.118 29.16);
+    --color-primary-900: oklch(24.26% 0.087 28.41);
+    --color-primary-950: oklch(18.34% 0.066 28.74);
+    --bg-gradient-colors: #ef372b, #f58330, #fff008, #5dbb4d, #0859a9, #a22b93;
+}
+
+[data-color="gay"] {
+    --color-primary-50: oklch(96.95% 0.043 172.66);
+    --color-primary-100: oklch(94.66% 0.073 173.31);
+    --color-primary-200: oklch(89.38% 0.161 173.1);
+    --color-primary-300: oklch(85.22% 0.157 172.66);
+    --color-primary-400: oklch(80.89% 0.148 172.77);
+    --color-primary-500: oklch(76.5% 0.14 172.93);
+    --color-primary-600: oklch(64.05% 0.118 172.69);
+    --color-primary-700: oklch(51.29% 0.094 173.28);
+    --color-primary-800: oklch(38.63% 0.07 173.85);
+    --color-primary-900: oklch(26.25% 0.048 172.26);
+    --color-primary-950: oklch(19.48% 0.036 172.14);
+    --bg-gradient-colors: #078e70, #26cfaa, #98e9c1, #ffffff, #7bade2, #5049cb, #3d1a77;
+}
+
+[data-color="lesbian"] {
+    --color-primary-50: oklch(96.01% 0.02 21.44);
+    --color-primary-100: oklch(91.88% 0.041 21.64);
+    --color-primary-200: oklch(83% 0.092 24.15);
+    --color-primary-300: oklch(74.95% 0.149 26.12);
+    --color-primary-400: oklch(66.37% 0.222 32.68);
+    --color-primary-500: oklch(57.48% 0.204 33.86);
+    --color-primary-600: oklch(48.4% 0.172 33.76);
+    --color-primary-700: oklch(40.51% 0.143 33.95);
+    --color-primary-800: oklch(31.39% 0.111 34.02);
+    --color-primary-900: oklch(23.43% 0.082 33.59);
+    --color-primary-950: oklch(18.48% 0.065 34.89);
+    --bg-gradient-colors: #d63408, #ff9d5b, #ffffff, #d467a7, #a60a67;
+}
+
+[data-color="bi"] {
+    --color-primary-50: oklch(95.96% 0.022 359.74);
+    --color-primary-100: oklch(91.17% 0.049 0.62);
+    --color-primary-200: oklch(83.14% 0.102 359.96);
+    --color-primary-300: oklch(74.61% 0.168 0.17);
+    --color-primary-400: oklch(66.21% 0.247 0.23);
+    --color-primary-500: oklch(56.93% 0.231 0.24);
+    --color-primary-600: oklch(48.2% 0.195 0.31);
+    --color-primary-700: oklch(40.15% 0.163 0.28);
+    --color-primary-800: oklch(31.91% 0.129 359.9);
+    --color-primary-900: oklch(22.79% 0.092 0.78);
+    --color-primary-950: oklch(18.73% 0.076 359.65);
+    --bg-gradient-colors: #d70071, #9c4e97, #0035a9;
+}
+
+[data-color="trans"] {
+    --color-primary-50: oklch(98.2% 0.009 242.79);
+    --color-primary-100: oklch(96.51% 0.018 232.46);
+    --color-primary-200: oklch(91.92% 0.043 233.15);
+    --color-primary-300: oklch(88.27% 0.065 230.98);
+    --color-primary-400: oklch(84.78% 0.089 228.08);
+    --color-primary-500: oklch(80.48% 0.12 225.74);
+    --color-primary-600: oklch(67.23% 0.113 224.89);
+    --color-primary-700: oklch(53.58% 0.091 225.16);
+    --color-primary-800: oklch(40.01% 0.067 225.08);
+    --color-primary-900: oklch(27.4% 0.046 224.18);
+    --color-primary-950: oklch(20.41% 0.035 226.37);
+    --bg-gradient-colors: #5bcffa, #f5abb9, #ffffff, #f5abb9, #5bcffa;
+}
+
+[data-color="ace"] {
+    --color-primary-50: oklch(95.95% 0.031 325.88);
+    --color-primary-100: oklch(92.18% 0.06 326.09);
+    --color-primary-200: oklch(84.17% 0.125 326.63);
+    --color-primary-300: oklch(75.9% 0.203 327.36);
+    --color-primary-400: oklch(68.1% 0.263 328.01);
+    --color-primary-500: oklch(59.1% 0.228 328.01);
+    --color-primary-600: oklch(49.96% 0.193 328.01);
+    --color-primary-700: oklch(40.91% 0.158 328.01);
+    --color-primary-800: oklch(32.59% 0.126 328.02);
+    --color-primary-900: oklch(23.54% 0.09 327.99);
+    --color-primary-950: oklch(18.77% 0.072 328);
+    --bg-gradient-colors: #535353, #a4a5a4, #ffffff, #c036c0;
+}
+
+[data-color="pan"] {
+    --color-primary-50: oklch(96.81% 0.017 359.4);
+    --color-primary-100: oklch(92.82% 0.039 0.14);
+    --color-primary-200: oklch(85.63% 0.085 359.4);
+    --color-primary-300: oklch(79.21% 0.131 359.16);
+    --color-primary-400: oklch(72.25% 0.19 359.3);
+    --color-primary-500: oklch(65.51% 0.257 359.06);
+    --color-primary-600: oklch(55.62% 0.226 359.15);
+    --color-primary-700: oklch(45.56% 0.185 359.24);
+    --color-primary-800: oklch(34.69% 0.141 359.02);
+    --color-primary-900: oklch(24.61% 0.1 358.53);
+    --color-primary-950: oklch(19.81% 0.081 358.62);
+    --bg-gradient-colors: #ff1b8d, #ff1b8d, #ffd900, #1bb3ff, #1bb3ff;
+}
+
+
+
+@custom-variant surface (&:where([data-color="gay"] *,
+        [data-color="yellow"] *,
+        [data-color="cyan"] *,
+        [data-color="rainbow"] *,
+        [data-color="gay"] *,
+        [data-color="lesbian"] *,
+        [data-color="trans"] *,
+        [data-color="ace"] *,
+        [data-color="pan"] *));

@@ -14,10 +14,15 @@
     let { label, icon = undefined, children }: Props = $props();
 </script>
 
-<div class="accordion card">
-    <button onclick={() => (expanded = !expanded)}>
+<div class="flex flex-col mb-2 text-xl bg-neutral-200 dark:bg-neutral-700 rounded-2xl">
+    <button
+        onclick={() => (expanded = !expanded)}
+        class="btn w-full rounded-2xl justify-start"
+    >
         {#if icon}
-            <SvgIcon type="mdi" path={icon} color="var(--front)" size="28" />
+            <div class="mx-5 my-2">
+                <SvgIcon type="mdi" path={icon} size="28" />
+            </div>
         {/if}
         {label}
     </button>
@@ -27,38 +32,3 @@
         </div>
     {/if}
 </div>
-
-<style>
-    .accordion {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 4px;
-    }
-
-    .accordion button,
-    .accordion div {
-        font-size: 24px;
-        text-align: start;
-        padding: 0.5em 1em;
-        width: 100%;
-        color: var(--front);
-        box-sizing: border-box;
-    }
-
-    .accordion button {
-        font-size: 24px;
-        text-align: start;
-        padding: 0.5em 1em;
-        width: 100%;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        gap: 0.8em;
-        align-items: center;
-    }
-
-    .accordion div {
-        padding-top: 0;
-    }
-</style>

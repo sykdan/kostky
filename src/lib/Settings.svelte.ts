@@ -1,4 +1,5 @@
 import { _, locale } from "svelte-i18n";
+import { MediaQuery } from "svelte/reactivity";
 
 function stringToBoolean(value: string) {
     if (value == "yes") return true;
@@ -16,8 +17,10 @@ class YambSettings {
     autoBonus = $state(true);
     extraThemes = $state(false);
     gradientValues: string[] = $state([]);
+    isSystemDark: MediaQuery;
 
     constructor() {
+        this.isSystemDark = new MediaQuery('prefers-color-scheme: dark');
         this.readFromLocalStorage();
         this.registerChangeHooks();
     }
@@ -34,7 +37,11 @@ class YambSettings {
         $effect.root(() => {
             $effect(() => {
                 localStorage.setItem("st__theme", this.theme);
-                document.querySelector("html")!.dataset.theme = this.theme;
+                if (this.theme === "system") {
+                    document.querySelector("html")!.dataset.theme = this.isSystemDark.current ? "dark" : "light"
+                } else {
+                    document.querySelector("html")!.dataset.theme = this.theme;
+                }
             });
             $effect(() => {
                 localStorage.setItem("st__autobonus", booleanToString(this.autoBonus));
@@ -45,16 +52,17 @@ class YambSettings {
             $effect(() => {
                 localStorage.setItem("st__color", this.color);
                 document.querySelector("html")!.dataset.color = this.color;
-                let primaryColorHex = getComputedStyle(document.body).getPropertyValue('--primary') || "#000000"
-                document.querySelector('meta[name="theme-color"]')!.setAttribute("content", primaryColorHex);
-                this.gradientValues = getComputedStyle(document.body)
-                    .getPropertyValue("--primary-detail")
-                    ?.split("(")[1]
-                    ?.split(")")[0]
-                    ?.split(",")
-                    ?.splice(1) ?? [
-                        getComputedStyle(document.body).getPropertyValue("--primary"),
+                let primaryColor = getComputedStyle(document.body).getPropertyValue('--color-primary-500') || "#000000"
+                document.querySelector('meta[name="theme-color"]')!.setAttribute("content", primaryColor);
+                let gradient = getComputedStyle(document.body).getPropertyValue("--bg-gradient-colors")
+                if (!gradient || gradient === "none") {
+                    console.log("none");
+                    this.gradientValues = [
+                        primaryColor,
                     ];
+                } else {
+                    this.gradientValues = gradient.split(",");
+                }
             });
             $effect(() => {
                 localStorage.setItem("st__locale", this.locale);
