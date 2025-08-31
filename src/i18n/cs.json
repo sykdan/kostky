@@ -15,6 +15,8 @@
         "delete": "Smazat hru",
         "delete_confirm": "Opravdu smazat tuto hru?",
         "rules": "Pravidla hry",
+        "share": "Sdílet",
+        "about": "O aplikaci",
         "options": "Možnosti"
     },
     "game": {
@@ -24,7 +26,7 @@
         "whoisplaying": "Kdo je na řadě?",
         "whoisplaying_intro": "Pokud pokračujete rozehranou hru a nevíte, v jakém pořadí jste hráli, tyto informace by mohly pomoci:",
         "whoisplaying_time": "První políčko jste vyplnili v čase {time}.",
-        "whoisplaying_fields": "Zbývá Vám vyplnit ještě {n} políček.",
+        "whoisplaying_fields": "Zbývá ti vyplnit ještě {n} políček.",
         "reset": "Resetovat kartu",
         "reset_confirm": "Opravdu chceš resetovat celou kartu?"
     },
@@ -96,5 +98,19 @@
         "scoring_4": "Body za postupku, Full House, Poker a Yamb se sčítají bez speciálních pravidel.",
         "scoring_5": "Součet těchto tří oddílů tvoří konečné skóre za sloupec.",
         "scoring_6": "Konečné skóre sloupců se poté sečte do jednoho čísla, které je Vaším výsledkem. Aplikace toto udělá za vás a zobrazí celkový součet dole na obrazovce."
+    },
+    "share": {
+        "title": "Sdílet aplikaci",
+        "share": "Chceš hrát s kamarády? Požádej je, aby si aplikaci otevřeli na svém zařízení:",
+        "qrcode": "Nebo jim dej oskenovat tento QR kód:"
+    },
+    "about": {
+        "title": "O aplikaci",
+        "madeby": "vytvořil Daniel Sýkora",
+        "thanks": "Poděkování",
+        "thanks_radka": "Tetě Radce za to, že mě naučila hrát",
+        "thanks_zlatana": "Zlataně za to, že naučila Radku hrát, a za poskytnutí překladu do bosenštiny",
+        "foss": "Tato hra je svobodný software s otevřeným zdrojovým kódem.",
+        "repo": "Mrkni na zdrojový kód tady!"
     }
 }

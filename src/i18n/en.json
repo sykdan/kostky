@@ -15,6 +15,7 @@
         "delete_confirm": "Really delete this game card?",
         "rules": "Rules",
         "share": "Share",
+        "about": "About",
         "options": "Options",
         "no_played": "Never played"
     },
@@ -102,5 +103,14 @@
         "title": "Share the app",
         "share": "Want to play with others? Ask them to open the app on their device:",
         "qrcode": "You can also let them scan this QR code:"
+    },
+    "about": {
+        "title": "About the app",
+        "madeby": "by Daniel Sýkora",
+        "thanks": "Special thanks",
+        "thanks_radka": "To auntie Radka, for teaching me how to play.",
+        "thanks_zlatana": "To Zlatana, for teaching Radka how to play and for providing the Bosnian translation",
+        "foss": "This application is free and open-source software.",
+        "repo": "Check out the source code here!"
     }
 }

@@ -4,6 +4,7 @@
     import { circOut, quadOut } from "svelte/easing";
     import { freezeScreen, unfreezeScreen } from "../../lib/Navigation.svelte";
     import { untrack } from "svelte";
+    import Button from "./Button.svelte";
 
     function resolve(result: boolean) {
         dialogTrigger.visible = false;
@@ -43,24 +44,24 @@
                 {@html dialogTrigger.message}
             </div>
             <div
-                class="bg-neutral-200 dark:bg-neutral-700 flex justify-end p-2 rounded-b-2xl gap-2"
+                class="bg-neutral-100 dark:bg-neutral-800 flex justify-end p-2 rounded-b-2xl gap-2"
             >
                 {#if dialogTrigger.cancel}
-                    <button
-                        class="btn rounded-2xl text-xl px-4 pt-2"
-                        onclick={() => resolve(false)}
-                    >
+                    <Button class="text-xl" onclick={() => resolve(false)}>
                         {dialogTrigger.cancel}
-                    </button>
+                    </Button>
                 {/if}
-                <button
-                    class="group btn bg-primary-500 p-0 rounded-2xl bg-gradient-to-r bg-theme-gradient surface:text-neutral-900 text-neutral-50"
+                <Button
+                    class="text-xl group p-0!"
+                    alt={true}
                     onclick={() => resolve(true)}
                 >
-                    <div class="scale-101 transition group-hover:bg-amber-300 group-hover:text-neutral-950 group-active:bg-amber-300 group-active:text-neutral-950 px-4 rounded-2xl text-xl h-full flex items-center">
+                    <div
+                        class="scale-101 py-2 px-3 w-full h-full transition group-hover:bg-amber-300 group-hover:text-neutral-950 group-active:bg-amber-300 group-active:text-neutral-950 rounded-2xl flex items-center justify-center"
+                    >
                         {dialogTrigger.ok}
                     </div>
-                </button>
+                </Button>
             </div>
         </div>
     </div>
