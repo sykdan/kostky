@@ -1,0 +1,45 @@
+<script lang="ts">
+    import type { Snippet } from "svelte";
+    import { slide } from "svelte/transition";
+
+    let {
+        children,
+        onclick,
+        align = "center",
+        vstack = null,
+        selected = false,
+        class: className,
+    }: {
+        children: Snippet;
+        onclick: () => any;
+        align?: "start" | "center";
+        vstack?: "top" | "middle" | "bottom" | null;
+        selected?: boolean;
+        class?: string;
+    } = $props();
+
+    const BASE = "bg-neutral-200 dark:bg-neutral-700 w-full";
+    const ROUNDING = $derived.by(() => {
+        if (vstack === "top") return "rounded-t-2xl";
+        if (vstack === "bottom") return "rounded-b-2xl";
+        if (vstack === "middle") return false;
+        return "rounded-2xl";
+    });
+</script>
+
+<div class={[BASE, ROUNDING]}>
+    <button
+        class={[
+            BASE,
+            ROUNDING,
+            "hover:bg-amber-300 active:bg-amber-300 dark:hover:text-neutral-900 dark:active:text-neutral-900 active:rounded-2xl h-full text-3xl py-2 px-3 transition-all cursor-pointer flex items-center gap-3 active:scale-90",
+            align === "start" ? "justify-start" : "justify-center",
+            selected &&
+                "not-hover:bg-neutral-300 dark:not-hover:bg-neutral-600",
+            className,
+        ]}
+        {onclick}
+    >
+        {@render children()}
+    </button>
+</div>
