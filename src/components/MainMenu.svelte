@@ -20,6 +20,7 @@
     import { tick } from "svelte";
     import Screen from "./ui/Screen.svelte";
     import Logo from "./ui/Logo.svelte";
+    import Button from "./ui/Button.svelte";
 
     interface Props {
         onPlay: (id: string) => any;
@@ -65,7 +66,7 @@
 <Screen>
     {#snippet screenContent()}
         <div class="flex flex-col items-center">
-            <div class=" max-w-100 w-full">
+            <div class="flex flex-col max-w-100 w-full gap-2">
                 <Logo />
                 <div
                     class="flex flex-col rounded-2xl bg-neutral-200 dark:bg-neutral-700"
@@ -79,19 +80,17 @@
                     {/each}
 
                     {#if !newGame}
-                        <button
-                            class={[
-                                "rounded-2xl btn w-full gap-3",
-                                gameIds.length && "not-active:rounded-t-none",
-                            ]}
-                            onclick={() => {
-                                newGame = getNewGameData();
-                            }}
-                            transition:slide|local
-                        >
-                            <SvgIcon type="mdi" path={NewGame} size={32} />
-                            {$_("main.newgame")}
-                        </button>
+                        <div transition:slide|local>
+                            <Button
+                                vstack={gameIds.length ? "bottom" : null}
+                                onclick={() => {
+                                    newGame = getNewGameData();
+                                }}
+                            >
+                                <SvgIcon type="mdi" path={NewGame} size={32} />
+                                {$_("main.newgame")}
+                            </Button>
+                        </div>
                     {/if}
 
                     {#if newGame}
@@ -123,20 +122,14 @@
                     {/if}
                 </div>
 
-                <button
-                    class="btn mt-2 w-full gap-3 rounded-2xl"
-                    onclick={onOpenRules}
-                >
+                <Button onclick={onOpenRules}>
                     <SvgIcon type="mdi" path={HowToPlay} size={32} />
                     {$_("main.rules")}
-                </button>
-                <button
-                    class="btn mt-2 w-full gap-3 rounded-2xl"
-                    onclick={onOpenSettings}
-                >
+                </Button>
+                <Button onclick={onOpenSettings}>
                     <SvgIcon type="mdi" path={Settings} size={32} />
                     {$_("main.options")}
-                </button>
+                </Button>
             </div>
             <div class="mt-2 text-center text-xs">
                 Made by Daniel Sýkora (2023 - {new Date().getFullYear()})

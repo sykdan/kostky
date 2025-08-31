@@ -25,7 +25,7 @@
 
 {#if dialogTrigger.visible}
     <div
-        class="fixed h-dvh w-dvw bg-black/50 z-20 flex flex-col items-center justify-center backdrop-blur-sm touch-none pointer-events-[all] overscroll-contain p-2"
+        class="dialog fixed h-dvh w-dvw bg-black/50 z-20 flex flex-col items-center justify-center backdrop-blur-sm touch-none pointer-events-[all] overscroll-contain p-2"
         transition:fade={{ duration: 300 }}
     >
         <div

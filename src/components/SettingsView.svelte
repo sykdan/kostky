@@ -18,6 +18,7 @@
     import Accordion from "./ui/Accordion.svelte";
     import ThemePreview, { type ThemeOption } from "./ui/ThemePreview.svelte";
     import { supportedLanguages } from "../i18n/locale";
+    import Button from "./ui/Button.svelte";
 
     interface Props {
         onBack: () => any;
@@ -51,22 +52,20 @@
 </script>
 
 {#snippet colorSchemeSetting(identifier: string, label: string)}
-    <button
-        class={[
-            "flex items-center justify-between btn px-4 rounded-2xl",
-            settings.color === identifier &&
-                "not-hover:bg-neutral-300 dark:not-hover:bg-neutral-600",
-        ]}
-        class:selected={settings.color === identifier}
+    <Button
+        align="start"
+        selected={settings.color === identifier}
         onclick={() => (settings.color = identifier)}
     >
-        {label}
+        <div class="grow text-start">
+            {label}
+        </div>
 
         <div
             data-color={identifier}
             class="bg-primary-500 w-14 h-7 rounded-full bg-theme-gradient bg-linear-to-l"
         ></div>
-    </button>
+    </Button>
 {/snippet}
 
 {#snippet separator(content: string)}
@@ -97,18 +96,21 @@
     {#snippet screenContent()}
         <div class="max-w-100 w-full self-center">
             <Accordion label={$_("settings.theme")} icon={LightDarkTheme}>
-                <div class="flex m-2 mt-4 gap-2">
+                <div class="grid grid-cols-3 m-2 gap-2">
                     {#each themeOptions as themeOption}
-                        <button
-                            class="btn flex flex-col flex-1 items-center rounded-2xl"
+                        <Button
                             onclick={() => (settings.theme = themeOption)}
-                            class:selected={settings.theme == themeOption}
+                            selected={settings.theme == themeOption}
                         >
-                            <ThemePreview theme={themeOption} />
-                            <div class="text-center xl mt-2">
-                                {$_("settings.theme_" + themeOption)}
+                            <div class="flex flex-col items-center h-full">
+                                <ThemePreview theme={themeOption} />
+                                <div
+                                    class="text-center xl mt-2 grow flex items-center"
+                                >
+                                    {$_("settings.theme_" + themeOption)}
+                                </div>
                             </div>
-                        </button>
+                        </Button>
                     {/each}
                 </div>
             </Accordion>
@@ -172,51 +174,38 @@
             </Accordion>
             <Accordion label={$_("settings.autobonus")} icon={AutoBonus}>
                 <div class="flex flex-col p-2 gap-2">
-                    <button
-                        class={[
-                            "btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300",
-                            settings.autoBonus &&
-                                "bg-neutral-300 dark:bg-neutral-600",
-                        ]}
+                    <Button
+                        align="start"
+                        selected={settings.autoBonus === true}
                         onclick={() => (settings.autoBonus = true)}
                     >
                         {$_("common.yes")}
-                    </button>
-                    <button
-                        class={[
-                            "btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300",
-                            !settings.autoBonus &&
-                                "bg-neutral-300 dark:bg-neutral-600",
-                        ]}
+                    </Button>
+                    <Button
+                        align="start"
+                        selected={settings.autoBonus === false}
                         onclick={() => (settings.autoBonus = false)}
                     >
                         {$_("common.no")}
-                    </button>
-                    <button
-                        class={"btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300"}
-                        onclick={autobonusHelp}
-                    >
-                        <div class="me-3 my-2">
+                    </Button>
+                    <Button align="start" onclick={autobonusHelp}>
+                        <div>
                             <SvgIcon type="mdi" path={Help} size="28" />
                         </div>
                         {$_("settings.autobonus_explanation_button")}
-                    </button>
+                    </Button>
                 </div>
             </Accordion>
             <Accordion label={$_("settings.locale")} icon={Languages}>
                 <div class="flex flex-col p-2 gap-2">
                     {#each Object.entries(supportedLanguages) as [key, langName], i}
-                        <button
-                            class={[
-                                "btn flex items-center justify-start px-4 rounded-2xl hover:bg-amber-300 active:bg-amber-300",
-                                settings.locale === key &&
-                                    "bg-neutral-300 dark:bg-neutral-600",
-                            ]}
+                        <Button
+                            align="start"
                             onclick={() => (settings.locale = key)}
-                            lang={key}
+                            selected={settings.locale === key}
                         >
                             {langName}
-                        </button>
+                        </Button>
                     {/each}
                 </div>
             </Accordion>

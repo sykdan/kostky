@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@import "./font/jost.css";
 /* Run `npm run fetch-assets` if this fails. */
+@import "./font/jost.css";
 @import "./theming.css";
 
 @theme inline {

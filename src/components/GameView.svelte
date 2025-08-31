@@ -1,7 +1,7 @@
 <script lang="ts">
     import { _, locale } from "svelte-i18n";
     import { onMount } from "svelte";
-    import { slide } from "svelte/transition";
+    import { fade, fly, slide } from "svelte/transition";
 
     import {
         mdiArrowLeft as Back,
@@ -23,6 +23,7 @@
     import { dialogTrigger } from "../lib/DialogTrigger.svelte";
     import Screen from "./ui/Screen.svelte";
     import { offclick } from "../lib/Utils";
+    import Button from "./ui/Button.svelte";
 
     let showActions = $state(false);
 
@@ -144,37 +145,37 @@
     {#snippet screenContent()}
         {#if showActions}
             <div
-                {@attach offclick((e: Event) => (showActions = false))}
-                class="fixed z-10 right-0 top-12 flex flex-col rounded-2xl m-4 bg-neutral-200 dark:bg-neutral-700 shadow-2xl"
-                transition:slide|local
+                class="fixed top-0 left-0 w-full h-full bg-black/50 backdrop-blur-xs z-30 p-3 flex flex-col justify-end items-center"
+                transition:fade
             >
-                <button
-                    onclick={zeroes}
-                    class="btn justify-start rounded-t-2xl active:rounded-2xl gap-3 px-3"
-                >
-                    <SvgIcon type="mdi" path={CrossOut} size={32} />
-                    {$_("game.crossempty")}
-                </button>
                 <div
-                    class="border-b-2 border-neutral-300 dark:border-neutral-500"
-                ></div>
-                <button
-                    onclick={order}
-                    class="btn justify-start active:rounded-2xl gap-3 px-3"
+                    {@attach offclick((e: Event) => (showActions = false))}
+                    class="max-w-120 box-border w-full flex justify-self-end flex-col rounded-2xl bg-neutral-200 dark:bg-neutral-700 shadow-2xl"
+                    transition:fly={{ y: 200 }}
                 >
-                    <SvgIcon type="mdi" path={WhoIsPlaying} size={32} />
-                    {$_("game.whoisplaying")}
-                </button>
-                <div
-                    class="border-b-2 border-neutral-300 dark:border-neutral-500"
-                ></div>
-                <button
-                    class="btn text-red-500 hover:text-red-800 justify-start rounded-b-2xl active:rounded-2xl gap-3 px-3"
-                    onclick={clear}
-                >
-                    <SvgIcon type="mdi" path={Clear} size={32} />
-                    {$_("game.reset")}
-                </button>
+                    <Button onclick={zeroes} vstack="top">
+                        <SvgIcon type="mdi" path={CrossOut} size={32} />
+                        {$_("game.crossempty")}
+                    </Button>
+                    <div
+                        class="border-b-2 border-neutral-300 dark:border-neutral-500"
+                    ></div>
+                    <Button onclick={order} vstack="middle">
+                        <SvgIcon type="mdi" path={WhoIsPlaying} size={32} />
+                        {$_("game.whoisplaying")}
+                    </Button>
+                    <div
+                        class="border-b-2 border-neutral-300 dark:border-neutral-500"
+                    ></div>
+                    <Button
+                        onclick={clear}
+                        vstack="bottom"
+                        class="text-red-500! hover:text-red-800!"
+                    >
+                        <SvgIcon type="mdi" path={Clear} size={32} />
+                        {$_("game.reset")}
+                    </Button>
+                </div>
             </div>
         {/if}
 
