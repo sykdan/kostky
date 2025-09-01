@@ -61,23 +61,19 @@ export function popScreen() {
 }
 
 export function freezeScreen() {
-    console.log("freezeScreen")
     if (!frozen) {
         frozen = true;
     }
 }
 
 export function unfreezeScreen() {
-    console.log("unfreezeScreen")
     if (frozen) {
         frozen = false;
     }
 }
 
 export function userPushedState(event: PopStateEvent) {
-    console.log(event)
     if (frozen) {
-        console.log("prevent nav")
         history.pushState($state.snapshot(currentState), "");
     } else {
         setScreen(event.state);
@@ -98,28 +94,21 @@ function detectTouchSafari() {
 }
 
 let shouldTransition = !detectTouchSafari()
-let shouldAllowNext = false;
+let ticks = -1;
 
 let didIn = false;
 let didOut = false;
 
 function allowNext() {
-    shouldAllowNext = true;
-    didIn = false;
-    didOut = false;
+    ticks = 0;
 }
 
 export function screenSlide(node: Element, _options: {}, params: { direction?: "in" | "out"; } | undefined) {
     if (!shouldTransition) {
-        if (shouldAllowNext) {
-            if (params?.direction == "in") {
-                didIn = true;
-            }
-            if (params?.direction == "out") {
-                didOut = true;
-            }
-            if (shouldAllowNext && didIn && didOut) {
-                shouldAllowNext = false;
+        if (ticks !== -1) {
+            ticks++;
+            if (ticks === 2) {
+                ticks = -1;
             }
         } else {
             return {}
