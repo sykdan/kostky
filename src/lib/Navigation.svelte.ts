@@ -23,7 +23,7 @@ export let currentState: State & { level: number } = $state({
     level: 0
 });
 
-history.pushState($state.snapshot(currentState), "");
+history.replaceState($state.snapshot(currentState), "");
 
 function changeState(state: State) {
     Object.assign(currentState, state);
