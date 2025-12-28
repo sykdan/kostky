@@ -8,6 +8,7 @@
         mdiBrush as ColorScheme,
         mdiHelpCircle as Help,
         mdiPlusCircleMultiple as AutoBonus,
+        mdiCheck as SelectedColor,
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
@@ -51,20 +52,21 @@
     const themeOptions: ThemeOption[] = ["light", "dark", "system"];
 </script>
 
-{#snippet colorSchemeSetting(identifier: string, label: string)}
+{#snippet colorSchemeSetting(identifier: string)}
     <Button
-        align="start"
         selected={settings.color === identifier}
         onclick={() => (settings.color = identifier)}
     >
-        <div class="grow text-start">
-            {label}
-        </div>
-
         <div
             data-color={identifier}
-            class="bg-primary-500 w-14 h-7 rounded-full bg-theme-gradient bg-linear-to-l"
-        ></div>
+            class="bg-primary-500 w-14 h-14 rounded-full bg-theme-gradient bg-linear-to-l flex justify-center items-center"
+        >
+            {#if settings.color === identifier}
+                <div class="text-neutral-50 surface:text-neutral-900">
+                    <SvgIcon type="mdi" path={SelectedColor} size="40" />
+                </div>
+            {/if}
+        </div>
     </Button>
 {/snippet}
 
@@ -115,60 +117,46 @@
                 </div>
             </Accordion>
             <Accordion label={$_("settings.color")} icon={ColorScheme}>
-                <div class="m-2 gap-2 flex flex-col">
+                <div class="m-2 gap-2 flex flex-col max-h-150 overflow-y-auto">
                     {#if settings.extraThemes}
-                        {@render separator("Plain colors")}
+                        {@render separator($_("settings.color_plain"))}
                     {/if}
 
-                    {@render colorSchemeSetting(
-                        "blue",
-                        $_("settings.color_blue"),
-                    )}
-                    {@render colorSchemeSetting(
-                        "red",
-                        $_("settings.color_red"),
-                    )}
-                    {@render colorSchemeSetting(
-                        "green",
-                        $_("settings.color_green"),
-                    )}
-                    {@render colorSchemeSetting(
-                        "yellow",
-                        $_("settings.color_yellow"),
-                    )}
-                    {@render colorSchemeSetting(
-                        "orange",
-                        $_("settings.color_orange"),
-                    )}
-                    {@render colorSchemeSetting(
-                        "purple",
-                        $_("settings.color_purple"),
-                    )}
-                    {@render colorSchemeSetting(
-                        "pink",
-                        $_("settings.color_pink"),
-                    )}
-                    {@render colorSchemeSetting(
-                        "cyan",
-                        $_("settings.color_cyan"),
-                    )}
+                    <div class="grid grid-cols-4 gap-2">
+                        {@render colorSchemeSetting("blue")}
+                        {@render colorSchemeSetting("red")}
+                        {@render colorSchemeSetting("green")}
+                        {@render colorSchemeSetting("yellow")}
+                        {@render colorSchemeSetting("orange")}
+                        {@render colorSchemeSetting("purple")}
+                        {@render colorSchemeSetting("pink")}
+                        {@render colorSchemeSetting("cyan")}
+                        {#if !settings.extraThemes}
+                            {@render colorSchemeSetting("rainbow")}
+                        {/if}
+                    </div>
+
+                    {@render separator($_("settings.color_gradients"))}
+
+                    <div class="grid grid-cols-4 gap-2">
+                        {@render colorSchemeSetting("ruby")}
+                        {@render colorSchemeSetting("diamond")}
+                        {@render colorSchemeSetting("emerald")}
+                        {@render colorSchemeSetting("lavender")}
+                        {@render colorSchemeSetting("amber")}
+                    </div>
 
                     {#if settings.extraThemes}
-                        {@render separator("Pride flags")}
-                    {/if}
-
-                    {@render colorSchemeSetting(
-                        "rainbow",
-                        $_("settings.color_rainbow"),
-                    )}
-
-                    {#if settings.extraThemes}
-                        {@render colorSchemeSetting("gay", "MLM")}
-                        {@render colorSchemeSetting("lesbian", "WLW")}
-                        {@render colorSchemeSetting("bi", "Bi")}
-                        {@render colorSchemeSetting("trans", "Trans")}
-                        {@render colorSchemeSetting("ace", "Asexual")}
-                        {@render colorSchemeSetting("pan", "Pansexual")}
+                        {@render separator($_("settings.color_pride"))}
+                        <div class="grid grid-cols-4 gap-2">
+                            {@render colorSchemeSetting("rainbow")}
+                            {@render colorSchemeSetting("gay")}
+                            {@render colorSchemeSetting("lesbian")}
+                            {@render colorSchemeSetting("bi")}
+                            {@render colorSchemeSetting("trans")}
+                            {@render colorSchemeSetting("ace")}
+                            {@render colorSchemeSetting("pan")}
+                        </div>
                     {/if}
                 </div>
             </Accordion>
