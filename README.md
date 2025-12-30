@@ -1,4 +1,4 @@
-You are viewing the source code of the application. If you want to open the app and play, [click here instead](yamb.silver-volt4.cz).
+You are viewing the source code of the application. If you want to open the app and play, [click here instead](https://yamb.silver-volt4.cz).
 
 # Yamb
 
