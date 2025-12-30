@@ -24,6 +24,7 @@
     import Screen from "./ui/Screen.svelte";
     import { offclick } from "../lib/Utils";
     import Button from "./ui/Button.svelte";
+    import { releaseWakeLock, takeWakeLock } from "../lib/WakeLock.svelte";
 
     let showActions = $state(false);
 
@@ -124,6 +125,11 @@
         games[id] = gameData;
         localStorage.setItem("games", JSON.stringify(games));
     });
+
+    $effect(() => {
+        takeWakeLock();
+        return releaseWakeLock;
+    })
 </script>
 
 <Screen>

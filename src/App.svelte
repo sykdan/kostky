@@ -10,10 +10,8 @@
         Screen,
         pushScreen,
         popScreen,
-        setScreen,
         userPushedState,
     } from "./lib/Navigation.svelte";
-    import { dialogTrigger } from "./lib/DialogTrigger.svelte";
     import ShareView from "./components/ShareView.svelte";
     import AboutView from "./components/AboutView.svelte";
 

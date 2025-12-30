@@ -6,20 +6,20 @@
         mdiTranslate as Languages,
         mdiBrightness6 as LightDarkTheme,
         mdiBrush as ColorScheme,
-        mdiHelpCircle as Help,
         mdiPlusCircleMultiple as AutoBonus,
         mdiCheck as SelectedColor,
+        mdiCellphone as KeepScreenOn,
     } from "@mdi/js";
     import SvgIcon from "@jamescoyle/svelte-icon";
 
     import TopBar from "./ui/TopBar.svelte";
     import settings from "../lib/Settings.svelte";
     import Screen from "./ui/Screen.svelte";
-    import { dialogTrigger } from "../lib/DialogTrigger.svelte";
     import Accordion from "./ui/Accordion.svelte";
     import ThemePreview, { type ThemeOption } from "./ui/ThemePreview.svelte";
-    import { supportedLanguages } from "../i18n/locale";
+    import { flags, supportedLanguages } from "../i18n/locale";
     import Button from "./ui/Button.svelte";
+    import { isWakeLockAvailable } from "../lib/WakeLock.svelte";
 
     interface Props {
         onBack: () => any;
@@ -27,27 +27,6 @@
     }
 
     let { onBack, onOpenRules }: Props = $props();
-
-    async function autobonusHelp() {
-        if (
-            !(await dialogTrigger.prompt(
-                $_("settings.autobonus_explanation", {
-                    values: {
-                        settings_autobonus: $_("settings.autobonus"),
-                    },
-                }),
-                $_("settings.autobonus_explanation_1") +
-                    "\n\n" +
-                    $_("settings.autobonus_explanation_2") +
-                    "\n\n" +
-                    $_("settings.autobonus_explanation_3"),
-                $_("common.ok"),
-                $_("settings.open_rules"),
-            ))
-        ) {
-            onOpenRules();
-        }
-    }
 
     const themeOptions: ThemeOption[] = ["light", "dark", "system"];
 </script>
@@ -98,6 +77,9 @@
     {#snippet screenContent()}
         <div class="max-w-120 w-full self-center">
             <Accordion label={$_("settings.theme")} icon={LightDarkTheme}>
+                <div class="py-2 px-3">
+                    {$_("settings.theme_explain")}
+                </div>
                 <div class="grid grid-cols-3 m-2 gap-2">
                     {#each themeOptions as themeOption}
                         <Button
@@ -117,6 +99,9 @@
                 </div>
             </Accordion>
             <Accordion label={$_("settings.color")} icon={ColorScheme}>
+                <div class="py-2 px-3">
+                    {$_("settings.color_explain")}
+                </div>
                 <div class="m-2 gap-2 flex flex-col max-h-150 overflow-y-auto">
                     {#if settings.extraThemes}
                         {@render separator($_("settings.color_plain"))}
@@ -161,6 +146,9 @@
                 </div>
             </Accordion>
             <Accordion label={$_("settings.autobonus")} icon={AutoBonus}>
+                <div class="py-2 px-3">
+                    {$_("settings.autobonus_explain")}
+                </div>
                 <div class="flex flex-col p-2 gap-2">
                     <Button
                         align="start"
@@ -176,15 +164,12 @@
                     >
                         {$_("common.no")}
                     </Button>
-                    <Button align="start" onclick={autobonusHelp}>
-                        <div>
-                            <SvgIcon type="mdi" path={Help} size="28" />
-                        </div>
-                        {$_("settings.autobonus_explanation_button")}
-                    </Button>
                 </div>
             </Accordion>
             <Accordion label={$_("settings.locale")} icon={Languages}>
+                <div class="py-2 px-3">
+                    {$_("settings.locale_explain")}
+                </div>
                 <div class="flex flex-col p-2 gap-2">
                     {#each Object.entries(supportedLanguages) as [key, langName], i}
                         <Button
@@ -192,10 +177,38 @@
                             onclick={() => (settings.locale = key)}
                             selected={settings.locale === key}
                         >
+                            <img src={flags[key]} alt="" class="w-12 px-1" />
                             {langName}
                         </Button>
                     {/each}
                 </div>
+            </Accordion>
+            <Accordion label={$_("settings.wakelock")} icon={KeepScreenOn}>
+                <div class="py-2 px-3">
+                    {$_("settings.wakelock_explain")}
+                </div>
+                {#if isWakeLockAvailable()}
+                    <div class="flex flex-col p-2 gap-2">
+                        <Button
+                            align="start"
+                            selected={settings.keepScreenOn === true}
+                            onclick={() => (settings.keepScreenOn = true)}
+                        >
+                            {$_("common.yes")}
+                        </Button>
+                        <Button
+                            align="start"
+                            selected={settings.keepScreenOn === false}
+                            onclick={() => (settings.keepScreenOn = false)}
+                        >
+                            {$_("common.no")}
+                        </Button>
+                    </div>
+                {:else}
+                    <div class="py-2 pt-0 px-3 italic opacity-75">
+                        {$_("settings.wakelock_unsupported")}
+                    </div>
+                {/if}
             </Accordion>
         </div>
     {/snippet}

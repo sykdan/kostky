@@ -16,6 +16,8 @@ class YambSettings {
     locale = $state("cs");
     autoBonus = $state(true);
     extraThemes = $state(false);
+    keepScreenOn = $state(false);
+
     gradientValues: string[] = $state([]);
     isSystemDark: MediaQuery;
 
@@ -31,6 +33,7 @@ class YambSettings {
         this.locale = localStorage.getItem("st__locale") ?? "cs";
         this.autoBonus = stringToBoolean((localStorage.getItem("st__autobonus") ?? "yes"));
         this.extraThemes = stringToBoolean((localStorage.getItem("st__extrathemes") ?? "no"));
+        this.keepScreenOn = stringToBoolean((localStorage.getItem("st__wakelock") ?? "no"));
     }
 
     private registerChangeHooks() {
@@ -48,6 +51,9 @@ class YambSettings {
             });
             $effect(() => {
                 localStorage.setItem("st__extrathemes", booleanToString(this.extraThemes));
+            });
+            $effect(() => {
+                localStorage.setItem("st__wakelock", booleanToString(this.keepScreenOn));
             });
             $effect(() => {
                 localStorage.setItem("st__color", this.color);
@@ -74,4 +80,3 @@ class YambSettings {
 
 const settings = new YambSettings();
 export default settings;
-

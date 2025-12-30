@@ -36,8 +36,6 @@
         "theme_system": "Sistem",
         "color": "Boja",
         "autobonus": "Automatski bonus",
-        "autobonus_yes": "Da",
-        "autobonus_no": "Ne",
         "locale": "Jezik"
     },
     "rules": {
