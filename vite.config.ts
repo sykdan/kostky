@@ -16,9 +16,9 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,ico}']
       },
       manifest: {
-        name: "Kostky",
-        description: "Aplikace pro zaznamenávání bodů v kostkách",
-        short_name: "Kostky",
+        name: "Yamb",
+        description: "Point tracking app for the Yamb dice game",
+        short_name: "Yamb",
         icons: [
           {
             src: "android-chrome-192x192.png",
