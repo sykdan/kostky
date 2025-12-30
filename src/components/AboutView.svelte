@@ -58,7 +58,7 @@
                 <a
                     class="underline text-blue-400"
                     target="_blank"
-                    href="https://github.com/sykdan/kostky"
+                    href="https://github.com/sykdan/yamb"
                 >
                     {$_("about.repo")}
                 </a>
